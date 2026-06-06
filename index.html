@@ -219,6 +219,105 @@ h1.title .hl{background:linear-gradient(100deg,var(--teal),var(--cobalt));-webki
 .tbar{height:8px;max-width:300px;margin:0 auto;border-radius:999px;background:#0000000d;overflow:hidden}
 .tbarfill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--cobalt),var(--amber));transition:width .45s linear}
 @media (prefers-reduced-motion: reduce){.tspin{animation:none}}
+.kx{font-family:var(--serif);font-size:15px;color:var(--teal-d);background:#0e7a6e0d;border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:9px 13px;margin:2px 0 12px;line-height:1.55}
+.tdesc{font-size:14.5px;line-height:1.8;color:var(--ink-2);margin:0 0 14px}
+.exec p{font-size:14.5px;line-height:1.85;color:var(--ink-2);margin:0 0 10px}.exec p:last-child{margin-bottom:0}
+.readbox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.readcol h5{margin:0 0 8px;font-size:12.5px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.rr{display:flex;align-items:baseline;gap:8px;padding:7px 10px;border-radius:10px;margin-bottom:6px;background:#0000000a}
+.rr.hi{background:#0e7a6e10}.rr.lo{background:#bd7a1210}
+.rr b{font-size:13.5px;min-width:62px}.rr .lw{font-size:12px;color:var(--ink-2);font-weight:600;white-space:nowrap}.rr .rm{font-size:12px;color:var(--muted)}
+.axlogic{margin-top:16px;border-top:1px dashed var(--line-2);padding-top:14px}.axlogic h4{font-size:14px;margin:0 0 8px}
+.axtab{width:100%;border-collapse:collapse;font-size:13px}
+.axtab th{text-align:left;color:var(--muted);font-weight:600;font-size:12px;padding:6px 8px;border-bottom:1px solid var(--line)}
+.axtab td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.axtab .sg{font-size:11px;color:var(--teal-d);background:#0e7a6e14;border-radius:999px;padding:1px 8px;margin-left:4px;white-space:nowrap}
+.axtab .dn{font-size:11.5px;color:var(--muted)}
+.combo{margin-top:10px;font-size:13px;color:var(--ink-2);background:#2a547010;border-left:3px solid var(--cobalt);border-radius:0 8px 8px 0;padding:8px 12px}.combo b{color:var(--cobalt);font-size:12px}
+.relmeta{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.rbad{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 10px;margin-left:auto}.rbad.ok{background:#2e7d5b1f;color:#2E7D5B}.rbad.warn{background:#bd7a1222;color:#9a6410}
+.trkintro{font-size:13.5px;color:var(--ink-2);line-height:1.7;margin:2px 0 14px}
+.trk{border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:10px;background:#fff}
+.trk.top{border-color:#0e7a6e55;box-shadow:0 6px 20px #0e7a6e1f;background:linear-gradient(160deg,#0e7a6e08,#fff)}
+.trkhd{display:flex;align-items:center;gap:8px}.trkhd b{font-size:15px;font-family:var(--serif)}
+.prio{font-size:10.5px;font-weight:700;color:#fff;background:var(--teal);border-radius:999px;padding:2px 8px}
+.trkbad{font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px}
+.trkfit{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink-2)}
+.trkbar{height:7px;border-radius:999px;background:#0000000d;overflow:hidden;margin:8px 0}.trkbar i{display:block;height:100%;border-radius:999px}
+.trktag{font-size:12.5px;color:var(--muted);margin-bottom:6px}.trkwhy{font-size:13px;color:var(--ink-2);margin-bottom:4px}.trknext{font-size:13px;color:var(--ink-2)}
+.trkwhy b,.trknext b{color:var(--teal-d);font-weight:700;font-size:12px}
+@media(max-width:560px){.readbox{grid-template-columns:1fr}}
+.road{margin-top:8px;padding-left:4px}
+.rphase{position:relative;padding:0 0 16px 22px;border-left:2px solid var(--line-2)}
+.rphase:last-child{border-left-color:transparent;padding-bottom:0}
+.rdot{position:absolute;left:-7px;top:3px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--teal)}
+.rphase.now .rdot{background:var(--teal);box-shadow:0 0 0 4px #0e7a6e22}
+.rttl{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.rgoal{font-size:12.5px;font-weight:600;color:var(--teal-d);margin-left:6px}
+.ritems{margin:0;padding-left:18px}.ritems li{font-size:13px;color:var(--ink-2);line-height:1.62;margin-bottom:3px}
+.kicker.cob{color:var(--cobalt);border-color:#2a547044}.kicker.cob .dot{background:var(--cobalt);box-shadow:0 0 0 4px #2a547022}
+.counsel{background:linear-gradient(165deg,#2a54700a,#fff);border-color:#2a547026}
+.counsel h4{font-size:14px;margin:6px 0 8px}
+.script{margin:0;padding:14px 16px;border-left:3px solid var(--cobalt);background:#2a547010;border-radius:0 10px 10px 0;font-size:14px;line-height:1.85;color:var(--ink)}
+.casebox{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#fff}
+.csym{font-size:13.5px;color:var(--ink);font-weight:600;margin-bottom:7px}
+.cread,.crx{font-size:13px;color:var(--ink-2);line-height:1.6;margin-bottom:3px}
+.cread b,.crx b{color:var(--cobalt);font-size:11.5px;font-weight:700;margin-right:4px}
+.crossgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.ccol{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.ccol.ent{background:#b23a6b0a;border-color:#b23a6b2e}.ccol.gap{background:#2a54700a;border-color:#2a54702e}
+.ccol h5{margin:0 0 2px;font-size:13.5px}.ccol.ent h5{color:var(--rose)}.ccol.gap h5{color:var(--cobalt)}
+.cdesc{font-size:11.5px;color:var(--muted);margin:0 0 8px}
+.ccol ul{margin:0;padding-left:16px}.ccol li{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-bottom:5px}
+.ccol em{font-style:normal;font-weight:700;color:var(--ink)}
+.cnone{font-size:12.5px;color:var(--muted);margin:0}
+.cnote{font-size:13px;color:var(--ink-2);line-height:1.6;margin:10px 0 0}
+.onepager{border:2px solid #0e7a6e3a}
+.opgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 12px}
+.opcell{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:1px}
+.oplab{font-size:11px;color:var(--muted);font-weight:600}.opcell b{font-size:15px;font-family:var(--serif)}
+.opsub{font-size:11.5px;color:var(--ink-2)}
+.opnext{border-top:1px dashed var(--line-2);padding-top:10px}.opnext b{font-size:12px;color:var(--teal-d)}
+.opnext ol{margin:6px 0 0;padding-left:20px}.opnext li{font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:3px}
+.oprel{margin-top:10px;font-size:12px;color:var(--muted)}
+@media(max-width:560px){.crossgrid,.opgrid{grid-template-columns:1fr}}
+@media print{.onepager{page-break-before:always}}
+.specwrap{margin-top:16px;border-top:1px dashed var(--line-2);padding-top:14px}
+.specwrap h4{font-size:14px;margin:0 0 2px}
+.specnote{font-size:12px;color:var(--muted);margin:0 0 12px}
+.spec{margin-bottom:13px}
+.specends{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--ink-2)}
+.specends .axn{color:var(--muted);font-size:11px;font-weight:600}
+.specends span.on{color:var(--teal-d);font-weight:700}
+.spbar{position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,#ece4d4,#d6cab3);margin:7px 0 2px}
+.spfill{position:absolute;left:0;top:0;height:100%;border-radius:999px;background:rgba(14,122,110,.22)}
+.spdot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--teal);border:2px solid #fff;transform:translate(-50%,-50%);box-shadow:0 1px 5px #0e7a6e66}
+.spnums{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted)}
+.elogic{margin-top:14px;background:#0e7a6e0a;border:1px solid #0e7a6e22;border-radius:12px;padding:12px 15px}
+.elogic .eltt{font-size:13px;color:var(--teal-d)}
+.elogic ul{margin:8px 0 0;padding-left:18px}
+.elogic li{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-bottom:5px}
+.resume{background:linear-gradient(160deg,#0e7a6e10,#fff);border-color:#0e7a6e2e}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:6px}
+.opt:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+btn:focus-visible,.btn:focus-visible{outline:3px solid var(--teal-d);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+.viewbar{display:flex;gap:6px;margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px;width:fit-content;box-shadow:var(--shadow-2)}
+.viewbar button{border:none;background:none;font:inherit;font-size:13px;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.viewbar button.on{background:var(--teal);color:#fff}
+.viewbar button:not(.on):hover{color:var(--teal-d)}
+.view-parent .only-teacher{display:none}
+.view-student .only-teacher{display:none}
+.view-student .hide-student{display:none}
+.tmemo{background:linear-gradient(165deg,#2a54700d,#fff);border-color:#2a547033}
+.tmrow{font-size:13px;color:var(--ink-2);line-height:1.62;margin-bottom:8px}
+.tmrow:last-child{margin-bottom:0}
+.tmrow b{color:var(--cobalt);font-size:12px;margin-right:6px}
+.tmrow ol{margin:6px 0 0;padding-left:20px}.tmrow ol li{margin-bottom:3px}
+.tmwarn{font-size:12.5px;color:#9a6410;background:#bd7a1216;border:1px solid #bd7a1233;border-radius:8px;padding:8px 12px;margin-bottom:10px}
+.tmpeer .peer{display:inline-flex;align-items:center;gap:5px;margin-right:12px;font-size:12.5px;color:var(--ink-2)}
+.tmpeer .peer i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.tmpeer .peer em{font-style:normal;color:var(--muted);font-size:11.5px}
 /* 모션 */
 .reveal{opacity:0;transform:translateY(16px);animation:rise .7s var(--ease) forwards}
 .reveal.d1{animation-delay:.06s}.reveal.d2{animation-delay:.12s}.reveal.d3{animation-delay:.18s}.reveal.d4{animation-delay:.24s}
@@ -259,7 +358,7 @@ h1.title .hl{background:linear-gradient(100deg,var(--teal),var(--cobalt));-webki
     <p class="note">한 자리에서 끊지 말고 끝까지 풀어주세요. 중간에 멈추면 정확도가 떨어집니다. 모든 문항에 답하면 결과가 열립니다.</p>
   </section>
 
-  <div id="progress"><div class="card inner"><span class="pct" id="pctText">0 / 100</span><div class="bar"><div class="fill" id="pctFill"></div></div><span class="pct" id="pctNum">0%</span></div></div>
+  <div id="progress"><div class="card inner"><span class="pct" id="pctText">0 / 100</span><div class="bar" id="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="진행률"><div class="fill" id="pctFill"></div></div><span class="pct" id="pctNum">0%</span></div></div>
 
   <section id="transition" class="card pad"><span class="kicker"><span class="dot"></span>결과 분석 중</span><div class="tspin"></div><h2 id="tmsg">응답을 정리하고 있어요…</h2><div class="tbar"><div class="tbarfill" id="tbarfill"></div></div></section>
 
@@ -430,29 +529,32 @@ function computeResults(ans,meta){
 
 
 var TYPE_INFO={
-GJTD:{tag:"눈에 보이는 변화를 감으로 빠르게 잡고, 새로운 것에 겁 없이 뛰어드는 형",str:["뛰어난 관찰력과 순발력","낯선 주제도 일단 시도하는 도전성"],cau:["입자·원리 수준으로 넘어갈 때 도움이 필요","기초 단계를 건너뛰기 쉬움"],rx:"실험 직관을 살리되, 매주 '왜 그럴까'를 입자 모형으로 묶어주면 폭발적으로 성장합니다."},
-GJTM:{tag:"현상을 감으로 즐기면서 기초를 차근차근 쌓아가는 형",str:["호기심과 성실함을 함께 가짐","관찰을 꼼꼼히 모음"],cau:["추상 모형화가 다소 느릴 수 있음","어려운 도전 문제를 미루는 경향"],rx:"모은 관찰을 개념으로 연결해 주고, 가끔 한 단계 위 문제로 자신감을 키워주면 좋습니다."},
-GJRD:{tag:"보이는 것 위주로 요점을 잘 잡아 정리하며, 도전을 즐기는 형",str:["요점 파악이 빠름","정리와 도전을 겸비"],cau:["깊은 원리 탐구가 얕아질 수 있음"],rx:"정리한 내용에 '한 겹 더 깊은 이유'를 붙이는 질문 습관을 들이면 좋습니다."},
-GJRM:{tag:"현상을 꾸준히 정리하며 탄탄히 다져가는 안정형",str:["꾸준함과 정리력","실수가 적고 신뢰할 수 있음"],cau:["새로운 도전에 주저함","미시 세계 상상에 시간이 필요"],rx:"안정감 위에 작은 도전 과제를 주기적으로 얹어 천장을 높여주세요."},
-GBTD:{tag:"보이는 데이터를 논리로 분석하며 새 영역에 도전하는 형",str:["분석력과 도전성","데이터 해석에 강함"],cau:["직관적 도약이 필요한 순간 머뭇거림"],rx:"정량·분석 강점을 탐구·대회 문제로 확장해 주면 빛납니다."},
-GBTM:{tag:"현상을 단계적으로 분석하며 기초부터 쌓는 형",str:["치밀하고 빈틈이 적음","탐구심이 깊음"],cau:["속도가 느릴 수 있음","완벽주의로 진도가 지연되기도"],rx:"'충분히 안다'의 기준을 정해, 다음으로 넘어가는 연습이 필요합니다."},
-GBRD:{tag:"관찰을 체계적으로 정리하고 더 어려운 곳으로 나아가는 형",str:["체계화가 뛰어남","구조적으로 사고함"],cau:["보이지 않는 원리 직관이 약할 수 있음"],rx:"정리한 체계를 입자·원리 수준으로 연결해 주면 깊이가 생깁니다."},
-GBRM:{tag:"보이는 것을 빈틈없이 분석하고 정리하는 정밀형",str:["정확하고 신뢰할 수 있음","오개념이 적음"],cau:["도전과 추상을 동시에 요구할 때 부담"],rx:"안정된 기초 위에 미시 모형과 도전 문제를 단계적으로 도입하세요."},
-SJTD:{tag:"보이지 않는 원리를 감으로 꿰뚫고, 새로운 것에 뛰어드는 형",str:["핵심을 빠르게 잡음","추상화에 강하고 도전적"],cau:["근거 없이 건너뛰는 비약","검산이 약할 수 있음"],rx:"강한 직관에 '단계로 설명하기'를 붙이면 대회형 인재로 큽니다."},
-SJTM:{tag:"속 원리를 그림으로 상상하며 차근차근 쌓는 형",str:["모형적 상상력","탐구심과 성실함"],cau:["떠오른 감을 검증하는 절차가 필요"],rx:"상상한 모형을 그림·식으로 검증하게 하고, 난도를 점진적으로 올려주세요."},
-SJRD:{tag:"원리를 감으로 잡아 정리하며 도전하는 형",str:["통찰과 정리를 겸함","핵심을 구조화함"],cau:["빠른 직관이 디테일을 놓침"],rx:"통찰을 정밀한 풀이로 옮기는 훈련이 도움이 됩니다."},
-SJRM:{tag:"보이지 않는 개념을 꾸준히 정리하고 숙달하는 형",str:["개념이 깊고 단단함","오래 기억함"],cau:["새 도전·열린 문제에 소극적"],rx:"단단한 개념을 응용·도전 문제로 확장해 주면 좋습니다."},
-SBTD:{tag:"보이지 않는 구조를 논리로 파고들며 도전을 즐기는 형 (대회형 기질)",str:["깊이·분석·도전을 모두 가짐","고난도 개념을 즐김"],cau:["기본 반복을 지루해함","서두르다 실수하기도"],rx:"심화·올림피아드 문제로 동기를 유지하되, 기본기 반복을 게임처럼 설계해 주세요."},
-SBTM:{tag:"속 원리를 분석하며 기초부터 깊게 다지는 형",str:["근본을 파고드는 힘","개념이 흔들리지 않음"],cau:["진도가 느려질 수 있음"],rx:"깊이라는 강점에 시간 관리와 출제 의도 파악 훈련을 더해주세요."},
-SBRD:{tag:"원리를 체계적으로 설계하며 도전하는 형",str:["논리적 구조화가 탁월","도전과 체계를 겸비"],cau:["직관적 유연성이 순간 경직되기도"],rx:"설계력을 증명·서술형·대회 문제로 확장하면 강력합니다."},
-SBRM:{tag:"보이지 않는 구조를 논리로 정리하며 탄탄히 쌓는 안정형",str:["정확·깊이·꾸준함을 모두 가짐","개념 오류가 거의 없음"],cau:["새로운 도전을 늦게 시작함"],rx:"가장 단단한 토대형입니다. 도전 과제 비중을 의도적으로 늘려 천장을 높이세요."}
+GJTD:{tag:"눈에 보이는 변화를 감으로 빠르게 잡고, 새로운 것에 겁 없이 뛰어드는 형",desc:"이 학생은 눈앞의 변화와 결과를 빠르게 알아채고, 낯선 현상에도 망설임 없이 손을 대며 배웁니다. 흥미가 켜지면 폭발적으로 몰입하지만, 보이지 않는 입자 수준의 '왜'로 내려가거나 기초를 차근히 다지는 단계에서는 속도가 떨어질 수 있습니다.",str:["현상을 빠르게 포착하는 관찰력과 순발력","낯선 주제도 일단 시도하는 도전성","흥미가 붙으면 강하게 몰입"],cau:["눈에 안 보이는 입자·원리로 내려갈 때 도움이 필요","기초·반복 단계를 건너뛰기 쉬움"],rx:"실험·현상으로 호기심을 연 뒤, 매주 '왜 그럴까'를 알갱이 모형으로 묶어 주세요. 기본기 반복은 짧은 미션·게임처럼 설계하면 지루함 없이 채워집니다."},
+GJTM:{tag:"보이는 현상을 꾸준히 관찰하고 차곡차곡 쌓아 가는 안정형",desc:"이 학생은 눈에 보이는 현상을 성실히 관찰하고 반복으로 익히며 안정적으로 실력을 쌓습니다. 빠른 직관으로 잡되 도전보다 숙달을 편안해해서, 난도를 한 단계 올리거나 '왜'를 따지는 자리에서 약간의 자극이 필요합니다.",str:["꾸준함과 성실한 관찰 습관","반복으로 안정적으로 익힘","빠른 직관적 이해"],cau:["새롭고 어려운 도전을 피하기 쉬움","원리 수준 설명으로 넘어갈 때 보조 필요"],rx:"관찰 기록을 칭찬으로 강화하되 '오늘은 한 단계 어려운 것 하나'를 작게 끼워 도전 근육을 키워 주세요. 관찰마다 '왜'를 한 줄 붙이는 습관이 원리로 가는 다리가 됩니다."},
+GJRD:{tag:"감으로 빠르게 파악한 것을 자기 방식으로 정리하며 도전하는 형",desc:"이 학생은 현상을 직관으로 빠르게 잡은 뒤 자기만의 방식으로 정리하고, 더 어려운 문제로 나아가길 즐깁니다. 정리와 도전이 함께 있어 추진력이 좋지만, 분석적 검증이 약해 '맞는 것 같다'에서 멈추면 빈틈이 생길 수 있습니다.",str:["직관적 파악과 자기식 정리","도전적인 과제를 즐김","핵심을 빠르게 요약"],cau:["근거를 따지는 분석 단계가 얕을 수 있음","'대충 맞다'에서 멈추기 쉬움"],rx:"정리한 내용을 '왜 그런지' 한 단계 더 캐묻는 질문으로 분석을 보강해 주세요. 도전 과제 뒤엔 반드시 풀이 근거를 말로 설명하게 하면 직관과 논리가 함께 자랍니다."},
+GJRM:{tag:"성실하게 관찰하고 정리하며 차근차근 익히는 안정형",desc:"이 학생은 현상을 꼼꼼히 관찰·정리해 두며 반복으로 단단하게 다지는 것을 편안해합니다. 안정감이 강점이지만 직관에 기대 깊은 분석이나 새 도전은 미루기 쉬워, 한 걸음 더 들어가는 자극이 도움이 됩니다.",str:["성실한 관찰과 정리","반복으로 탄탄히 다짐","안정적인 학습 태도"],cau:["깊은 분석·새 도전을 미루기 쉬움","익숙한 범위에 머물기 쉬움"],rx:"정리 노트를 인정해 주되 '왜 그런지'와 '한 단계 어려운 문제'를 작게 더해 주세요. 안전지대 밖의 작은 성공 경험을 자주 만들어 주는 것이 핵심입니다."},
+GBTD:{tag:"보이는 현상을 논리로 따져 가며 새로운 것에 도전하는 형",desc:"이 학생은 눈에 보이는 현상을 그냥 받아들이지 않고 '왜?'를 논리로 따지며, 새로운 문제에 적극 도전합니다. 분석력과 도전성이 함께 있어 탐구형 과제에 강하지만, 완벽히 따지려다 시작이 늦거나 기초 반복을 답답해할 수 있습니다.",str:["현상을 논리로 분석하는 힘","탐구·실험 과제에 강함","새 문제에 도전적"],cau:["따지다 시작이 늦어질 수 있음","기초 반복을 지루해함"],rx:"탐구·실험형 과제로 분석 욕구를 채워 주고, '완벽히 이해한 뒤'가 아니라 '풀면서 이해하는' 순서를 권해 주세요. 기초는 의미를 먼저 보여 주면 덜 답답해합니다."},
+GBTM:{tag:"보이는 현상을 꼼꼼히 분석하며 반복으로 탄탄히 익히는 형",desc:"이 학생은 현상을 세심하게 분석하고 반복을 통해 정확하게 익히는 것을 좋아합니다. 정확성과 성실함이 강점이지만, 완벽을 추구하느라 속도가 느리거나 낯선 도전을 피할 수 있습니다.",str:["꼼꼼한 분석과 정확성","반복으로 탄탄히 익힘","실수 관리에 강함"],cau:["완벽주의로 속도가 느려질 수 있음","새 도전을 피하기 쉬움"],rx:"정확함을 칭찬하되 '시간 제한 풀이'로 속도 감각을 키워 주세요. 익숙해진 뒤엔 난도를 한 단계 올린 도전을 작게 끼워 자신감을 확장합니다."},
+GBRD:{tag:"관찰한 것을 체계적으로 분석·정리하며 도전 과제로 나아가는 형",desc:"이 학생은 현상에서 얻은 정보를 체계적으로 분석·정리하고 그것을 발판으로 어려운 문제에 도전합니다. 구조화 능력과 추진력이 함께 있어 장기 과제에 강하지만, 정리 자체에 만족하면 실제 문제풀이 시간이 줄 수 있습니다.",str:["체계적 분석·정리","도전 과제로 나아가는 추진력","정보를 구조화하는 힘"],cau:["정리에 만족해 풀이가 줄 수 있음","틀에 안 맞는 문제에 약할 수 있음"],rx:"정리 시간에 제한을 두고 '대표 문제 먼저 풀기'로 균형을 잡아 주세요. 강점을 살려 단원별 개념 지도를 직접 만들게 하면 큰 동기가 됩니다."},
+GBRM:{tag:"보이는 현상을 정밀하게 분석·정리하며 반복으로 완성하는 형",desc:"이 학생은 정확하고 정밀하게 분석·정리하며 반복으로 빈틈없이 완성하는 것을 편안해합니다. 정확성·꼼꼼함이 큰 강점이지만, 완벽히 이해해야 시작한다는 부담과 새 도전 회피가 약점이 될 수 있습니다.",str:["정밀한 분석과 정리","빈틈없는 마무리","높은 정확성"],cau:["완벽 이해 부담으로 시작 지연","새롭고 어려운 도전 회피"],rx:"'완벽 이해 후 풀이'가 아니라 '풀면서 이해'를 연습시키고 정리는 핵심만 추리게 해 주세요. 작은 도전의 성공을 자주 경험시키면 안전지대가 넓어집니다."},
+SJTD:{tag:"보이지 않는 원리를 직관으로 통찰하며 도전을 즐기는 형",desc:"이 학생은 눈에 안 보이는 구조·원리를 직관적으로 꿰뚫고 어려운 개념에 겁 없이 도전합니다. 통찰력과 도전성이 강점이지만, 직관에 기대 논리적 검증과 기초 계산을 건너뛰면 '알 것 같은데 틀리는' 일이 생깁니다.",str:["원리를 직관으로 꿰뚫는 통찰","어려운 개념에 도전적","핵심을 빠르게 잡음"],cau:["논리적 검증·기초 계산을 건너뛰기 쉬움","'안다는 느낌'과 실제 적용의 차이"],rx:"통찰을 살리되 '왜 그런지'를 단계로 적게 하고, 백지 설명·변형 문제로 이해를 확인해 주세요. 고난도 개념 도전으로 동기를 유지하면 강하게 성장합니다."},
+SJTM:{tag:"보이지 않는 세계를 상상으로 탐구하며 꾸준히 익히는 형",desc:"이 학생은 입자·원리처럼 보이지 않는 세계를 상상으로 그리며 탐구하고 반복으로 차분히 익힙니다. 개념적 상상력이 강점이지만, 직관과 상상에 머물면 정확한 적용·계산으로 옮기는 데 보조가 필요합니다.",str:["보이지 않는 세계를 그리는 상상력","개념적 호기심","꾸준한 익힘"],cau:["상상이 정확한 적용으로 잘 이어지지 않을 수 있음","검증 단계가 약할 수 있음"],rx:"상상한 개념을 그림·모형으로 표현하게 한 뒤 대표 문제로 적용을 확인해 주세요. 호기심을 풀어 줄 '왜' 질문을 자주 던지면 깊이가 더해집니다."},
+SJRD:{tag:"원리를 통찰해 자기 언어로 정리하며 도전으로 나아가는 형",desc:"이 학생은 보이지 않는 원리를 통찰하고 자기 언어로 정리하며 더 어려운 문제로 확장하길 즐깁니다. 개념 정리력과 도전성이 함께 있어 개념 중심 학습에 강하지만, 분석적 근거 확인이 얕으면 빈틈이 생길 수 있습니다.",str:["원리 통찰과 자기식 개념 정리","도전 과제로 확장","개념을 언어로 잘 풀어냄"],cau:["근거를 따지는 분석이 얕을 수 있음","계산·기초 반복을 가볍게 볼 수 있음"],rx:"정리한 개념을 '근거를 들어' 설명하게 하고 도전 문제 뒤 풀이 검증을 습관화해 주세요. 개념을 남에게 가르치게 하면 통찰이 한층 단단해집니다."},
+SJRM:{tag:"보이지 않는 개념을 모아 정리하며 차근차근 익히는 형",desc:"이 학생은 개념과 원리를 모아 자기 체계로 정리하고 반복으로 안정적으로 익히는 것을 좋아합니다. 개념 축적과 성실함이 강점이지만, 직관·정리에 머물러 깊은 분석이나 새 도전을 미루기 쉽습니다.",str:["개념을 모아 정리하는 힘","성실하고 안정적","원리에 대한 관심"],cau:["깊은 분석·도전을 미루기 쉬움","수집에 그쳐 적용이 약할 수 있음"],rx:"모은 개념을 문제에 '적용'하는 단계를 꼭 붙이고 한 단계 어려운 도전을 작게 더해 주세요. 개념 지도를 직접 그리게 하면 동기와 구조가 함께 자랍니다."},
+SBTD:{tag:"보이지 않는 구조를 논리로 파고들며 도전을 즐기는 형 (대회형 기질)",desc:"이 학생은 눈에 안 보이는 구조와 원리를 논리로 끝까지 파고들고 고난도 개념과 도전을 즐깁니다. 깊이·분석·도전을 모두 갖춰 경시·심화에 강한 기질이지만, 기본 반복을 지루해하고 서두르다 실수할 수 있습니다.",str:["깊이·분석·도전을 모두 가짐","고난도 개념을 즐김","원리를 끝까지 파고듦"],cau:["기본 반복을 지루해함","서두르다 실수하기도"],rx:"심화·올림피아드형 문제로 동기를 유지하되 기본기 반복은 게임처럼 설계해 주세요. 풀이 과정을 또박또박 쓰는 습관으로 실수를 줄이면 잠재력이 만개합니다."},
+SBTM:{tag:"보이지 않는 원리를 깊이 분석하며 반복으로 탄탄히 익히는 형",desc:"이 학생은 원리를 깊이 분석하고 반복을 통해 정확하고 탄탄하게 익히는 것을 좋아합니다. 깊이와 정확성이 강점이지만, 완벽히 이해해야 시작한다는 부담과 느린 속도가 약점이 될 수 있습니다.",str:["원리에 대한 깊은 분석","정확하고 탄탄한 익힘","끈기 있는 탐구"],cau:["완벽 이해 부담으로 시작 지연","속도가 느려질 수 있음"],rx:"깊이를 살리되 '풀면서 이해'와 시간 제한 풀이로 시작·속도를 도와주세요. 탐구한 원리를 문제로 바로 적용시키면 이해가 실력으로 굳습니다."},
+SBRD:{tag:"보이지 않는 원리를 체계적으로 분석·정리하며 도전하는 형",desc:"이 학생은 원리를 체계적으로 분석·정리해 자기 이론으로 세우고 그것으로 어려운 문제에 도전합니다. 구조화와 도전성이 강해 개념 설계에 탁월하지만, 정리·구조에 몰두하다 실전 문제풀이 시간이 줄 수 있습니다.",str:["원리를 체계로 세우는 설계력","도전 과제로 나아감","깊은 분석과 구조화"],cau:["정리·구조에 몰두해 풀이가 줄 수 있음","틀을 벗어난 문제에 유연성 필요"],rx:"이론 구축 강점을 살려 단원 개념 지도를 만들게 하되 정리 시간엔 제한을 두고 대표 문제를 먼저 풀게 해 주세요. 도전 문제로 동기를 유지하면 폭이 넓어집니다."},
+SBRM:{tag:"보이지 않는 원리를 정밀하게 분석·정리하며 완성도로 마무리하는 형",desc:"이 학생은 원리를 정밀하게 분석하고 빈틈없는 체계로 정리하며 반복으로 완성도 높게 마무리합니다. 구조·정확성·완성도가 큰 강점이지만, 완벽주의로 시작이 늦고 새 도전을 피하기 쉽습니다.",str:["정밀한 분석과 체계화","높은 완성도와 정확성","빈틈없는 마무리"],cau:["완벽주의로 시작 지연","새롭고 어려운 도전 회피"],rx:"'완벽 이해 후'가 아니라 '풀면서 완성'으로 순서를 바꾸고 정리는 핵심만 추리게 해 주세요. 작은 도전의 성공을 자주 경험시키면 강점이 더 큰 무대로 확장됩니다."}
 };
 function hasJong(s){if(!s)return false;var c=s.charCodeAt(s.length-1);if(c<0xAC00||c>0xD7A3)return true;return (c-0xAC00)%28!==0;}
 function josa(w,withJong,without){return (hasJong(w)?withJong:without);}
+function pjong(x){if(!x)return false;var c=x.charCodeAt(x.length-1);if(c<0xAC00||c>0xD7A3)return false;return (c-0xAC00)%28!==0;}
+function pname(nm,j){nm=String(nm||"");var stem=pjong(nm)?nm+"\uc774":nm;return stem+j;}
 function radarSVG(vals,labels){
   var cx=150,cy=140,rad=98,N=vals.length,i;
   function pt(i,r){var ang=-Math.PI/2+i*2*Math.PI/N;return [cx+Math.cos(ang)*r,cy+Math.sin(ang)*r];}
   var svg='<svg viewBox="0 0 300 290" width="100%" style="max-width:320px;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="화학 학습 레이더">';
+  [[1,"rgba(14,122,110,.09)"],[0.65,"rgba(133,123,107,.05)"],[0.45,"#ffffff"]].forEach(function(bz){var bp=[];for(i=0;i<N;i++)bp.push(pt(i,rad*bz[0]).join(","));svg+='<polygon points="'+bp.join(" ")+'" fill="'+bz[1]+'" stroke="none"/>';});
   [0.25,0.5,0.75,1].forEach(function(k){var p=[];for(i=0;i<N;i++)p.push(pt(i,rad*k).join(","));svg+='<polygon points="'+p.join(" ")+'" fill="none" stroke="#d6cab3" stroke-width="1"/>';});
   for(i=0;i<N;i++){var e=pt(i,rad);svg+='<line x1="'+cx+'" y1="'+cy+'" x2="'+e[0]+'" y2="'+e[1]+'" stroke="#e6decf"/>';var l=pt(i,rad+20);svg+='<text x="'+l[0]+'" y="'+l[1]+'" fill="#403a30" font-size="11" font-weight="600" text-anchor="middle" dominant-baseline="middle">'+labels[i]+'</text>';}
   var dp=[];for(i=0;i<N;i++)dp.push(pt(i,rad*Math.max(4,vals[i])/100).join(","));
@@ -461,19 +563,19 @@ function radarSVG(vals,labels){
   return svg+'</svg>';
 }
 var CLUSTERS={
-dissolve:{nm:"용해 — 녹으면 사라진다?",why:"많은 학생이 설탕이 물에 녹으면 '없어졌다'고 느낍니다. 눈에 안 보이니까요.",corr:"녹아도 설탕 입자는 물 사이사이에 그대로 퍼져 있어요. 그래서 무게도 변하지 않습니다.",cls:"물을 증발시켜 소금을 다시 꺼내 보이거나, 용해 전후 무게를 함께 재며 '사라진 게 아님'을 눈으로 확인시켜 줍니다."},
-"state-mass":{nm:"상태 변화와 질량 — 얼면 무거워질까?",why:"고체가 '꽉 차' 보여서 상태가 바뀌면 무게도 변한다고 생각하기 쉽습니다.",corr:"얼음·물·수증기는 모습만 다를 뿐 같은 물질이라, 밀폐된 상태에서 무게는 변하지 않아요.",cls:"마개를 막은 병에서 얼음을 녹이며 저울 눈금이 그대로임을 보여주고, '모습은 변해도 양은 그대로'를 짚어줍니다."},
-combustion:{nm:"연소 — 타면 줄어든다?",why:"재만 남으니 '물질이 줄어 사라졌다'고 보는 게 자연스럽습니다.",corr:"타면서 눈에 안 보이는 기체로 빠져나갈 뿐, 그 기체까지 합치면 양은 줄지 않습니다. 공기와 결합하면 오히려 늘기도 해요.",cls:"철 수세미를 태워 무게가 늘어나는 반례를 직접 보여주고, '보이지 않는 기체'의 존재를 강조합니다."},
-evaporation:{nm:"증발 — 마르면 없어진다?",why:"물이 마르면 눈에 안 보이니 '없어졌다'고 느낍니다.",corr:"수증기가 되어 공기 중으로 흩어졌을 뿐, 사라진 게 아니에요.",cls:"투명 컵에 랩을 씌워 물이 줄고 안쪽에 물방울이 맺히는 과정을 관찰하게 합니다."},
-"atom-reaction":{nm:"변화 속 알갱이 보존 — 변하면 알갱이도 사라질까?",why:"새로운 물질이 생기면 '알갱이도 새로 생기거나 없어진다'고 직관적으로 느낍니다.",corr:"알갱이는 새로 생기거나 사라지지 않고, 짝(결합)만 다시 짜입니다. 그래서 전체 양이 보존돼요.",cls:"레고 블록을 '같은 조각으로 다시 조립'하는 비유로, 변해도 조각 수는 그대로임을 시각화합니다."},
-"particle-property":{nm:"알갱이의 성질 — 알갱이 하나도 그 물질일까?",why:"구리 알갱이 하나도 '반짝이고 붉다'처럼, 알갱이가 물질의 성질을 그대로 가진다고 생각하기 쉽습니다.",corr:"색·단단함 같은 성질은 알갱이가 아주 많이 모였을 때 나타나는 것이라, 알갱이 하나에는 없습니다.",cls:"'한 사람'과 '파도타기하는 관중석'의 차이처럼, 성질이 모임에서 나온다는 걸 비유로 잡아줍니다."},
-"particle-space":{nm:"알갱이와 공간 — 누르면 알갱이가 찌그러질까?",why:"공기를 압축하면 '알갱이가 작아진다'고 보는 경우가 많습니다.",corr:"알갱이의 크기·개수는 그대로이고, 알갱이 사이의 빈 공간이 좁아지는 거예요.",cls:"주사기 압축 실험으로 '줄어드는 건 알갱이가 아니라 사이 공간'임을 체험시킵니다."},
-"particle-between":{nm:"알갱이 사이 — 그 사이엔 뭐가 있을까?",why:"알갱이 사이를 '더 작은 알갱이나 공기가 채운다'고 생각하기 쉽습니다.",corr:"알갱이와 알갱이 사이는 아무것도 없는 빈 공간입니다.",cls:"모형으로 입자 사이가 비어 있음을 보이며 '진공'의 개념을 미리 살짝 심어줍니다."},
-"particle-thermal":{nm:"가열과 알갱이 — 뜨거우면 알갱이가 커질까?",why:"가열하면 물체가 팽창하니 '알갱이 자체가 커진다'고 오해하기 쉽습니다.",corr:"알갱이 크기는 그대로이고, 더 활발히 움직여 사이 간격이 벌어지는 겁니다.",cls:"천천히/빠르게 움직이는 사람 비유로, 커진 건 알갱이가 아니라 '움직임과 간격'임을 잡아줍니다."},
-boiling:{nm:"끓음의 기포 — 거품의 정체는?",why:"끓을 때 올라오는 기포를 '공기'나 '산소·수소'로 보는 경우가 많습니다.",corr:"그 기포는 기체로 변한 물, 즉 수증기예요.",cls:"끓는 기포를 모아 식히면 다시 물이 되는 것을 보여 '수증기 = 물의 기체 상태'를 확인시킵니다."},
-"phys-chem":{nm:"물리 변화 vs 화학 변화 — 새 물질이 생겼나?",why:"모양·상태만 보고 판단해, 녹슬기·갈변 같은 화학 변화를 단순 변화로 보기 쉽습니다.",corr:"새 물질이 생기면 화학 변화(녹슬기·갈변·연소), 물질이 그대로면 물리 변화(녹음·얼음)예요.",cls:"여러 사례를 '새 물질이 생겼나?' 한 가지 기준으로 분류하는 연습을 반복합니다."},
-"gas-mass":{nm:"기체의 질량 — 공기도 무게가 있을까?",why:"공기는 '비어 있고 가벼워' 무게가 없다고 느끼기 쉽습니다.",corr:"공기도 아주 작지만 분명히 무게가 있어요. 압축해 넣으면 그만큼 무거워집니다.",cls:"압축 공기를 넣은 통과 빈 통을 정밀 저울로 비교해 '기체도 물질'임을 보여줍니다."},
-"melt-dissolve":{nm:"'녹다'의 두 얼굴 — 융해 vs 용해",why:"한국어 '녹다'가 '열로 액체가 됨'과 '물에 퍼짐'을 함께 가리켜, 둘을 같은 현상으로 뭉뚱그리기 쉽습니다.",corr:"초콜릿이 녹는 건 열에 의한 상태 변화, 소금이 녹는 건 물에 퍼지는 용해 — 서로 다른 현상이에요.",cls:"'얼음 녹음'과 '설탕 녹음'을 나란히 두고 '물이 필요한가? 열이 필요한가?'로 갈라줍니다."}
+dissolve:{nm:"용해 — 녹으면 사라진다?",key:"녹아도 입자는 그대로 — 보이지 않을 뿐 사라지지 않는다.",why:"설탕이 물에 녹아 눈에서 사라지면 아이들은 자연스럽게 '없어졌다'고 느낍니다. 보이지 않는 것은 존재하지 않는다는 감각이 그만큼 강하기 때문입니다.",corr:"녹는다는 건 설탕 알갱이가 물 알갱이 사이사이로 골고루 흩어져 들어간다는 뜻입니다. 너무 작아 보이지 않을 뿐 알갱이는 그대로 남아 있어서, 물과 설탕을 합친 전체 무게는 변하지 않습니다.",cls:"용해 전후 무게를 함께 저울로 재 눈금이 그대로임을 확인시키고, 물을 증발시켜 설탕(소금)을 도로 꺼내 보입니다. '안 보이면 사라진 걸까, 흩어진 걸까?'라고 되물어 직관을 흔들어 줍니다."},
+"state-mass":{nm:"상태 변화와 질량 — 얼면 무거워질까?",key:"모습이 바뀌어도 물질의 양은 그대로다.",why:"고체는 단단하고 '꽉 차' 보이는 반면 액체·기체는 묽고 가벼워 보여서, 상태가 바뀌면 무게도 변한다고 느끼기 쉽습니다.",corr:"얼음·물·수증기는 겉모습만 다를 뿐 같은 물질이 모인 모습입니다. 알갱이의 개수가 변하지 않으므로, 밖으로 새지 않게 막아 두면 얼리거나 녹여도 무게는 그대로입니다.",cls:"마개를 막은 병 안에서 얼음을 녹이며 저울 눈금이 변하지 않음을 보여 줍니다. '무엇이 변했고 무엇이 그대로일까?'를 모습과 양으로 나눠 말하게 합니다."},
+combustion:{nm:"연소 — 타면 줄어든다?",key:"타도 사라진 게 아니라, 보이지 않는 기체로 빠져나간 것.",why:"다 타고 나면 작은 재만 남으니 '물질이 줄어 사라졌다'고 보는 게 자연스럽습니다. 빠져나간 기체는 눈에 보이지 않기 때문입니다.",corr:"탈 때 물질은 공기와 결합하며 눈에 보이지 않는 기체로 흩어집니다. 빠져나간 기체까지 모두 합치면 양은 줄지 않고, 공기와 결합하는 경우에는 오히려 늘어나기도 합니다.",cls:"철 수세미를 태우면 무게가 오히려 늘어나는 반례를 직접 보여 줍니다(우리 진단의 대표 문항입니다). '눈에 안 보이는 것도 무게가 있을까?'로 토론을 엽니다."},
+"atom-reaction":{nm:"변화 속 알갱이 보존 — 변하면 알갱이도 사라질까?",key:"변해도 알갱이는 사라지지 않고, 짝만 다시 짜인다.",why:"전혀 다른 새 물질이 생기면 아이들은 '알갱이도 새로 생기거나 없어진다'고 직관적으로 느낍니다.",corr:"변화가 일어나도 알갱이 자체는 새로 생기거나 사라지지 않습니다. 다만 알갱이끼리의 짝(연결)만 풀렸다 다시 맺힐 뿐이라, 전체 알갱이 수와 양은 그대로 보존됩니다.",cls:"레고 블록을 부쉈다 같은 조각으로 다른 모양을 만드는 비유로, '모양은 달라져도 조각 수는 똑같다'를 손으로 확인시킵니다."},
+"particle-property":{nm:"알갱이의 성질 — 알갱이 하나도 그 물질일까?",key:"색·단단함은 알갱이가 아주 많이 모였을 때 나타나는 성질이다.",why:"구리는 붉고 반짝이니, 구리 알갱이 하나하나도 붉고 반짝일 거라고 생각하기 쉽습니다.",corr:"색, 단단함, 끓는점 같은 성질은 알갱이가 엄청나게 많이 모여 함께 행동할 때 비로소 나타납니다. 그래서 알갱이 하나에는 그런 성질이 없습니다.",cls:"관중석 파도타기처럼 한 사람은 못 만들지만 수천 명이 모이면 생기는 현상에 빗대어, 성질이 '모임'에서 나온다는 점을 잡아 줍니다."},
+"particle-space":{nm:"알갱이와 공간 — 누르면 알갱이가 찌그러질까?",key:"압축되는 건 알갱이가 아니라 알갱이 사이의 빈 공간.",why:"공기를 누르면 부피가 확 줄어드니 알갱이 자체가 찌그러지거나 작아진다고 보기 쉽습니다.",corr:"알갱이의 크기와 개수는 변하지 않습니다. 줄어드는 것은 알갱이와 알갱이 사이에 비어 있던 공간일 뿐이라, 누르던 힘을 풀면 다시 원래 부피로 돌아옵니다.",cls:"주사기 끝을 막고 공기를 눌러 보게 하며, '무엇이 줄었는지'를 알갱이와 사이 공간으로 나눠 말하게 합니다."},
+"particle-between":{nm:"알갱이 사이 — 그 사이엔 뭐가 있을까?",key:"알갱이 사이는 아무것도 없는 빈 공간이다.",why:"사이가 비어 있다는 말이 어색해서, 그 사이를 공기나 더 작은 무언가가 채우고 있다고 생각하기 쉽습니다.",corr:"알갱이와 알갱이 사이에는 또 다른 물질이 들어 있는 것이 아니라, 정말로 아무것도 없는 빈 공간입니다. 이 빈 공간이 있기에 물질을 누르거나 데우면 부피가 달라질 수 있습니다.",cls:"모형으로 입자 사이가 비어 있음을 보이고, '그 사이엔 뭐가 있을까?'라는 질문으로 진공의 감각을 미리 살짝 심어 줍니다."},
+"particle-thermal":{nm:"가열과 알갱이 — 뜨거우면 알갱이가 커질까?",key:"데우면 알갱이가 커지는 게 아니라, 더 활발히 움직여 간격이 벌어진다.",why:"가열하면 물체가 팽창하는 것을 보고 알갱이 자체가 커진다고 오해하기 쉽습니다.",corr:"온도가 올라가면 알갱이는 더 빠르고 활발하게 움직입니다. 그 결과 알갱이끼리의 간격이 벌어져 전체 부피가 커지는 것이지, 알갱이 하나의 크기가 커지는 것은 아닙니다.",cls:"좁은 공간에서 천천히 또는 빠르게 움직이는 사람들에 빗대어, '커진 건 몸집이 아니라 움직임과 간격'임을 잡아 줍니다."},
+boiling:{nm:"끓음의 기포 — 거품의 정체는?",key:"끓을 때 올라오는 거품의 정체는 기체로 변한 물(수증기).",why:"물속에서 거품이 올라오니 물에 녹아 있던 공기나 산소·수소가 나온다고 보는 경우가 많습니다.",corr:"끓는 물에서 올라오는 기포는 밖에서 들어온 공기가 아니라, 뜨거워진 물이 기체로 변한 수증기입니다. 즉 물이 모습만 바꿔 위로 올라가는 것입니다.",cls:"기포를 모아 찬 곳에서 식히면 다시 물방울이 맺히는 것을 보여 '수증기는 물의 기체 상태'임을 확인시킵니다."},
+"phys-chem":{nm:"물리 변화 vs 화학 변화 — 새 물질이 생겼나?",key:"기준은 단 하나 — '새로운 물질이 생겼는가?'",why:"겉모습과 상태만 보고 판단해서, 녹슬기나 갈변처럼 새 물질이 생기는 변화도 단순한 모양 변화로 보기 쉽습니다.",corr:"얼거나 녹는 것처럼 물질은 그대로이고 모습만 변하면 물리 변화입니다. 반대로 녹슬기·탐·갈변처럼 성질이 다른 새 물질이 생기면 화학 변화입니다. 판단 기준은 '새 물질이 생겼는가' 하나면 충분합니다.",cls:"여러 사례 카드를 '새 물질이 생겼나?'라는 한 가지 질문으로 두 더미로 분류하는 활동을 반복합니다."},
+"gas-mass":{nm:"기체의 질량 — 공기도 무게가 있을까?",key:"눈에 안 보이는 기체도 분명히 무게가 있다.",why:"공기는 비어 있고 잡히지 않아 무게가 없다고 느끼기 쉽습니다.",corr:"공기 같은 기체도 알갱이로 이루어져 있어 아주 작지만 분명한 무게를 가집니다. 그래서 통에 공기를 압축해 더 넣으면 그만큼 무거워집니다.",cls:"압축 공기를 넣은 통과 빈 통을 정밀 저울로 비교해 눈금 차이를 보여 주며 '기체도 물질'임을 확인시킵니다."},
+"melt-dissolve":{nm:"'녹다'의 두 얼굴 — 융해 vs 용해",key:"한국어 '녹다'는 두 현상 — 열로 녹는 융해, 물에 퍼지는 용해.",why:"한국어 '녹다'가 열을 받아 액체가 됨과 물에 퍼져 사라짐을 동시에 가리켜, 둘을 같은 현상으로 뭉뚱그리기 쉽습니다.",corr:"초콜릿이 녹는 것은 열을 받아 모습이 바뀌는 상태 변화(융해)이고, 소금이 물에 녹는 것은 알갱이가 물 사이로 흩어지는 용해입니다. 필요한 것이 '열'인지 '물'인지가 둘을 가르는 핵심입니다.",cls:"'얼음 녹음'과 '설탕 녹음'을 나란히 두고 '열이 필요한가, 물이 필요한가?'로 갈라 분류하게 합니다."},
+evaporation:{nm:"증발 — 마르면 없어진다?",key:"마른 물은 사라진 게 아니라 수증기로 흩어진 것.",why:"젖은 것이 마르면 물이 눈앞에서 사라지니 '없어졌다'고 느낍니다.",corr:"물 표면의 알갱이가 하나둘 공기 중으로 흩어져 수증기가 된 것입니다. 보이지 않게 퍼졌을 뿐, 물 알갱이 자체가 사라진 것은 아닙니다.",cls:"투명 컵에 랩을 씌워 두고 물이 줄면서 랩 안쪽에 물방울이 맺히는 과정을 관찰하게 해 '어디로 갔는지'를 추적하게 합니다."}
 };
 var BANDS={"양호":{c:"#2E7D5B",l:"양호"},"흔들림":{c:"#BD7A12",l:"흔들림"},"교정필요":{c:"#B23A6B",l:"교정 필요"},"미형성":{c:"#9A917F",l:"미형성"}};
 var INTU_NAME={conservation:"보존 — 사라지지 않는다",particle:"입자 — 알갱이로 이루어졌다",change:"변화 분류 — 새 물질인가?"};
@@ -495,7 +597,7 @@ function intuitionHTML(r){
       vials+='<span class="vial"><i style="background:'+b.c+'"></i>'+esc(shortNm(cid))+'</span>';
       if(bk==="양호"){solids.push(shortNm(cid));}
       else{exps+='<div class="cx"><h5>'+esc(info.nm)+' <span class="bd2" style="background:'+b.c+'">'+b.l+'</span></h5>'+
-        '<div class="row"><span class="k">대부분은</span><span>'+esc(info.why)+'</span></div>'+
+        '<div class="kx">'+esc(info.key||"")+'</div><div class="row"><span class="k">대부분은</span><span>'+esc(info.why)+'</span></div>'+
         '<div class="row fix"><span class="k">바른 개념</span><span>'+esc(info.corr)+'</span></div>'+
         '<div class="row"><span class="k">수업에서</span><span>'+esc(info.cls)+'</span></div></div>';}
     });
@@ -513,7 +615,7 @@ function nextAction(r){
 }
 function parentHTML(r){
   var ti=TYPE_INFO[r.type.code]||{str:[],cau:[],tag:""};
-  return '<div class="card pad block"><div class="bh"><span class="ix2">04</span><h3>우리 아이 한눈에</h3><span class="sub">보호자용 요약</span></div>'+
+  return '<div class="card pad block hide-student"><div class="bh"><span class="ix2">06</span><h3>우리 아이 한눈에</h3><span class="sub">보호자용 요약</span></div>'+
     '<div class="psum">'+
       '<div class="pcol"><div class="plab">화학 두뇌 유형</div><div class="pval serif">'+esc(r.type.name)+'</div><div class="pdesc">'+esc(ti.tag)+'</div></div>'+
       '<div class="pcol"><div class="plab">지금 강점</div><div class="pval2">'+esc(ti.str[0]||"")+'</div><div class="plab" style="margin-top:12px">살펴볼 점</div><div class="pval2">'+esc(ti.cau[0]||"")+'</div></div>'+
@@ -524,12 +626,14 @@ function parentHTML(r){
 }
 function toast(b,msg){var o=b.textContent;b.textContent=msg;setTimeout(function(){b.textContent=o;},1600);}
 function copyLink(b){var t=window.__shareURL||location.href;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(b,"링크 복사됨!");},function(){toast(b,"복사 실패");});}else{toast(b,"주소창 링크를 복사하세요");}}
-function onReportClick(e){var b=e.target.closest("[data-act]");if(!b)return;var act=b.getAttribute("data-act");
+function onReportClick(e){var vb=e.target.closest&&e.target.closest("[data-view]");if(vb){var vv=vb.getAttribute("data-view");var rv=document.querySelector("#reportView");if(rv)rv.className="view-"+vv;var box=document.querySelector("#report");if(box&&box.querySelectorAll)box.querySelectorAll("[data-view]").forEach(function(x){x.classList.toggle("on",x.getAttribute("data-view")===vv);});return;}
+  var b=e.target.closest("[data-act]");if(!b)return;var act=b.getAttribute("data-act");
   if(act==="share"){var d={title:"화학 학습유형 진단",text:"우리 아이 화학 학습유형\u00b7오개념 진단 결과",url:window.__shareURL||location.href};if(navigator.share){navigator.share(d).catch(function(){});}else copyLink(b);}
   else if(act==="copy"){copyLink(b);}
   else if(act==="print"){window.print();}
   else if(act==="redemo"){runDemo();}
   else if(act==="home"){location.href=location.origin+location.pathname;}
+  else if(act==="exportbk"){exportBackupCSV();}
 }
 var DEMO_BANNER='<div class="card pad noprint" style="background:linear-gradient(160deg,#bd7a1212,#fff);border-color:#bd7a1233;margin-bottom:14px"><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="kicker" style="color:var(--amber);border-color:#bd7a1244"><span class="dot" style="background:var(--amber);box-shadow:0 0 0 4px #bd7a1422"></span>데모 예시 결과</span><span style="font-size:13.5px;color:var(--ink-2);flex:1;min-width:200px">실제 학생 응답이 아닌 <b>샘플</b>입니다. 정식 결과는 100문항을 모두 풀면 생성됩니다.</span><button class="btn ghost" data-act="home" style="padding:11px 18px;font-size:13px">처음으로</button></div></div>';
 function randInt(a,b){return a+Math.floor(Math.random()*(b-a+1));}
@@ -575,6 +679,7 @@ function methodHTML(r){
     ["정서·태도","화학 태도 척도(ASCI/ASCIv2) 기반 — 흥미·가치·불안"],
     ["학습 효능감","고교 화학 자기효능감 척도 + 자신감의 네 원천(숙달·대리·설득·정서)"],
     ["학습 접근","R-SPQ-2F — 깊이 이해형(심층) vs 암기·최소형(표층)"],
+    ["메타인지","자기 점검·조절 연구 — Flavell의 메타인지, Nelson & Narens의 모니터링 틀"],
     ["사고 성향","네 축(겉/속·직관/분석·탐구/정리·도전/숙달)으로 본 16가지 학습 스타일"],
     ["오개념 직관","2단·확신 진단법(Treagust) + 화학 개념 검사 + 입자 개념 연구"],
     ["교육과정 기준","2022 개정 — 초6·중1이 아직 배우지 않은 개념은 '틀림'이 아니라 '성장 포인트'로 읽습니다"]
@@ -583,10 +688,10 @@ function methodHTML(r){
   var dqline = r.dq.flag==="good"
     ? '이 응답은 주의 문항·일관성·응답 속도 점검을 모두 통과했습니다.'
     : '이 응답은 일부 점검(주의 문항·일관성·속도)에서 신호가 있었습니다. 결과는 참고로 보시고, 필요하면 다시 진행해 주세요.';
-  return '<div class="card pad block"><div class="bh"><span class="ix2">05</span><h3>이 진단의 근거</h3><span class="sub">검증된 과학교육 연구에 기반</span></div>'+
+  return '<div class="card pad block hide-student"><div class="bh"><span class="ix2">08</span><h3>이 진단의 근거</h3><span class="sub">검증된 과학교육 연구에 기반</span></div>'+
     '<p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 14px">이 진단은 점수를 매기는 시험이 아니라, 학생이 화학을 어떻게 대하고 어떻게 생각하는지를 읽기 위한 도구입니다. 각 영역은 다음 연구·검사 전통에 기반해 설계했습니다.</p>'+
     '<div class="mlist">'+li+'</div>'+
-    '<div class="mnote"><b>데이터 품질</b> · '+esc(dqline)+'</div>'+
+    engineLogicHTML()+'<div class="mnote"><b>데이터 품질</b> · '+esc(dqline)+'</div>'+
     '<p class="note" style="margin-top:12px">본 진단은 학습 상담을 돕기 위한 참고 자료이며, 의학적·심리학적 진단이나 공식 평가가 아닙니다. 이름(별명)·학년·응답 외의 개인정보는 수집하지 않습니다.</p></div>';
 }
 /*PIPE-START*/
@@ -606,6 +711,214 @@ function sendToSheet(r,ans,meta){if(!APPS_SCRIPT_URL)return;try{var payload={tok
 var SHARED_BANNER='<div class="card pad noprint" style="background:linear-gradient(160deg,#2a547012,#fff);border-color:#2a547033;margin-bottom:14px"><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="kicker" style="color:var(--cobalt);border-color:#2a547044"><span class="dot" style="background:var(--cobalt);box-shadow:0 0 0 4px #2a547022"></span>공유된 결과</span><span style="font-size:13.5px;color:var(--ink-2);flex:1;min-width:200px">링크로 열람한 진단 결과입니다.</span><button class="btn ghost" data-act="home" style="padding:11px 18px;font-size:13px">나도 진단 해보기</button></div></div>';
 function restoreFromHash(){var h=location.hash||"",m=h.match(/[#&]r=([^&]+)/);if(!m)return false;try{var d=deserialize(m[1]),r=computeResults(d.answers,d.meta);window.__results=r;window.__shareURL=location.href;$("#intro").style.display="none";renderReport(r);$("#report").insertAdjacentHTML("afterbegin",SHARED_BANNER);window.scrollTo({top:0,behavior:"auto"});return true;}catch(e){return false;}}
 /*PIPE-END*/
+
+var AXNAME={lens:"관찰 관점",think:"사고 방식",drive:"학습 동력",approach:"학습 방식"};
+var POLEFULL={G:"겉·현상",S:"속·원리",J:"직관",B:"분석",T:"탐구",R:"정리",D:"도전",M:"숙달"};
+var POLEMEAN={G:"눈에 보이는 변화와 결과부터 파악합니다.",S:"보이지 않는 입자·원리부터 상상합니다.",J:"빠른 직관으로 핵심을 잡습니다.",B:"근거를 따지며 논리로 분석합니다.",T:"새로운 것을 탐구하고 시도합니다.",R:"정리하며 차곡차곡 축적합니다.",D:"어려운 도전을 즐깁니다.",M:"반복으로 숙달하며 안정적으로 익힙니다."};
+var COMBOS={BM:"분석과 숙달이 함께 강해 정확하지만 속도가 느려질 수 있습니다.",JD:"직관과 도전이 함께 강해 빠르지만 검증이 약할 수 있습니다.",SB:"원리 지향과 분석이 만나 개념 깊이가 큽니다.",GJ:"현상 직관이 빨라 순발력이 좋습니다.",TD:"탐구와 도전이 만나 새로운 문제에 강합니다.",RM:"정리와 숙달이 만나 안정적으로 누적됩니다.",SD:"원리를 깊이 파고들며 도전하는 대회형 기질입니다.",GM:"현상을 관찰하며 꾸준히 다지는 안정형입니다.",BD:"분석력으로 도전 과제를 정면 돌파합니다.",JM:"직관으로 빠르게 잡고 반복으로 굳힙니다.",GR:"현상을 관찰해 차곡차곡 정리합니다.",ST:"원리를 탐구하며 새로움을 추구합니다.",GD:"현상에 겁 없이 도전합니다.",SM:"원리를 반복으로 깊이 다집니다.",JT:"직관으로 빠르게 탐구합니다.",BR:"분석한 것을 체계적으로 정리합니다.",JR:"직관으로 잡아 정리합니다.",BT:"분석적으로 탐구합니다."};
+function lvlWord(v){return v>=80?"매우 높음":v>=65?"높음":v>=45?"보통":v>=30?"다소 낮음":"낮음";}
+function execStrong(r){var c=[["흥미",r.A.interest],["자신감",r.A.efficacy],["가치 인식",r.A.value],["정서 안정",r.A.calm],["학습 깊이",r.approach.deep],["개념 직관",r.concept],["메타인지",r.metacog]];c.sort(function(a,b){return b[1]-a[1];});return c[0];}
+function execMixedAxis(r){var best=null;["lens","think","drive","approach"].forEach(function(ax){var P=AXPOLE[ax],L=r.axes[ax][P[0]]||0,R=r.axes[ax][P[1]]||0,diff=Math.abs(L-R);if(best===null||diff<best.diff)best={ax:ax,diff:diff};});return best;}
+function execHTML(r){
+  var nm=r.name?pname(r.name,"의"):"이 학생의";
+  var st=execStrong(r),mx=execMixedAxis(r);
+  var prio=r.entrenched.length?{k:r.entrenched[0],ent:true}:null;
+  if(!prio){var worst=null,cid;for(cid in r.clusters){var b=r.clusters[cid].band,sv=b.indexOf("교정")>=0?2:b.indexOf("흔들")>=0?1:0;if(!worst||sv>worst.sv)worst={k:cid,sv:sv};}if(worst&&worst.sv>0)prio={k:worst.k,ent:false};}
+  var pconc=prio?((CLUSTERS[prio.k]||{nm:prio.k}).nm.split(" — ")[0]):null;
+  var p1='<p>'+esc(nm)+' 분석은 한 가지 유형으로 단정하기 위한 것이 아니라, 무엇이 학습을 <b>시작하게</b> 만들고 무엇이 학습을 <b>멈추게</b> 하는지를 분리해 보여 줍니다. 지금 가장 강한 신호는 <b>'+st[0]+'</b>('+st[1]+'점)이며, 수업과 과제를 이 강점에서 출발시키는 것이 가장 효율적입니다.</p>';
+  var p2='<p>반대로 <b>'+AXNAME[mx.ax]+'</b> 축은 양쪽 성향의 차이가 작아 과목·난도·상황에 따라 다르게 반응할 수 있으니, 단정하기보다 실제 수행을 함께 관찰하는 편이 좋습니다.'+(pconc?(' 그리고 가장 먼저 바로잡을 지점은 <b>'+esc(pconc)+'</b>입니다 — '+(prio.ent?'확신을 가지고 잘못 알고 있는 부분이라':'아직 개념이 덜 잡힌 부분이라')+' 여기를 정확히 잡아 주면 가장 크게 도약합니다.'):' 개념 직관은 비교적 잘 잡혀 있어, 강점을 더 끌어올리는 데 집중할 수 있습니다.')+'</p>';
+  var p3='<p>요컨대 이 리포트는 ‘무슨 유형인가’보다 ‘어떤 순서로 공부를 설계할 것인가’를 보여 줍니다. 강점은 학습의 입구로 쓰고, 약하거나 과한 신호는 보완 루틴으로 관리하세요.</p>';
+  return '<div class="card pad block exec"><div class="bh"><span class="kicker"><span class="dot"></span>종합 해석</span></div>'+p1+p2+p3+'</div>';
+}
+function radarReadHTML(r){
+  var dims=[["흥미",r.A.interest,"새로운 화학 현상에 대한 호기심"],["자신감",r.A.efficacy,"‘하면 된다’는 효능감"],["정서 안정",r.A.calm,"시험·실수 앞에서의 안정감"],["가치 인식",r.A.value,"화학을 배우는 의미 인식"],["학습 깊이",r.approach.deep,"암기보다 ‘왜’를 따지는 정도"],["개념 직관",r.concept,"오개념이 적어 바른 직관의 비율"]];
+  var sorted=dims.slice().sort(function(a,b){return b[1]-a[1];}),hi=sorted.slice(0,2),lo=sorted.slice(-2);
+  function row(d,k){return '<div class="rr '+k+'"><b>'+d[0]+'</b><span class="lw">'+lvlWord(d[1])+' · '+d[1]+'</span><span class="rm">'+d[2]+'</span></div>';}
+  return '<div class="readbox"><div class="readcol"><h5>강한 신호</h5>'+hi.map(function(d){return row(d,"hi");}).join("")+'</div><div class="readcol"><h5>보완 신호</h5>'+lo.map(function(d){return row(d,"lo");}).join("")+'</div></div>';
+}
+function axisLogicHTML(r){
+  var rows="";
+  ["lens","think","drive","approach"].forEach(function(ax){var P=AXPOLE[ax],L=r.axes[ax][P[0]]||0,Rr=r.axes[ax][P[1]]||0,win=L>=Rr?P[0]:P[1],cnt=Math.max(L,Rr),diff=Math.abs(L-Rr);
+    var strg=cnt>=5?"강함":cnt>=4?"뚜렷":"약한 우세",dnote=diff>=4?"매우 뚜렷":diff>=3?"우세":"혼합 경향 · 상황 따라 달라질 수 있음";
+    rows+='<tr><td>'+AXNAME[ax]+'</td><td><b>'+POLEFULL[win]+'</b> <span class="sg">'+strg+' · '+cnt+'/5</span></td><td>'+POLEMEAN[win]+' <span class="dn">('+dnote+')</span></td></tr>';});
+  var order=["lens","think","drive","approach"].map(function(ax){var P=AXPOLE[ax],L=r.axes[ax][P[0]]||0,Rr=r.axes[ax][P[1]]||0;return {p:(L>=Rr?P[0]:P[1]),c:Math.max(L,Rr)};}).sort(function(a,b){return b.c-a.c;});
+  var combo=COMBOS[order[0].p+order[1].p]||COMBOS[order[1].p+order[0].p]||"";
+  return '<div class="axlogic"><h4>강도 · 차이 · 조합으로 읽기</h4><table class="axtab"><tr><th>축</th><th>우세 성향</th><th>해석</th></tr>'+rows+'</table>'+(combo?'<div class="combo"><b>축 조합</b> '+esc(combo)+'</div>':"")+'</div>';
+}
+function mmss(x){x=Math.max(0,Math.round(x||0));var m=Math.floor(x/60),sx=x%60;return m+"분 "+(sx<10?"0"+sx:sx)+"초";}
+function reliabilityHTML(r){
+  var d=r.dq,good=d.flag==="good",reasons=[];
+  if(d.attentionFail>0)reasons.push("주의집중 확인 문항 "+d.attentionFail+"개에서 예상과 다른 응답");
+  if(d.conflict>0)reasons.push("비슷한 의미의 문항 간 응답이 "+d.conflict+"건 엇갈림");
+  if(d.straight)reasons.push("여러 문항에 똑같이 응답(일자 응답)");
+  if(d.timeShort)reasons.push("전체 소요 시간이 매우 짧음");
+  var per=Math.round((d.elapsed||0)/100),badge=good?'<span class="rbad ok">양호</span>':'<span class="rbad warn">주의</span>';
+  var body=good?'<p>주의집중·일관성 점검을 모두 통과했습니다. 자기보고 응답을 비교적 안정적으로 해석할 수 있습니다.</p>':'<p>아래 신호가 보였습니다. 결과를 단정하기보다 실제 수업·과제 수행과 함께 확인하길 권합니다.</p><ul>'+reasons.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul>';
+  return '<div class="card pad block hide-student"><div class="bh"><span class="ix2">07</span><h3>응답 신뢰도</h3><span class="sub">검사 성실도 점검</span>'+badge+'</div>'+body+'<div class="relmeta">총 소요 '+mmss(d.elapsed)+' · 문항당 평균 '+per+'초</div></div>';
+}
+var SIGLAB={interest:"화학 흥미",efficacy:"자신감",value:"가치 인식",calm:"정서 안정",concept:"개념 직관",deep:"심층 학습",metacog:"메타인지",lowSurf:"이해 중심 학습",challenge:"도전 성향",analysis:"분석 성향",depthLens:"원리 지향",inquiry:"탐구 성향",mastery:"숙달·반복"};
+var SIGNEXT={interest:"흥미를 끄는 실험·현상으로 시작해 ‘왜’를 매주 하나씩 파고들게 하세요.",efficacy:"작은 성공을 자주 만들어 ‘하면 된다’는 경험을 쌓아 주세요.",value:"배운 개념이 실제 어디에 쓰이는지 연결해 공부의 의미를 키워 주세요.",calm:"충분한 연습과 안전한 피드백으로 시험·실수에 대한 불안을 낮춰 주세요.",concept:"핵심 오개념부터 실험·반례로 바로잡아 개념 토대를 단단히 하세요.",deep:"암기 대신 ‘왜 그런지’를 설명하게 하는 백지 설명 훈련을 늘리세요.",metacog:"안다고 느끼는 것과 실제 푸는 것을 분리하는 자기점검(미니 테스트)을 붙이세요.",lowSurf:"외우기 중심에서 이해 중심으로 옮겨 표층 의존을 줄여 주세요.",challenge:"한 단계 어려운 도전 과제를 정기적으로 제시해 도전 근육을 키우세요.",analysis:"근거를 따지고 풀이를 검증하는 분석 훈련을 강화하세요.",depthLens:"보이는 현상에서 보이지 않는 입자·원리로 내려가는 연습을 더하세요.",inquiry:"스스로 질문을 만들고 탐구하는 활동을 자주 만들어 주세요.",mastery:"반복·누적 복습 루틴으로 정확도와 꾸준함을 끌어올리세요."};
+var TRACKS=[
+ {key:"영재원",name:"영재원",tag:"호기심과 탐구심으로 들어가는 첫 관문",w:{interest:.35,inquiry:.2,concept:.2,efficacy:.15,value:.1},pen:0},
+ {key:"과학고",name:"과학고",tag:"단단한 개념과 꾸준한 심층 학습",w:{concept:.3,deep:.25,efficacy:.2,analysis:.15,calm:.1},pen:3},
+ {key:"영재고",name:"영재고",tag:"깊이·분석·도전과 강한 개념을 모두 요구하는 최상위",w:{deep:.28,concept:.22,challenge:.18,analysis:.17,efficacy:.15},pen:4},
+ {key:"올림피아드",name:"올림피아드",tag:"고난도 도전과 끝까지 파고드는 분석",w:{challenge:.3,analysis:.25,depthLens:.2,deep:.15,concept:.1},pen:5},
+ {key:"전국자사고",name:"전국 자사고",tag:"균형 잡힌 성실함과 가치 인식",w:{value:.25,mastery:.2,concept:.2,calm:.15,metacog:.1,efficacy:.1},pen:1},
+ {key:"의대",name:"의대 (장기 트랙)",tag:"긴 호흡의 숙달·정확성·정서 안정",w:{mastery:.25,metacog:.2,calm:.2,value:.15,concept:.1,lowSurf:.1},pen:2}
+];
+function sigVals(r){function ps(ax,pl){return Math.round((r.axes[ax][pl]||0)/5*100);}
+ return {interest:r.A.interest,efficacy:r.A.efficacy,value:r.A.value,calm:r.A.calm,concept:r.concept,deep:r.approach.deep,metacog:r.metacog,lowSurf:100-r.approach.surf,challenge:ps("approach","D"),analysis:ps("think","B"),depthLens:ps("lens","S"),inquiry:ps("drive","T"),mastery:ps("approach","M")};}
+function trackScores(r){var S=sigVals(r),ent=(r.entrenched||[]).length;
+ var arr=TRACKS.map(function(t){var fit=0,sw=0,k;for(k in t.w){fit+=t.w[k]*S[k];sw+=t.w[k];}fit=Math.round(Math.max(0,Math.min(100,fit/sw-ent*t.pen)));
+   var strong=null,gap=null,k2;for(k2 in t.w){var ss=t.w[k2]*S[k2];if(strong===null||ss>strong.s)strong={k:k2,s:ss};var gs=t.w[k2]*(75-S[k2]);if(gap===null||gs>gap.s)gap={k:k2,s:gs};}
+   var L=fit>=72?["강한 적합","#2E7D5B"]:fit>=58?["유망","#0E7A6E"]:fit>=44?["준비 단계","#BD7A12"]:["지금은 거리가 있음","#857B6B"],gapOK=gap.s<=0;
+   return {key:t.key,name:t.name,tag:t.tag,fit:fit,level:L[0],color:L[1],strong:SIGLAB[strong.k],gapLab:gapOK?null:SIGLAB[gap.k],next:gapOK?"현재 강점을 유지하며 난도를 점진적으로 올리세요.":SIGNEXT[gap.k]};});
+ arr.sort(function(a,b){return b.fit-a.fit;});return arr;}
+function trackHTML(r){var arr=trackScores(r);
+ var rows=arr.map(function(t,i){var top=(i===0&&t.fit>=58);
+   return '<div class="trk'+(top?" top":"")+'"><div class="trkhd"><b>'+esc(t.name)+'</b>'+(top?'<span class="prio">우선</span>':"")+'<span class="trkbad" style="background:'+t.color+'1f;color:'+t.color+'">'+t.level+'</span><span class="trkfit">'+t.fit+'</span></div>'+
+   '<div class="trkbar"><i style="width:'+t.fit+'%;background:'+t.color+'"></i></div><div class="trktag">'+esc(t.tag)+'</div>'+
+   '<div class="trkwhy"><b>지금</b> '+esc(t.strong)+josa(t.strong,"이","가")+' 강점'+(t.gapLab?' · <b>보완</b> '+esc(t.gapLab):'')+'</div><div class="trknext"><b>다음 단계</b> '+esc(t.next)+'</div></div>';}).join("");
+ return '<div class="card pad block hide-student"><div class="bh"><span class="ix2">04</span><h3>진학 트랙 적합도</h3><span class="sub">여섯 갈래 · 지금의 방향</span></div><p class="trkintro">점수가 아니라 <b>지금 신호 기준의 방향</b>입니다. 한 줄로 가두기보다 다년에 걸친 성장 경로에서 어느 길이 더 잘 맞는지를 봅니다. 적합도는 흥미·개념·사고 성향을 종합한 상대 지표예요.</p>'+rows+'</div>';
+}
+
+
+function trackShort(n){return n.replace(/\s*\(.*?\)\s*/g,"");}
+function trackByKey(k){for(var i=0;i<TRACKS.length;i++)if(TRACKS[i].key===k)return TRACKS[i];return TRACKS[0];}
+function topGapSig(r,key){var S=sigVals(r),t=trackByKey(key),g=null,k;for(k in t.w){var gs=t.w[k]*(75-S[k]);if(!g||gs>g.s)g={k:k,s:gs};}return g.k;}
+function weakApproach(r){return r.approach.deep<55?"deep":(100-r.approach.surf)<50?"surf":r.metacog<55?"metacog":"deep";}
+function lowAttitude(r){return [["흥미",r.A.interest],["자신감",r.A.efficacy],["가치 인식",r.A.value],["정서 안정",r.A.calm]].sort(function(a,b){return a[1]-b[1];})[0];}
+function prioConcept(r){
+  if(r.entrenched.length){var k=r.entrenched[0];return {k:k,ent:true,short:(CLUSTERS[k]||{nm:k}).nm.split(" — ")[0]};}
+  var worst=null,cid;for(cid in r.clusters){var b=r.clusters[cid].band,sv=b.indexOf("교정")>=0?2:b.indexOf("흔들")>=0?1:0;if(!worst||sv>worst.sv)worst={k:cid,sv:sv};}
+  if(worst&&worst.sv>0){var kk=worst.k;return {k:kk,ent:false,short:(CLUSTERS[kk]||{nm:kk}).nm.split(" — ")[0]};}
+  return null;
+}
+var APPRTXT={deep:"암기 대신 ‘왜 그런지’를 설명하게 하는 백지 설명 훈련",surf:"외우기 중심에서 이해 중심으로 풀이 방식 전환",metacog:"안다고 느낀 것과 실제로 푼 것을 분리하는 자기점검(미니 테스트)"};
+function roadmapHTML(r){
+  var top=trackScores(r)[0],pc=prioConcept(r),st=execStrong(r),la=lowAttitude(r),ap=weakApproach(r),gsig=topGapSig(r,top.key),tn=trackShort(top.name);
+  var P=[
+   {t:"지금",g:"토대 점검 · 강점으로 출발",it:[
+     pc?('‘'+esc(pc.short)+'’ 개념을 실험·반례로 먼저 바로잡기'):'개념 직관이 양호해 강점 심화로 바로 진입',
+     esc(st[0])+josa(st[0],"을","를")+' 학습의 입구로 삼아 몰입 유지하기',
+     la[1]<45?(esc(la[0])+josa(la[0],"이","가")+' 낮음 — 작은 성공 경험부터 쌓기'):'주 단위 점검 루틴 자리잡기']},
+   {t:"3개월",g:"학습 방식 전환 · 습관화",it:[APPRTXT[ap],'오개념 점검 리스트를 만들어 매주 1개씩 확인하기','쉬운 문제로 정확도 → 한 단계 위 문제로 확장']},
+   {t:"6개월",g:esc(tn)+' 방향 역량 키우기',it:[esc(SIGNEXT[gsig]),esc(tn)+' 유형의 문제·활동에 정기적으로 노출되기','한 주제를 끝까지 파고드는 미니 탐구 월 1회']},
+   {t:"1년",g:esc(tn)+josa(tn,"으로","로")+' 가는 길 다지기',it:['누적 복습으로 개념 인출을 자동화하기','모의 평가로 실전 감각·시간 관리 점검','강점·보완 신호를 재진단해 경로 재조정']}
+  ];
+  var rows=P.map(function(ph,i){return '<div class="rphase'+(i===0?" now":"")+'"><div class="rdot"></div><div class="rbody"><div class="rttl">'+ph.t+' <span class="rgoal">'+ph.g+'</span></div><ul class="ritems">'+ph.it.map(function(x){return '<li>'+x+'</li>';}).join("")+'</ul></div></div>';}).join("");
+  return '<div class="card pad block"><div class="bh"><span class="ix2">05</span><h3>다년 성장 로드맵</h3><span class="sub">점수가 아니라 궤적</span></div><p class="trkintro">한 번의 결과가 아니라 <b>'+esc(tn)+'</b> 방향으로 가는 단계별 설계입니다. 지금 강점을 입구로, 약한 신호는 순서대로 보완합니다.</p><div class="road">'+rows+'</div></div>';
+}
+function crossHTML(r){
+  var ent=r.entrenched||[],gap=r.gaps||[];
+  function li(k,kind){var sN=(CLUSTERS[k]||{nm:k}).nm.split(" — ")[0];return '<li><b>'+esc(sN)+'</b> — '+(kind==="ent"?'확신을 가지고 잘못 알고 있어 <em>반례·인지충돌</em>로 흔들어 깨야 합니다.':'아직 개념이 덜 잡혀 <em>기초부터</em> 차근차근 채워야 합니다.')+'</li>';}
+  var entHTML=ent.length?('<ul>'+ent.map(function(k){return li(k,"ent");}).join("")+'</ul>'):'<p class="cnone">두드러진 확신 오류는 없습니다.</p>';
+  var gapHTML=gap.length?('<ul>'+gap.map(function(k){return li(k,"gap");}).join("")+'</ul>'):'<p class="cnone">큰 지식 공백은 없습니다.</p>';
+  var note=(!ent.length&&!gap.length)?'<p class="cnote">확신 오류(고착)도, 큰 지식 공백도 두드러지지 않습니다 — 강점 심화에 집중할 수 있습니다.</p>':"";
+  return '<div class="card pad block"><div class="bh"><span class="kicker"><span class="dot"></span>고착 vs 지식 공백</span><span class="sub">틀림의 두 종류를 다르게 처방</span></div><div class="crossgrid"><div class="ccol ent"><h5>확신 오류 · 고착</h5><p class="cdesc">아는데 틀린다 — 반례로 깬다</p>'+entHTML+'</div><div class="ccol gap"><h5>지식 공백 · 미형성</h5><p class="cdesc">몰라서 틀린다 — 기초로 채운다</p>'+gapHTML+'</div></div>'+note+'</div>';
+}
+function caseList(r){
+  var pc=prioConcept(r),top=trackScores(r)[0],list=[];
+  if(r.approach.deep>=60&&r.concept<55)list.push({sym:"이해는 잘 하는 것 같은데 시험 점수가 안 나와요.",read:"깊이 있게 사고하지만 개념 정확도와 인출이 약한 상태입니다. ‘아는 것’과 ‘정확히 푸는 것’의 간극이 큽니다.",rx:"오개념 교정 + 짧은 인출 연습(스스로 설명한 뒤 바로 풀기)을 붙입니다."});
+  if(r.entrenched.length)list.push({sym:"자기는 맞다고 하는데 자꾸 틀려요.",read:"확신을 가지고 잘못 알고 있는 고착 오개념입니다. 설명만으로는 잘 바뀌지 않습니다.",rx:"‘"+(pc?esc(pc.short):"핵심 개념")+"’부터 반례·인지충돌로 ‘어, 왜 다르지?’를 먼저 만듭니다."});
+  if(r.A.efficacy<45&&r.concept>=55)list.push({sym:"할 수 있는데 ‘난 못해’라고 먼저 말해요.",read:"실제 개념 이해 대비 자신감(효능감)이 낮습니다. 능력보다 마음이 발목을 잡는 경우입니다.",rx:"난도를 잘게 쪼개 작은 성공을 자주 경험시키고, 무엇을 잘했는지 구체적으로 짚어 줍니다."});
+  if(r.approach.surf-r.approach.deep>=10)list.push({sym:"외우면 풀리는데 조금만 비틀면 막혀요.",read:"표층(암기) 학습에 의존하는 패턴입니다. 새로운 맥락에서 응용이 약해집니다.",rx:"‘왜 그런지’를 말로 설명하게 하고, 같은 원리의 변형 문제로 이해를 확인합니다."});
+  if(r.A.interest>=60&&r.metacog<50)list.push({sym:"좋아하긴 하는데 정리가 안 되고 들쭉날쭉해요.",read:"흥미는 높지만 자기 점검(메타인지)이 약합니다. 에너지는 충분한데 방향이 흩어집니다.",rx:"학습일지·주간 미니 테스트로 ‘안다고 느낀 것’과 ‘실제’를 분리해 점검합니다."});
+  if(!list.length){var g=topGapSig(r,top.key);list.push({sym:"지금 무엇을 더 해야 할까요?",read:trackShort(top.name)+" 방향에서 "+SIGLAB[g]+" 보완이 핵심입니다.",rx:SIGNEXT[g]});}
+  return list.slice(0,2);
+}
+function counselHTML(r){
+  var top=trackScores(r)[0],pc=prioConcept(r),st=execStrong(r),ti=TYPE_INFO[r.type.code]||{tag:""},gsig=topGapSig(r,top.key);
+  var nm=r.name?esc(pname(r.name,"는")):"학생은",tag=ti.tag||"",firstStep=pc?('‘'+esc(pc.short)+'’ 개념 교정'):(SIGLAB[gsig]+" 보완");
+  var script='안녕하세요, '+(r.name?esc(r.name)+' ':'')+'학부모님. '+nm+' '+esc(r.type.name)+' 유형입니다'+(tag?(' — '+esc(tag)+'.'):'.')+' 지금은 '+esc(st[0])+josa(st[0],"이","가")+' 가장 두드러지고, '+(pc?('‘'+esc(pc.short)+'’ 개념을 먼저 바로잡으면 크게 도약할 수 있습니다.'):'개념 토대도 비교적 탄탄합니다.')+' 저희는 시험 점수보다 '+esc(trackShort(top.name))+' 방향으로 가는 다년 성장 경로를 함께 봅니다. 다음 한 걸음은 '+esc(firstStep)+'입니다.';
+  var cases=caseList(r).map(function(c){return '<div class="casebox"><div class="csym">“'+esc(c.sym)+'”</div><div class="cread"><b>해석</b> '+c.read+'</div><div class="crx"><b>처방</b> '+c.rx+'</div></div>';}).join("");
+  return '<div class="card pad block counsel only-teacher"><div class="bh"><span class="kicker cob"><span class="dot"></span>상담 노트 · 강사용</span><span class="sub">학부모 상담에 그대로</span></div><h4>학부모 상담 스크립트</h4><blockquote class="script">'+script+'</blockquote><h4 style="margin-top:16px">자주 보는 장면 · 이렇게 읽습니다</h4>'+cases+'</div>';
+}
+function onepagerHTML(r){
+  var top=trackScores(r)[0],pc=prioConcept(r),st=execStrong(r),ap=weakApproach(r),gsig=topGapSig(r,top.key);
+  var nexts=[pc?('‘'+esc(pc.short)+'’ 개념 교정(실험·반례)'):'개념 강점 심화',APPRTXT[ap],esc(SIGNEXT[gsig])];
+  var rel=r.dq.flag==="good"?'<span class="rbad ok">신뢰도 양호</span>':'<span class="rbad warn">신뢰도 주의</span>';
+  return '<div class="card pad block onepager hide-student"><div class="bh"><span class="kicker"><span class="dot"></span>한 장 요약</span><span class="sub noprint">상담석에 그대로 출력</span></div>'+
+   '<div class="opgrid">'+
+     '<div class="opcell"><span class="oplab">유형</span><b>'+esc(r.type.name)+'</b><span class="opsub">'+esc(r.type.display)+'</span></div>'+
+     '<div class="opcell"><span class="oplab">권장 방향</span><b>'+esc(trackShort(top.name))+'</b><span class="opsub">적합도 '+top.fit+' · '+top.level+'</span></div>'+
+     '<div class="opcell"><span class="oplab">강점</span><b>'+esc(st[0])+'</b><span class="opsub">'+st[1]+'점</span></div>'+
+     '<div class="opcell"><span class="oplab">최우선</span><b>'+(pc?esc(pc.short):'강점 심화')+'</b><span class="opsub">'+(pc?(pc.ent?'확신 오류 교정':'개념 채우기'):'개념 양호')+'</span></div>'+
+   '</div><div class="opnext"><b>다음 단계</b><ol>'+nexts.map(function(x){return '<li>'+x+'</li>';}).join("")+'</ol></div><div class="oprel">'+rel+' · 총 소요 '+mmss(r.dq.elapsed)+'</div></div>';
+}
+
+
+function spectrumHTML(r){
+  var rows=["lens","think","drive","approach"].map(function(ax){
+    var P=AXPOLE[ax],L=r.axes[ax][P[0]]||0,Rr=r.axes[ax][P[1]]||0,tot=(L+Rr)||1,posR=Math.round(Rr/tot*100),win=L>=Rr?P[0]:P[1];
+    return '<div class="spec"><div class="specends"><span class="'+(win===P[0]?"on":"")+'">'+POLEFULL[P[0]]+'</span><span class="axn">'+AXNAME[ax]+'</span><span class="'+(win===P[1]?"on":"")+'">'+POLEFULL[P[1]]+'</span></div>'+
+      '<div class="spbar"><span class="spfill" style="width:'+posR+'%"></span><span class="spdot" style="left:'+posR+'%"></span></div>'+
+      '<div class="spnums"><span>'+L+'/5</span><span>'+Rr+'/5</span></div></div>';
+  }).join("");
+  return '<div class="specwrap"><h4>네 축 위치 · 양극 스펙트럼</h4><p class="specnote">어느 쪽이 더 좋은 게 아니라 <b>성향의 방향</b>입니다.</p>'+rows+'</div>';
+}
+function engineLogicHTML(){
+  var pts=[
+   "양극 점수는 <b>우열이 아니라 방향</b>입니다 — 겉/속, 직관/분석은 어느 쪽이 더 좋은 게 아닙니다.",
+   "강한 신호는 학습의 <b>입구</b>로, 과하게 높은 신호는 <b>관리 대상</b>으로 읽습니다(높다고 무조건 좋은 것은 아닙니다).",
+   "진학 트랙 적합도는 흥미·개념·사고 성향을 <b>가중 평균</b>한 상대 지표이며, 합격 가능성이 아니라 방향입니다.",
+   "응답 신뢰도가 ‘주의’면 결과를 단정하지 않고 <b>실제 수행과 함께</b> 봅니다."
+  ];
+  return '<div class="elogic"><b class="eltt">점수를 읽는 법</b><ul>'+pts.map(function(x){return '<li>'+x+'</li>';}).join("")+'</ul></div>';
+}
+
+
+function backupSubmission(r,answers,meta,url){try{
+  var KEY="kmchc_submissions",raw=localStorage.getItem(KEY),arr=raw?JSON.parse(raw):[];if(!Array.isArray(arr))arr=[];
+  arr.push({ts:Date.now(),name:meta.name||"",grade:meta.grade||"",type:r.type.code,typeName:r.type.name,
+    interest:r.A.interest,efficacy:r.A.efficacy,calm:r.A.calm,value:r.A.value,deep:r.approach.deep,surf:r.approach.surf,metacog:r.metacog,concept:r.concept,
+    elapsed:meta.elapsed,dq:r.dq.flag,url:url||"",ans:serialize(answers,meta)});
+  if(arr.length>100)arr=arr.slice(arr.length-100);
+  localStorage.setItem(KEY,JSON.stringify(arr));
+}catch(e){}}
+function backupCount(){try{var raw=localStorage.getItem("kmchc_submissions");if(!raw)return 0;var a=JSON.parse(raw);return Array.isArray(a)?a.length:0;}catch(e){return 0;}}
+function exportBackupCSV(){try{
+  var raw=localStorage.getItem("kmchc_submissions");if(!raw){alert("이 기기에 저장된 제출 기록이 없습니다.");return;}
+  var arr=JSON.parse(raw);if(!arr||!arr.length){alert("저장된 제출 기록이 없습니다.");return;}
+  var cols=["ts","name","grade","type","typeName","interest","efficacy","calm","value","deep","surf","metacog","concept","elapsed","dq","url","ans"];
+  var head=["시각","이름","학년","유형","유형명","흥미","효능감","정서안정","가치","심층","표층","메타인지","개념직관","소요(초)","데이터품질","리포트링크","응답원본"];
+  function cell(v){v=String(v==null?"":v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+  var rows=[head.join(",")];arr.forEach(function(o){rows.push(cols.map(function(c){return cell(c==="ts"?new Date(o.ts).toISOString():o[c]);}).join(","));});
+  var blob=new Blob(["\ufeff"+rows.join("\n")],{type:"text/csv;charset=utf-8"}),a=document.createElement("a"),u=URL.createObjectURL(blob);
+  a.href=u;a.download="화학진단_백업_"+arr.length+"건.csv";document.body.appendChild(a);a.click();setTimeout(function(){try{URL.revokeObjectURL(u);a.remove();}catch(e){}},600);
+}catch(e){alert("내보내기 오류: "+(e&&e.message||e));}}
+try{window.__exportBackup=exportBackupCSV;}catch(e){}
+
+
+function peerBandHTML(r){
+  var raw=null;try{raw=localStorage.getItem("kmchc_submissions");}catch(e){}
+  var arr=[];try{arr=raw?JSON.parse(raw):[];}catch(e){arr=[];}
+  if(!Array.isArray(arr)||arr.length<5)return '<div class="tmrow tmpeer"><b>또래 위치</b> 표본 부족 — 이 기기에서 5명 이상 제출되면 또래 대비 위치를 보여 줍니다. (현재 '+(Array.isArray(arr)?arr.length:0)+'명)</div>';
+  var mets=[["개념직관","concept",r.concept],["흥미","interest",r.A.interest],["심층","deep",r.approach.deep]];
+  function bd(top){return top<=25?["상위권","var(--emerald)"]:top<=50?["중상위","var(--teal)"]:top<=75?["중하위","var(--amber)"]:["하위권","var(--rose)"];}
+  var rows=mets.map(function(m){var vals=arr.map(function(o){return o[m[1]];}).filter(function(v){return typeof v==="number"&&isFinite(v);});
+    if(vals.length<5)return "";
+    var below=vals.filter(function(v){return v<m[2];}).length,top=Math.round((1-below/vals.length)*100),b=bd(top);
+    return '<span class="peer"><i style="background:'+b[1]+'"></i>'+m[0]+' 상위 '+top+'% <em>'+b[0]+'</em></span>';
+  }).filter(Boolean).join("");
+  return '<div class="tmrow tmpeer"><b>또래 위치</b> (이 기기 '+arr.length+'명 기준) '+rows+'</div>';
+}
+function teacherMemoHTML(r){
+  var top=trackScores(r)[0],pc=prioConcept(r),ap=weakApproach(r),gsig=topGapSig(r,top.key);
+  var ent=(r.entrenched||[]).map(function(k){return (CLUSTERS[k]||{nm:k}).nm.split(" — ")[0];});
+  var dqBad=r.dq.flag!=="good";
+  var actions=[pc?('‘'+esc(pc.short)+'’ '+(pc.ent?'반례로 인지충돌(고착 교정)':'기초부터 채우기')):'개념 강점 심화',APPRTXT[ap],esc(SIGNEXT[gsig])];
+  return '<div class="card pad block only-teacher tmemo">'+
+    '<div class="bh"><span class="kicker cob"><span class="dot"></span>강사 운영 메모</span><span class="sub">강사 뷰에서만 보입니다</span></div>'+
+    '<div class="tmrow"><b>진단</b> '+esc(r.type.display)+' · '+esc(r.type.name)+' → 권장 '+esc(trackShort(top.name))+' (적합도 '+top.fit+' · '+top.level+')</div>'+
+    (dqBad?'<div class="tmwarn">⚠ 응답 신뢰도 ‘주의’ — 결과를 단정하지 말고 실제 수업·과제 수행과 함께 볼 것</div>':'')+
+    '<div class="tmrow"><b>다음 수업 액션</b><ol>'+actions.map(function(x){return '<li>'+x+'</li>';}).join("")+'</ol></div>'+
+    (ent.length?'<div class="tmrow"><b>고착 · 최우선 교정</b> '+ent.map(esc).join(", ")+'</div>':'')+
+    peerBandHTML(r)+
+    '<div class="tmrow tmbackup"><b>백업</b> 이 기기 저장 '+backupCount()+'건 <button type="button" class="btn ghost" data-act="exportbk" style="padding:8px 14px;font-size:12px;margin-left:6px">CSV 내보내기</button></div>'+
+    '</div>';
+}
+
 function renderReport(r){
   var ti=TYPE_INFO[r.type.code]||{tag:"",str:[],cau:[],rx:""};
   var nm=r.name||"학생";
@@ -615,21 +928,22 @@ function renderReport(r){
   var dq = r.dq.flag==="good"
     ? '<div class="dq good">✓ 성실하게 응답했습니다. 결과를 신뢰할 수 있어요.</div>'
     : '<div class="dq caution">참고: 일부 문항에서 빠르거나 일관되지 않은 응답이 보였어요. 더 정확한 결과를 원하면 차분히 다시 풀어보는 것도 좋습니다.</div>';
-  var lead=esc(nm)+esc(josa(nm,"은","는"))+' 화학을 '+(r.A.interest>=60?"즐기고 ":"")+(r.A.efficacy>=60?'"하면 된다"는 자신감을 가진 ':(r.A.efficacy<=40?"아직 자신감을 더 키우면 좋은 ":""))+'학생입니다. 아래에서 사고 성향과 화학 직관 지도를 확인하세요.';
+  var lead=esc(r.name?pname(r.name,"\ub294"):"\uc774 \ud559\uc0dd\uc740")+' 화학을 '+(r.A.interest>=60?"즐기고 ":"")+(r.A.efficacy>=60?'"하면 된다"는 자신감을 가진 ':(r.A.efficacy<=40?"아직 자신감을 더 키우면 좋은 ":""))+'학생입니다. 아래에서 사고 성향과 화학 직관 지도를 확인하세요.';
   var h='<div class="card pad">'+
     '<div class="repHero">'+
       '<div class="elem"><div><div class="enum">CHEMISTRY LEARNER TYPE</div><div class="sym">'+esc(r.type.display)+'</div></div><div><div class="nm">'+esc(r.type.name)+'</div><div class="tg">'+esc(ti.tag)+'</div></div></div>'+
       '<div class="repHead"><span class="stamp">◆ '+esc(r.grade||"학생")+' · 화학 학습 프로파일</span>'+
-        '<h2>'+esc(nm)+esc(josa(nm,"은","는"))+'<br>'+esc(r.type.name)+'입니다</h2>'+
+        '<h2>'+esc(r.name?pname(r.name,"\ub294"):"\uc774 \ud559\uc0dd\uc740")+'<br>'+esc(r.type.name)+'입니다</h2>'+
         '<p>'+lead+'</p>'+dq+'</div>'+
     '</div></div>'+
-    '<div class="card pad block"><div class="bh"><span class="ix2">01</span><h3>화학 학습 레이더</h3><span class="sub">여섯 축으로 본 지금의 모습</span></div>'+
-      '<div class="radarWrap"><div>'+radarSVG(vals,labels)+'</div><div class="radarLegend">'+rl("흥미",r.A.interest)+rl("자신감",r.A.efficacy)+rl("정서 안정",r.A.calm)+rl("가치",r.A.value)+rl("학습 깊이",r.approach.deep)+rl("개념 직관",r.concept)+'</div></div></div>'+
+    execHTML(r)+'<div class="card pad block"><div class="bh"><span class="ix2">01</span><h3>화학 학습 레이더</h3><span class="sub">여섯 축으로 본 지금의 모습</span></div>'+
+      '<div class="radarWrap"><div>'+radarSVG(vals,labels)+'</div><div class="radarLegend">'+rl("흥미",r.A.interest)+rl("자신감",r.A.efficacy)+rl("정서 안정",r.A.calm)+rl("가치",r.A.value)+rl("학습 깊이",r.approach.deep)+rl("개념 직관",r.concept)+'</div></div>'+radarReadHTML(r)+'</div>'+
     '<div class="card pad block"><div class="bh"><span class="ix2">02</span><h3>'+esc(r.type.display)+' · '+esc(r.type.name)+'</h3><span class="sub">네 축이 만든 사고 성향</span></div>'+
-      '<div class="cols2"><div class="mc"><h4>강점</h4><ul>'+ti.str.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div><div class="mc"><h4>지켜볼 점</h4><ul>'+ti.cau.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div></div>'+
-      '<div class="mc" style="margin-top:14px;border-color:#0e7a6e2e"><h4>이 유형을 위한 학습 처방</h4><p>'+esc(ti.rx)+'</p></div></div>'+
-    '<div id="reportMore">'+intuitionHTML(r)+parentHTML(r)+methodHTML(r)+'<p class="repfoot">화학 학습유형 · 오개념 정밀진단 · 조준모 — 다원교육</p></div>';
-  $("#report").innerHTML=h;
+      '<p class="tdesc">'+esc(ti.desc||"")+'</p><div class="cols2"><div class="mc"><h4>강점</h4><ul>'+ti.str.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div><div class="mc"><h4>지켜볼 점</h4><ul>'+ti.cau.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div></div>'+
+      '<div class="mc" style="margin-top:14px;border-color:#0e7a6e2e"><h4>이 유형을 위한 학습 처방</h4><p>'+esc(ti.rx)+'</p></div>'+spectrumHTML(r)+axisLogicHTML(r)+'</div>'+
+    '<div id="reportMore">'+intuitionHTML(r)+crossHTML(r)+trackHTML(r)+roadmapHTML(r)+parentHTML(r)+reliabilityHTML(r)+methodHTML(r)+onepagerHTML(r)+counselHTML(r)+'<p class="repfoot">화학 학습유형 · 오개념 정밀진단 · 조준모 — 다원교육</p></div>';
+  var VIEWBAR='<div class="viewbar noprint" role="tablist" aria-label="보기 전환"><button type="button" role="tab" data-view="parent" class="on">학부모</button><button type="button" role="tab" data-view="teacher">강사</button><button type="button" role="tab" data-view="student">학생</button></div>';
+   $("#report").innerHTML=VIEWBAR+'<div id="reportView" class="view-parent">'+teacherMemoHTML(r)+h+'</div>';
 }
 
 var answers={};
@@ -641,10 +955,37 @@ function byId(id){for(var i=0;i<ITEMS.length;i++){if(ITEMS[i].id===id)return ITE
 function checkStart(){var ok=$("#fName").value.trim()!==""&&$("#fGrade").value.trim()!==""&&$("#fConsent").checked;$("#startBtn").disabled=!ok;}
 ["#fName","#fGrade"].forEach(function(s){$(s).addEventListener("input",checkStart);});
 $("#fConsent").addEventListener("change",checkStart);
-$("#startBtn").addEventListener("click",function(){buildTest();$("#intro").style.display="none";$("#progress").style.display="block";$("#submitWrap").style.display="flex";window.__t0=Date.now();updateProgress();window.scrollTo({top:0,behavior:"smooth"});});
+$("#startBtn").addEventListener("click",function(){buildTest();$("#intro").style.display="none";$("#progress").style.display="block";$("#submitWrap").style.display="flex";window.__t0=Date.now();saveProgress();updateProgress();window.scrollTo({top:0,behavior:"smooth"});});
 $("#demoBtn").addEventListener("click",function(){runDemo();});
 $("#report").addEventListener("click",onReportClick);
-restoreFromHash();
+var LS_KEY="kmchc_progress_v1";
+function saveProgress(){try{localStorage.setItem(LS_KEY,JSON.stringify({v:1,answers:answers,name:$("#fName").value.trim(),grade:$("#fGrade").value.trim(),t0:window.__t0||Date.now(),ts:Date.now()}));}catch(e){}}
+function clearProgress(){try{localStorage.removeItem(LS_KEY);}catch(e){}}
+function loadProgress(){try{var raw=localStorage.getItem(LS_KEY);if(!raw)return null;var d=JSON.parse(raw);if(!d||d.v!==1||!d.answers)return null;var c=0,k;for(k in d.answers)c++;return c>0?d:null;}catch(e){return null;}}
+function restoreProgress(saved){
+  $("#fName").value=saved.name||"";$("#fGrade").value=saved.grade||"";
+  var kk;for(kk in answers)delete answers[kk];for(kk in saved.answers)answers[kk]=saved.answers[kk];
+  buildTest();
+  ITEMS.forEach(function(it){var a=answers[it.id];if(a==null)return;var q=$('[data-qid="'+it.id+'"]');if(!q||!q.querySelectorAll)return;
+    function mark(grp,val,byV){var bs=q.querySelectorAll('[data-k="'+grp+'"]');for(var i=0;i<bs.length;i++){var b=bs[i],ok=byV?(+b.getAttribute("data-v")===val):(+b.getAttribute("data-i")===val);if(ok){selIn(b);break;}}}
+    if(it.block==="A"||it.block==="D"||it.block==="CHK"){if(typeof a==="number")mark("likert",a,true);}
+    else if(it.block==="B"){if(typeof a==="number")mark("choice",a,false);}
+    else if(it.block==="C"){if(a&&typeof a.t1==="number"){mark("t1",a.t1,false);refreshC(q,it);if(typeof a.t2==="number")mark("t2",a.t2,false);if(typeof a.conf==="number")mark("conf",a.conf,true);}}
+    if(q.classList)q.classList.toggle("done",isAnswered(it));});
+  window.__t0=saved.t0||Date.now();
+  $("#intro").style.display="none";$("#progress").style.display="block";$("#submitWrap").style.display="flex";
+  updateProgress();window.scrollTo({top:0,behavior:"auto"});
+}
+function offerResume(){
+  var saved=loadProgress();if(!saved)return;
+  var c=0,k;for(k in saved.answers)c++;var when="";try{when=new Date(saved.ts).toLocaleDateString("ko-KR");}catch(e){}
+  var html='<div class="card pad resume noprint" style="margin-bottom:14px"><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="kicker"><span class="dot"></span>이어서 풀기</span><span style="font-size:13.5px;color:var(--ink-2);flex:1;min-width:200px">저장된 진행이 있어요 — '+(saved.name?esc(saved.name)+" · ":"")+c+'문항까지 작성됨'+(when?(" · "+esc(when)):"")+'</span><button class="btn" data-act="resume" style="padding:11px 18px;font-size:13px">이어서 풀기</button><button class="btn ghost" data-act="freshstart" style="padding:11px 18px;font-size:13px">새로 시작</button></div></div>';
+  var intro=$("#intro");if(!intro)return;
+  intro.insertAdjacentHTML("afterbegin",html);
+  intro.addEventListener("click",function(e){var b=e.target&&e.target.closest&&e.target.closest("[data-act]");if(!b)return;var act=b.getAttribute("data-act");if(act==="resume"){restoreProgress(saved);}else if(act==="freshstart"){clearProgress();var bn=intro.querySelector&&intro.querySelector(".resume");if(bn&&bn.remove)bn.remove();}});
+}
+
+if(!restoreFromHash()){offerResume();}
 
 /* 렌더 */
 function buildTest(){
@@ -663,27 +1004,27 @@ function renderItem(it,n){
   var body="";
   if(it.block==="A"||it.block==="D"||it.block==="CHK"){
     body='<div class="likert opts">';
-    for(var v=1;v<=5;v++){body+='<button type="button" class="opt" data-k="likert" data-v="'+v+'"><span class="n">'+v+'</span><span>'+LIKERT[v-1]+'</span></button>';}
+    for(var v=1;v<=5;v++){body+='<button type="button" aria-pressed="false" class="opt" data-k="likert" data-v="'+v+'"><span class="n">'+v+'</span><span>'+LIKERT[v-1]+'</span></button>';}
     body+='</div>';
   }else if(it.block==="B"){
     body='<div class="choice opts">';
-    it.o.forEach(function(o,i){body+='<button type="button" class="opt" data-k="choice" data-i="'+i+'" data-lbl="'+(i===0?"ⓐ":"ⓑ")+'">'+esc(o.t)+'</button>';});
+    it.o.forEach(function(o,i){body+='<button type="button" aria-pressed="false" class="opt" data-k="choice" data-i="'+i+'" data-lbl="'+(i===0?"ⓐ":"ⓑ")+'">'+esc(o.t)+'</button>';});
     body+='</div>';
   }else if(it.block==="C"){
     var labs=["A","B","C","D","E"];
     body='<div class="tier opts" data-grp="t1">';
-    it.t1.forEach(function(o,i){body+='<button type="button" class="opt" data-k="t1" data-i="'+i+'" data-lbl="'+labs[i]+'">'+esc(o.t)+'</button>';});
+    it.t1.forEach(function(o,i){body+='<button type="button" aria-pressed="false" class="opt" data-k="t1" data-i="'+i+'" data-lbl="'+labs[i]+'">'+esc(o.t)+'</button>';});
     body+='</div>';
     if(it.t2){body+='<div class="tier2"><div class="t2lab">'+esc(it.t2lab||"그렇게 생각한 이유는?")+'</div><div class="tier opts" data-grp="t2">';
-      it.t2.forEach(function(o,i){body+='<button type="button" class="opt" data-k="t2" data-i="'+i+'" data-lbl="'+labs[i]+'">'+esc(o.t)+'</button>';});
+      it.t2.forEach(function(o,i){body+='<button type="button" aria-pressed="false" class="opt" data-k="t2" data-i="'+i+'" data-lbl="'+labs[i]+'">'+esc(o.t)+'</button>';});
       body+='</div></div>';}
     if(it.conf){body+='<div class="confbox"><div class="t2lab">이 답에 얼마나 확신하나요?</div><div class="confrow opts" data-grp="conf">';
-      CONF.forEach(function(c,i){body+='<button type="button" class="opt" data-k="conf" data-v="'+(i+1)+'">'+esc(c)+'</button>';});
+      CONF.forEach(function(c,i){body+='<button type="button" aria-pressed="false" class="opt" data-k="conf" data-v="'+(i+1)+'">'+esc(c)+'</button>';});
       body+='</div></div>';}
   }
   return '<div class="q" data-qid="'+it.id+'">'+head+body+'</div>';
 }
-function selIn(btn){var g=btn.closest(".opts");if(!g)return;g.querySelectorAll(".opt").forEach(function(b){b.classList.remove("sel");});btn.classList.add("sel");}
+function selIn(btn){var g=btn.closest(".opts");if(!g)return;g.querySelectorAll(".opt").forEach(function(b){b.classList.remove("sel");b.setAttribute("aria-pressed","false");});btn.classList.add("sel");btn.setAttribute("aria-pressed","true");}
 function onClick(e){
   var btn=e.target.closest(".opt"); if(!btn)return;
   var q=btn.closest(".q"); if(!q)return;
@@ -695,13 +1036,14 @@ function onClick(e){
   else if(k==="conf"){if(typeof answers[it.id]!=="object"||!answers[it.id])answers[it.id]={};answers[it.id].conf=+btn.getAttribute("data-v");selIn(btn);}
   q.classList.toggle("done",isAnswered(it));
   updateProgress();
+  saveProgress();
 }
 function refreshC(q,it){
   var a=answers[it.id]||{}; var has1=typeof a.t1==="number"; var uns=has1&&it.t1[a.t1].u;
   var t2box=q.querySelector(".tier2"), cbox=q.querySelector(".confbox");
-  if(t2box){ if(has1&&!uns){t2box.classList.add("show");} else {t2box.classList.remove("show"); if(a.t2!=null){a.t2=undefined; t2box.querySelectorAll(".opt").forEach(function(b){b.classList.remove("sel");});}} }
+  if(t2box){ if(has1&&!uns){t2box.classList.add("show");} else {t2box.classList.remove("show"); if(a.t2!=null){a.t2=undefined; t2box.querySelectorAll(".opt").forEach(function(b){b.classList.remove("sel");b.setAttribute("aria-pressed","false");});}} }
   var baseDone = it.t2 ? (typeof a.t2==="number") : has1;
-  if(cbox){ if(has1&&!uns&&baseDone){cbox.classList.add("show");} else {cbox.classList.remove("show"); if(a.conf!=null){a.conf=undefined; cbox.querySelectorAll(".opt").forEach(function(b){b.classList.remove("sel");});}} }
+  if(cbox){ if(has1&&!uns&&baseDone){cbox.classList.add("show");} else {cbox.classList.remove("show"); if(a.conf!=null){a.conf=undefined; cbox.querySelectorAll(".opt").forEach(function(b){b.classList.remove("sel");b.setAttribute("aria-pressed","false");});}} }
 }
 function isAnswered(it){
   var a=answers[it.id];
@@ -717,7 +1059,7 @@ function isAnswered(it){
 function answeredCount(){var c=0;ITEMS.forEach(function(it){if(isAnswered(it))c++;});return c;}
 function updateProgress(){
   var c=answeredCount(),tot=ITEMS.length,p=Math.round(c/tot*100);
-  $("#pctText").textContent=c+" / "+tot;$("#pctNum").textContent=p+"%";$("#pctFill").style.width=p+"%";
+  $("#pctText").textContent=c+" / "+tot;$("#pctNum").textContent=p+"%";$("#pctFill").style.width=p+"%";var pbar=$("#pbar");if(pbar)pbar.setAttribute("aria-valuenow",p);
   var done=c===tot; $("#submitBtn").disabled=!done;
   var w=$("#warnLeft");
   if(!done){w.style.display="block";w.textContent="아직 "+(tot-c)+"문항이 남았어요. 모두 답하면 결과가 열립니다.";}
@@ -728,6 +1070,8 @@ $("#submitBtn").addEventListener("click",function(){
   if(c!==ITEMS.length){var first=null;ITEMS.forEach(function(it){if(!first&&!isAnswered(it))first=it;});if(first){var el=$('[data-qid="'+first.id+'"]');if(el)el.scrollIntoView({behavior:"smooth",block:"center"});}return;}
   var meta={name:$("#fName").value.trim(),grade:$("#fGrade").value.trim(),elapsed:Math.round((Date.now()-(window.__t0||Date.now()))/1000)};
   var r=computeResults(answers,meta); window.__results=r; window.__shareURL=buildShareURL(answers,meta); sendToSheet(r,answers,meta);
+  clearProgress();
+  backupSubmission(r,answers,meta,window.__shareURL);
   runTransition(function(){renderReport(r);});
 });
 })();
