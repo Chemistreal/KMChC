@@ -247,6 +247,7 @@ body.fxreveal .card.fx-rev.fx-in{opacity:1;transform:none;filter:none}
   <h1 style="margin:.18em 0 .1em">화학 학습 진단 리포트</h1>
   <div id="repName" class="who" style="font-size:15px;font-weight:600;min-height:1.2em"></div>
   <div class="who" style="font-size:12px;opacity:.72">학부모님께 드리는 종합 분석 · 트랙 이름을 누르면 해설이 펼쳐집니다</div>
+  <a id="toAnswers" class="who" href="#" style="display:inline-block;margin-top:8px;font-size:12px;color:var(--teal-d);text-decoration:none;border:1px solid var(--line-2);border-radius:999px;padding:4px 13px">문항별 응답 보기 →</a>
 </div>
 <div class="wrap" style="max-width:760px;margin:0 auto;padding:0 14px 64px">
   <div id="report"></div>
@@ -1057,7 +1058,7 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
  try{ gr=decodeURIComponent(gr); }catch(e){}
  var rep=document.getElementById("report"), hn=document.getElementById("repName");
  if(nm&&hn){ hn.textContent=nm+" 학생"; }
- if(nm){ document.title=nm+" 학생 · 화학 학습 진단 리포트"; } try{var _h=document.querySelector(".masthead h1");if(_h)_h.classList.add("fx-grad-text");}catch(e){}
+ if(nm){ document.title=nm+" 학생 · 화학 학습 진단 리포트"; } try{var _h=document.querySelector(".masthead h1");if(_h)_h.classList.add("fx-grad-text");}catch(e){} try{var _ta=document.getElementById("toAnswers"); if(_ta)_ta.href="answers.html"+location.search;}catch(e){}
  if(!d){ rep.innerHTML='<div style="text-align:center;color:var(--muted);padding:44px 16px;font-size:14px;line-height:1.7">리포트 데이터가 없습니다.<br>선생님께 받은 링크로 다시 열어 주세요.</div>'; return; }
  var ans=null;
  try{ ans=JSON.parse(decodeURIComponent(escape(atob(d.replace(/\s+/g,""))))); }

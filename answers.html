@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#F4EFE6"><title>문항별 응답 기록</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{
+ --paper:#F4EFE6;--paper-2:#FBF8F1;--paper-3:#EFE7D6;
+ --ink:#1C1812;--ink-2:#403A30;--ink-soft:#2A241B;--muted:#857B6B;--grey:#9A917F;
+ --line:#E6DECF;--line-2:#D6CAB3;
+ --teal:#0E7A6E;--teal-d:#0A5C53;--cobalt:#2A5470;--amber:#BD7A12;--rose:#B23A6B;--emerald:#2E7D5B;
+ --gold:#A07E2B;--gold-2:#C9A24B;--gold-deep:#7A5E1C;
+ --serif:"Hahmlet",serif;--sans:"IBM Plex Sans KR",sans-serif;--mono:"IBM Plex Mono",monospace;
+ --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;position:relative;background:radial-gradient(120% 78% at 50% -12%,#FBF7EE 0%,var(--paper) 56%) fixed}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:rgba(201,162,75,.28);color:var(--ink)}
+body::-webkit-scrollbar{width:11px;height:11px}body::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--paper);border-radius:999px}body::-webkit-scrollbar-track{background:transparent}
+
+.wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:24px 16px 64px}
+
+.masthead{position:relative;border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:10px;animation:fadeUp .6s var(--ease) both}
+.masthead::after{content:"";position:absolute;left:0;bottom:-5px;width:64px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-2))}
+.masthead .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+.masthead h1{font-family:var(--serif);font-weight:500;font-size:27px;margin:8px 0 3px;letter-spacing:-.015em;line-height:1.1}
+.masthead .who{font-family:var(--mono);color:var(--muted);font-size:11.5px;letter-spacing:.02em}
+
+.screen{display:none}.screen.on{display:block;animation:screenIn .55s var(--ease)}
+@keyframes screenIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes shimmer{0%{transform:translateX(-130%)}60%,100%{transform:translateX(240%)}}
+
+#introScreen.on>*{opacity:0;animation:fadeUp .6s var(--ease) forwards}
+#introScreen.on>*:nth-child(1){animation-delay:.05s}
+#introScreen.on>*:nth-child(2){animation-delay:.12s}
+#introScreen.on>*:nth-child(3){animation-delay:.19s}
+#introScreen.on>*:nth-child(4){animation-delay:.26s}
+#introScreen.on>*:nth-child(5){animation-delay:.33s}
+#introScreen.on>*:nth-child(6){animation-delay:.40s}
+#introScreen.on>*:nth-child(7){animation-delay:.47s}
+.intro p.lead{font-family:var(--serif);font-style:italic;color:var(--ink-2);font-size:16px;line-height:1.5;margin:16px 0 18px}
+
+.field{margin:15px 0}
+.field label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.field input{width:100%;padding:12px 13px;border:1px solid var(--line-2);border-radius:11px;font:inherit;font-size:15px;background:#fff;transition:border-color .18s,box-shadow .18s}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(160,126,43,.16)}
+.grades{display:flex;gap:8px;flex-wrap:wrap}
+.gbtn{flex:1;min-width:60px;padding:12px 8px;border:1px solid var(--line-2);background:#fff;border-radius:11px;font:inherit;font-weight:500;cursor:pointer;transition:transform .14s,box-shadow .2s,border-color .18s}
+.gbtn:hover{transform:translateY(-1px);border-color:var(--gold-2);box-shadow:0 4px 12px -7px rgba(28,24,18,.4)}
+.gbtn.sel{background:linear-gradient(180deg,var(--teal),var(--teal-d));color:#fff;border-color:var(--teal-d);transform:none;box-shadow:0 3px 10px -3px rgba(14,122,110,.5),inset 0 1px 0 rgba(255,255,255,.18)}
+
+.progress{position:sticky;top:0;z-index:6;background:rgba(244,239,230,.82);-webkit-backdrop-filter:blur(8px) saturate(1.1);backdrop-filter:blur(8px) saturate(1.1);padding:13px 0 10px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.pbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.09)}
+.pbar>div{position:relative;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--teal-d));transition:width .45s cubic-bezier(.3,.8,.3,1);overflow:hidden}
+.pbar>div::after{content:"";position:absolute;inset:0;transform:translateX(-130%);background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);animation:shimmer 2.4s ease-in-out infinite}
+.pcount{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px;text-align:right;letter-spacing:.05em}
+
+.q{position:relative;background:linear-gradient(180deg,var(--paper-2),#F8F3EA);border:1px solid var(--line);border-radius:14px;padding:16px 16px 18px;margin:14px 0;box-shadow:0 1px 2px rgba(28,24,18,.04)}
+.qtext{font-size:15.5px;font-weight:500;margin-bottom:12px;color:var(--ink);line-height:1.45}
+.opts{display:flex;gap:7px;flex-wrap:wrap}.opts.col{flex-direction:column}.opts.wrap{flex-wrap:wrap}
+.opts.likert .opt{flex:1;min-width:52px;text-align:center;padding:10px 4px;font-family:var(--mono);font-weight:500;font-size:13px}
+.opt{position:relative;border:1px solid var(--line-2);background:#fff;color:var(--ink-2);border-radius:10px;padding:10px 12px;font:inherit;font-size:12.5px;cursor:pointer;line-height:1.35;transition:transform .12s,background .18s,border-color .18s,color .18s,box-shadow .18s}
+.opt:hover{border-color:var(--gold-2);box-shadow:0 2px 9px -5px rgba(28,24,18,.22)}
+.opt:active{transform:scale(.97)}
+.opt.wide{text-align:left;width:100%}.opt.chip{border-radius:999px}
+.opt.sel{background:linear-gradient(180deg,var(--teal),var(--teal-d));color:#fff;border-color:var(--teal-d);box-shadow:0 3px 11px -4px rgba(14,122,110,.45),inset 0 1px 0 rgba(255,255,255,.16)}
+.opt.wide.sel{box-shadow:0 3px 11px -4px rgba(14,122,110,.45),inset 3px 0 0 var(--gold-2)}
+.opts.conf .opt{flex:1}
+.ml .mlrow{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line)}
+.ml .mlrow:last-child{border-bottom:none}.mltext{font-size:13.5px;flex:1}.mlpick{display:flex;gap:6px;flex:0 0 auto}
+.mlbtn{border:1px solid var(--line-2);background:#fff;border-radius:9px;padding:7px 10px;font:inherit;font-size:11px;cursor:pointer;white-space:nowrap;transition:transform .12s,background .16s,border-color .16s,color .16s}
+.mlbtn:active{transform:scale(.96)}
+.mlbtn.most.sel{background:linear-gradient(180deg,var(--teal),var(--teal-d));color:#fff;border-color:var(--teal-d)}
+.mlbtn.least.sel{background:linear-gradient(180deg,#C24A7B,var(--rose));color:#fff;border-color:var(--rose)}
+.sublab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:13px 0 7px}
+.hint{font-size:12px;color:var(--muted);margin:0 0 8px}
+
+.btn{position:relative;overflow:hidden;background:linear-gradient(180deg,#2A241B,#15110B);color:var(--paper-2);border:none;border-radius:12px;padding:14px 18px;font:inherit;font-weight:600;letter-spacing:.02em;cursor:pointer;width:100%;margin-top:18px;box-shadow:0 2px 10px -4px rgba(28,24,18,.5),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .15s,box-shadow .22s}
+.btn::before{content:"";position:absolute;top:0;left:0;height:100%;width:42%;transform:translateX(-170%);background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);transition:transform .6s}
+.btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 9px 24px -10px rgba(28,24,18,.6)}
+.btn:hover:not(:disabled)::before{transform:translateX(320%)}
+.btn:active:not(:disabled){transform:translateY(0)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--ink-2);border:1px solid var(--line-2);font-weight:500;margin-top:10px;box-shadow:0 1px 3px -1px rgba(28,24,18,.12)}
+.btn.ghost::before{display:none}
+.btn.ghost:hover:not(:disabled){background:var(--paper-2);border-color:var(--gold-2);transform:translateY(-1px)}
+
+.vbar{display:flex;gap:4px;justify-content:center;width:fit-content;margin:0 auto 18px;padding:4px;background:var(--paper-3);border:1px solid var(--line-2);border-radius:999px;box-shadow:inset 0 1px 3px rgba(28,24,18,.07)}
+.vbtn{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.02em;padding:7px 16px;border-radius:999px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:color .18s,background .18s,box-shadow .18s}
+.vbtn:hover{color:var(--ink-2)}
+.vbtn.on{background:linear-gradient(180deg,#2A241B,#15110B);color:var(--paper-2);box-shadow:0 2px 7px -2px rgba(28,24,18,.5)}
+#report.rv-student .aud-no-student,#report.rv-student .aud-teacher{display:none}
+#report.rv-parent .aud-teacher{display:none}
+#report.rv-student .snap-track{display:none}
+
+.resume{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--paper-2),#F8F3EA);border:1px solid var(--line-2);border-radius:14px;padding:15px 16px 15px 19px;margin-bottom:18px;box-shadow:0 12px 32px -24px rgba(28,24,18,.55)}
+.resume::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold-2),var(--gold-deep))}
+.resume-t{font-size:13.5px;color:var(--ink-2);margin-bottom:11px}
+.resume-b{display:flex;gap:8px}.resume-b .btn{margin-top:0;flex:1}
+.repbar{display:flex;justify-content:flex-end;margin-bottom:10px}
+.repbar .btn{margin-top:0;width:auto;padding:8px 15px}
+
+.card{background:linear-gradient(180deg,var(--paper-2),#F8F3EA);border:1px solid var(--line);border-radius:16px;padding:20px 20px 22px;margin-top:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 1px 2px rgba(28,24,18,.05),0 18px 40px -28px rgba(28,24,18,.45);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 6px 14px -8px rgba(28,24,18,.2),0 28px 52px -30px rgba(28,24,18,.55)}
+.reveal-on .card{opacity:0;transform:translateY(22px)}
+.reveal-on .card.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+
+.bh{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}
+.bh .ix{font-family:var(--mono);font-size:12px;color:var(--gold-deep);font-weight:600;letter-spacing:.06em}
+.bh h3{font-family:var(--serif);font-weight:600;font-size:18.5px;margin:0;letter-spacing:-.01em}
+.bh .sub{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--muted);text-align:right;letter-spacing:.03em}
+
+.tcode{font-family:var(--serif);font-weight:600;font-size:34px;letter-spacing:.14em;line-height:1.1;background:linear-gradient(180deg,#7A5E1C,#C9A24B 46%,#8A6A22);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#7A5E1C}
+.snap{position:relative;overflow:hidden;box-shadow:0 18px 44px -26px rgba(28,24,18,.7),inset 0 0 0 1px rgba(201,162,75,.22)}
+.snap::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 80% at 82% -12%,rgba(201,162,75,.12),transparent 56%)}
+.snap::after{content:"";position:absolute;left:18px;right:18px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,162,75,.55),transparent)}
+.vbadge{box-shadow:0 1px 5px rgba(28,24,18,.22)}
+.reveal-on .card .poly-in{opacity:0;transform:scale(.72)}
+.reveal-on .card.in .poly-in{opacity:1;transform:none;transition:opacity .8s var(--ease) .12s,transform .8s var(--ease) .12s}
+.btn:focus-visible,.gbtn:focus-visible,.opt:focus-visible,.mlbtn:focus-visible,.vbtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.analyze{padding:54px 8px 60px;text-align:center;animation:fadeUp .5s var(--ease)}
+.az-orb{width:66px;height:66px;margin:0 auto 24px;position:relative}
+.az-orb::before,.az-orb::after{content:"";position:absolute;inset:0;border-radius:50%;border:2.5px solid transparent}
+.az-orb::before{border-top-color:var(--teal);border-right-color:var(--teal-d);animation:spin 1s linear infinite}
+.az-orb::after{inset:9px;border-bottom-color:var(--gold-2);border-left-color:var(--gold-deep);animation:spin 1.5s linear infinite reverse}
+.az-orb i{position:absolute;inset:22px;border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(14,122,110,.28),transparent 70%);animation:pulse 1.4s ease-in-out infinite}
+.az-title{font-family:var(--mono);font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;margin-bottom:6px}
+.az-sub{font-size:12px;color:var(--muted);margin-bottom:24px}
+.az-bar{width:200px;max-width:70%;height:4px;margin:2px auto 22px;background:var(--line);border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.08)}
+.az-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--gold-2))}
+.az-steps{max-width:282px;margin:0 auto;text-align:left}
+.az-step{font-size:13.5px;color:var(--muted);padding:10px 0 10px 30px;position:relative;opacity:.38;transition:opacity .45s,color .45s}
+.az-step::before{content:"";position:absolute;left:0;top:12px;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--line-2);background:#fff;transition:.35s}
+.az-step::after{content:"";position:absolute;left:5px;top:13px;width:6px;height:11px;border:2px solid var(--teal-d);border-top:0;border-left:0;transform:rotate(45deg) scale(0);opacity:0;transition:transform .3s,opacity .3s}
+.az-step.active{opacity:1;color:var(--ink-2)}
+.az-step.active::before{border-color:var(--teal);box-shadow:0 0 0 4px rgba(14,122,110,.1)}
+.az-step.done{opacity:1;color:var(--ink-2)}
+.az-step.done::before{border-color:var(--teal-d);background:rgba(14,122,110,.1);box-shadow:none}
+.az-step.done::after{transform:rotate(45deg) scale(1);opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.5;transform:scale(.9)}50%{opacity:1;transform:scale(1.05)}}
+
+@media (prefers-reduced-motion:reduce){
+ *,.card,.q,.btn,.opt,.gbtn{animation:none!important;transition:none!important}
+ #introScreen.on>*{opacity:1;transform:none}
+ .reveal-on .card{opacity:1;transform:none}
+ .reveal-on .card .poly-in{opacity:1;transform:none}
+ .pbar>div::after{display:none}
+ .az-orb::before,.az-orb::after,.az-orb i{animation:none}
+}
+@media print{
+ .vbar,.repbar,#printBtn,#introScreen,#testScreen{display:none!important}
+ body{background:#fff}body::before{display:none}
+ .wrap{max-width:none}
+ #reportScreen{display:block!important}
+ .reveal-on .card{opacity:1!important;transform:none!important}
+ .reveal-on .card .poly-in{opacity:1!important;transform:none!important}
+ .card{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border-color:var(--line-2)}
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ===================== Aurora Glass Premium FX (additive layer) ===================== */
+@media screen{
+:root{--fxblur:16px}
+body{position:relative}
+body::before{content:"";position:fixed;inset:-25vmax;z-index:-2;pointer-events:none;
+ background:
+  radial-gradient(38vmax 30vmax at 16% 10%, rgba(14,122,110,.42), transparent 60%),
+  radial-gradient(36vmax 28vmax at 86% 16%, rgba(42,84,112,.38), transparent 62%),
+  radial-gradient(42vmax 32vmax at 78% 90%, rgba(201,162,75,.34), transparent 60%),
+  radial-gradient(34vmax 28vmax at 10% 88%, rgba(178,58,107,.26), transparent 62%);
+ filter:blur(46px) saturate(118%);opacity:.5;animation:fxDrift 34s ease-in-out infinite alternate;will-change:transform}
+body::after{content:"";position:fixed;inset:-35vmax;z-index:-2;pointer-events:none;
+ background:conic-gradient(from 0deg, transparent 0%, rgba(46,125,91,.16) 18%, transparent 40%, rgba(42,84,112,.14) 62%, transparent 82%);
+ filter:blur(70px);opacity:.16;animation:fxSpin 70s linear infinite;will-change:transform}
+@keyframes fxDrift{to{transform:translate3d(2.5%,-2%,0) scale(1.07)}}
+@keyframes fxSpin{to{transform:rotate(360deg)}}
+/* frosted glass cards */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.44))!important;
+ -webkit-backdrop-filter:blur(var(--fxblur)) saturate(140%);backdrop-filter:blur(var(--fxblur)) saturate(140%);
+ border:1px solid rgba(255,255,255,.72)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 22px 46px -26px rgba(28,30,46,.45), 0 3px 12px -8px rgba(28,30,46,.22)!important;
+ transition:opacity .6s var(--ease),transform .55s var(--ease),box-shadow .55s var(--ease),filter .55s var(--ease)}
+.card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 30px 60px -28px rgba(14,122,110,.4), 0 6px 18px -8px rgba(42,84,112,.3)!important}
+/* type-code hero: flowing gradient + glow */
+.tcode{background:linear-gradient(100deg,var(--teal),var(--cobalt) 52%,var(--gold-2))!important;
+ background-size:220% auto!important;-webkit-background-clip:text!important;background-clip:text!important;
+ -webkit-text-fill-color:transparent!important;color:transparent!important;
+ filter:drop-shadow(0 3px 16px rgba(14,122,110,.32));animation:fxGrad 9s linear infinite}
+@keyframes fxGrad{to{background-position:220% center}}
+/* block-header accent bar (inside cards) */
+.card .bh{position:relative}
+.card .bh::before{content:"";position:absolute;left:-20px;top:.1em;bottom:.42em;width:3px;border-radius:3px;
+ background:linear-gradient(180deg,var(--teal),var(--cobalt));box-shadow:0 0 12px rgba(14,122,110,.4)}
+/* radar glow */
+.snap{box-shadow:0 22px 50px -26px rgba(14,122,110,.5), inset 0 0 0 1px rgba(201,162,75,.35)!important}
+.snap svg{overflow:visible}
+.snap .poly-in{filter:drop-shadow(0 0 7px rgba(14,122,110,.55))}
+/* validity badge glow */
+.vbadge{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+ box-shadow:0 2px 10px rgba(28,24,18,.18), inset 0 0 0 1px rgba(255,255,255,.5), 0 4px 16px -6px rgba(14,122,110,.35)!important}
+/* view-toggle glass */
+.vbar{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+ background:rgba(255,255,255,.42)!important;border:1px solid rgba(255,255,255,.6);
+ box-shadow:0 8px 24px -14px rgba(28,30,46,.45)!important}
+.vbtn.on{box-shadow:0 4px 14px -6px rgba(14,122,110,.5)!important}
+/* report entrance burst (standalone report views) */
+#report.fx-burst{animation:fxBurst .85s var(--ease)}
+@keyframes fxBurst{0%{opacity:0;transform:translateY(20px) scale(.99);filter:blur(9px)}60%{opacity:1;filter:blur(0)}100%{transform:none}}
+/* scroll reveal (standalone report views only) */
+body.fxreveal .card.fx-rev{opacity:0;transform:translateY(26px) scale(.984);filter:blur(8px)}
+body.fxreveal .card.fx-rev.fx-in{opacity:1;transform:none;filter:none}
+/* buttons: hover lift + ripple */
+.btn,.gbtn,.opt,.vbtn{position:relative;overflow:hidden}
+.btn{transition:transform .2s var(--ease),box-shadow .3s var(--ease)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px -12px rgba(14,122,110,.5)}
+.gbtn:hover{box-shadow:0 8px 20px -10px rgba(42,84,112,.4)}
+.gbtn.on,.gbtn[aria-pressed="true"]{box-shadow:0 6px 18px -8px rgba(14,122,110,.45)}
+.opt:hover{box-shadow:0 6px 16px -8px rgba(42,84,112,.35)}
+.fx-ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%) scale(0);
+ background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);pointer-events:none;animation:fxRipple .62s ease-out;z-index:2}
+@keyframes fxRipple{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+/* intro hero gradient text */
+.fx-grad-text{background:linear-gradient(100deg,var(--teal),var(--cobalt) 50%,var(--gold-deep))!important;
+ background-size:220% auto;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important;
+ animation:fxGrad 10s linear infinite}
+}
+@media (prefers-reduced-motion:reduce){
+ body::before,body::after{animation:none}
+ .tcode,.fx-grad-text{animation:none}
+ #report.fx-burst{animation:none}
+ body.fxreveal .card.fx-rev{opacity:1;transform:none;filter:none}
+ .fx-ripple{display:none}
+}
+@media print{
+ body::before,body::after{display:none!important}
+ .card{background:#fff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:1px solid #ddd!important;box-shadow:none!important;transform:none!important;opacity:1!important;filter:none!important}
+ .tcode,.fx-grad-text{-webkit-text-fill-color:initial!important;color:var(--teal-d)!important;filter:none!important;animation:none!important}
+ .snap{box-shadow:none!important}.snap .poly-in{filter:none!important}
+ .vbar,.vbadge{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important}
+}
+/* ===================== /FX layer ===================== */
+</style></head>
+
+<body>
+<div class="masthead" style="text-align:center;padding:28px 16px 8px">
+  <div class="kicker">RESPONSE LOG · 문항 응답</div>
+  <h1 style="margin:.18em 0 .1em">문항별 응답 기록</h1>
+  <div id="repName" class="who" style="font-size:15px;font-weight:600;min-height:1.2em"></div>
+  <div class="who" style="font-size:12px;opacity:.72">학생이 각 문항에 어떻게 답했는지 그대로 보여드립니다</div>
+  <a id="toReport" class="who" href="#" style="display:inline-block;margin-top:8px;font-size:12px;color:var(--teal-d);text-decoration:none;border:1px solid var(--line-2);border-radius:999px;padding:4px 13px">← 종합 리포트 보기</a>
+</div>
+<div class="wrap" style="max-width:760px;margin:0 auto;padding:0 14px 64px">
+  <div id="report"></div>
+  <div style="text-align:center;margin-top:26px;font-size:11px;color:var(--muted);opacity:.7">원응답 기록입니다. 해석·종합은 ‘종합 리포트’를 참고하세요.</div>
+</div>
+
+<script>var ITEMS=[{"id":"A-IN1","block":"A","con":"interest","kind":"ladder","tier":1,"ctx":null,"rev":false,"text":"화학이 특별히 싫지는 않다.","note":"낮은 문턱·정상화(누구나 동의 가능 → 바닥 단계)"},{"id":"A-IN2","block":"A","con":"interest","kind":"ladder","tier":2,"ctx":null,"rev":false,"text":"수업에서 본 화학 현상이 시간이 지나 문득 다시 떠오른 적이 있다.","note":"수동적 잔상 — 2단"},{"id":"A-IN3","block":"A","con":"interest","kind":"ladder","tier":3,"ctx":null,"rev":false,"text":"시키지 않았는데도 화학과 관련된 영상·글을 찾아본 적이 있다.","note":"자발적 탐색 — 3단"},{"id":"A-IN4","block":"A","con":"interest","kind":"ladder","tier":4,"ctx":null,"rev":false,"text":"하고 싶은 다른 일을 미루면서까지 화학을 더 파고든 적이 있다.","note":"비용 내장(우선순위 희생) → 정점, 가벼운 과대응답 차단 — 4단"},{"id":"A-IN-PH","block":"A","con":"interest","kind":"context","tier":null,"ctx":"phenom","rev":false,"text":"물질이 녹고 타고 색이 변하는 현상을 보면 더 들여다보고 싶다.","note":"현상 맥락 흥미"},{"id":"A-IN-SY","block":"A","con":"interest","kind":"context","tier":null,"ctx":"symbol","rev":true,"text":"화학 기호나 식을 다룰 때는 흥미가 식는 편이다.","note":"기호 맥락(역 → 동의=기호 흥미 낮음)"},{"id":"A-IN-QT","block":"A","con":"interest","kind":"context","tier":null,"ctx":"quant","rev":true,"text":"숫자·비율을 계산하는 화학 문제는 풀어볼 마음이 잘 안 생긴다.","note":"정량 맥락(역)"},{"id":"A-IN-LB","block":"A","con":"interest","kind":"context","tier":null,"ctx":"lab","rev":false,"text":"직접 실험하거나 만들어 보는 활동은 해보고 싶다.","note":"실험 맥락 흥미"},{"id":"A-EF1","block":"A","con":"efficacy","kind":"ladder","tier":1,"ctx":null,"rev":false,"text":"쉬운 화학 문제는 혼자서 풀 수 있다.","note":"기본 수행 — 1단"},{"id":"A-EF2","block":"A","con":"efficacy","kind":"ladder","tier":2,"ctx":null,"rev":false,"text":"한 번에 이해 못 한 개념도 다시 보면 결국 내 것으로 만든다.","note":"회복형 효능 — 2단"},{"id":"A-EF3","block":"A","con":"efficacy","kind":"ladder","tier":3,"ctx":null,"rev":false,"text":"처음 보는 유형도 풀이를 보기 전에 일단 혼자 시작해 본다.","note":"행동 위장(자기칭찬 아님) — 3단"},{"id":"A-EF4","block":"A","con":"efficacy","kind":"ladder","tier":4,"ctx":null,"rev":false,"text":"어려운 화학 문제를 며칠에 걸쳐 붙잡아 끝내 해결한 적이 있다.","note":"지속·비용(고문턱) — 4단"},{"id":"A-AX-PH","block":"A","con":"anxiety","kind":"context","tier":null,"ctx":"phenom","rev":true,"text":"현상이나 실험을 관찰할 때는 마음이 비교적 편하다.","note":"현상 맥락(역 → 동의=현상 불안 낮음)"},{"id":"A-AX-SY","block":"A","con":"anxiety","kind":"context","tier":null,"ctx":"symbol","rev":false,"text":"복잡한 기호나 식이 나오면 머릿속이 복잡해진다.","note":"기호 맥락 불안(핵심 분리 지점)"},{"id":"A-AX-QT","block":"A","con":"anxiety","kind":"context","tier":null,"ctx":"quant","rev":false,"text":"비율·농도 같은 계산이 섞이면 평소보다 긴장된다.","note":"정량 맥락 불안"},{"id":"A-AX-LB","block":"A","con":"anxiety","kind":"context","tier":null,"ctx":"lab","rev":true,"text":"직접 실험할 때는 오히려 긴장이 풀리는 편이다.","note":"실험 맥락(역)"},{"id":"A-AX-GN","block":"A","con":"anxiety","kind":"general","tier":null,"ctx":null,"rev":false,"text":"화학 시험 전엔 남들처럼 나도 어느 정도 긴장한다.","note":"정상화 → 불안 과소보고 방지(일반 불안 기저선)"},{"id":"A-VA1","block":"A","con":"value","kind":"relative","tier":null,"ctx":null,"rev":false,"text":"과학 중에서 굳이 고른다면, 생물·지구과학보다 화학 쪽이 내 관심에 더 가깝다.","note":"동등바람직 상대비교 → 분야 동일시"},{"id":"A-VA2","block":"A","con":"value","kind":"internalize","tier":null,"ctx":null,"rev":true,"text":"화학이 쓸모 있다는 말은 들어도, 나와 직접 상관있다고 느끼진 않는다.","note":"정상화·역(동의=낮은 내면화) → 외적 가치/내적 가치 분리"},{"id":"A-VA3","block":"A","con":"value","kind":"internalize","tier":null,"ctx":null,"rev":false,"text":"내가 앞으로 하고 싶은 일에 화학이 들어올 자리가 있다고 생각한다.","note":"미래 정체성 결합(진로 키워드 직접 노출 줄임)"},{"id":"D-ML1","block":"D","con":"approach","kind":"mostleast","tier":null,"ctx":null,"rev":false,"stem":"화학 문제를 틀렸을 때 — 가장 나에 가까운 것 / 가장 먼 것","set":["왜 틀렸는지 원리를 다시 따져 본다","비슷한 문제를 여러 개 더 풀어 본다","정답을 정확히 익혀 다음엔 안 틀리게 한다"],"setcon":["deep","surface","accuracy"],"text":"(강제선택) 오답 대처","note":"셋 다 성실 → 표층 학생도 죄책감 없이 선택, 위계는 살아있음"},{"id":"D-ML2","block":"D","con":"approach","kind":"mostleast","tier":null,"ctx":null,"rev":false,"stem":"새 개념을 배울 때 — 가장 나 / 가장 아님","set":["이미 아는 것과 어떻게 연결되는지 생각한다","정의와 공식을 정확히 먼저 외운다","예제 푸는 순서부터 익힌다"],"setcon":["deep","surface","procedural"],"text":"(강제선택) 새 개념 접근","note":"심층/암기/절차 — 동등바람직"},{"id":"D-ML3","block":"D","con":"approach","kind":"mostleast","tier":null,"ctx":null,"rev":false,"stem":"시험이 얼마 안 남았을 때 — 가장 나 / 가장 아님","set":["핵심 원리를 한 번 더 이해하려 한다","기출·유형 문제를 최대한 많이 푼다","내가 자주 틀리는 부분을 점검한다"],"setcon":["deep","surface","metacog"],"text":"(강제선택) 시험 임박 전략","note":"심층/문제량/점검 — '문제 많이'가 성실해 보여 표층 위장"},{"id":"D-ML4","block":"D","con":"approach","kind":"mostleast","tier":null,"ctx":null,"rev":false,"stem":"공부가 잘 됐다고 느끼는 순간 — 가장 나 / 가장 아님","set":["‘왜 그런지’ 비로소 이해됐을 때","계획한 분량을 끝까지 해냈을 때","문제를 빠르고 정확히 풀었을 때"],"setcon":["deep","metacog","surface"],"text":"(강제선택) 학습 만족원","note":"이해/완수/속도-정확 — 동기 성향"},{"id":"D-MC1","block":"D","con":"metacog","kind":"ladder","tier":1,"ctx":null,"rev":false,"text":"공부를 시작하기 전에 무엇부터 할지 잠깐 정한다.","note":"계획 1단(낮은 문턱)"},{"id":"D-MC2","block":"D","con":"metacog","kind":"ladder","tier":2,"ctx":null,"rev":false,"text":"공부 중간에 ‘이걸 진짜 이해했나’ 스스로 멈춰 확인할 때가 있다.","note":"모니터링 2단"},{"id":"D-MC3","block":"D","con":"metacog","kind":"ladder","tier":3,"ctx":null,"rev":false,"text":"한 방법으로 안 풀리면, 스스로 다른 방법으로 바꿔 시도한다.","note":"전략 조절 3단"},{"id":"D-MC4","block":"D","con":"metacog","kind":"ladder","tier":4,"ctx":null,"rev":false,"text":"공부가 끝나면, 무엇을 알고 무엇을 모르는지 따로 적어 정리해 두는 편이다.","note":"사후 점검 4단(대부분 안 함 → 고문턱·고변별)"},{"id":"D-SC1","block":"D","con":"coping","kind":"scenario","tier":null,"ctx":null,"rev":false,"stem":"화학 문제에서 10분째 막혔다. 나는 보통…","opts":["해설·답지를 먼저 본다","더 쉬운 문제로 돌아간다","원리를 다시 읽고 다시 시도한다","잠시 두었다가 나중에 다시 본다"],"optcode":["lookup","detour","persist","pause"],"text":"(시나리오) 막힘 대처","note":"모두 정상 대처 → 위조 불가, 패턴만 읽음"},{"id":"D-SC2","block":"D","con":"coping","kind":"scenario","tier":null,"ctx":null,"rev":false,"stem":"아는 문제인데 실수로 틀렸다. 나는…","opts":["다음엔 더 조심하자고 넘어간다","왜 실수했는지 패턴을 찾아본다","비슷한 문제로 다시 연습한다","운이 없었다고 생각한다"],"optcode":["note","analyze","drill","external"],"text":"(시나리오) 실수 귀인","note":"analyze=메타, external=외적귀인"},{"id":"D-SC3","block":"D","con":"coping","kind":"scenario","tier":null,"ctx":null,"rev":false,"stem":"수업에서 모르는 화학 용어가 나왔다. 나는…","opts":["일단 넘기고 진도를 따라간다","그 자리에서 바로 찾아본다","표시해 뒀다가 나중에 찾는다","선생님이나 친구에게 묻는다"],"optcode":["skip","seek_now","seek_later","ask"],"text":"(시나리오) 미지어 대처","note":"정보 추구 전략 패턴"},{"id":"V-SD1","block":"V","con":"validity","kind":"sd","tier":null,"ctx":null,"rev":false,"text":"나는 모르는 화학 내용을 아는 척해 본 적이 한 번도 없다.","note":"사회적 바람직성 — '한 번도'에 강한 동의=과대 가능"},{"id":"V-SD2","block":"V","con":"validity","kind":"sd","tier":null,"ctx":null,"rev":false,"text":"수업 시간에 한 번도 딴생각을 해본 적이 없다.","note":"사회적 바람직성"},{"id":"V-OC","block":"V","con":"validity","kind":"overclaim","tier":null,"ctx":null,"rev":false,"stem":"다음 중 ‘들어본 적 있는’ 화학 용어에 모두 표시하세요.","terms":[{"t":"증발","real":true},{"t":"용해","real":true},{"t":"연소","real":true},{"t":"응결","real":true},{"t":"역응결 분해","real":false},{"t":"단일가 환원수","real":false}],"text":"(과대주장) 용어 친숙도","note":"가짜 용어(real:false) 체크 수 = 과대주장 지표. 진짜 용어는 채점 안 함(미학습 무관)."},{"id":"V-CS1a","block":"V","con":"validity","kind":"consistency","tier":null,"ctx":null,"rev":false,"pair":"V-CS1","pole":"pos","text":"화학 공부는 나에게 즐거운 편이다.","note":"일관성 쌍1(긍)"},{"id":"V-CS1b","block":"V","con":"validity","kind":"consistency","tier":null,"ctx":null,"rev":true,"pair":"V-CS1","pole":"neg","text":"화학 공부는 나에게 따분한 편이다.","note":"일관성 쌍1(부)"},{"id":"V-CS2a","block":"V","con":"validity","kind":"consistency","tier":null,"ctx":null,"rev":false,"pair":"V-CS2","pole":"pos","text":"나는 공부할 때 미리 계획을 세우는 편이다.","note":"일관성 쌍2(긍)"},{"id":"V-CS2b","block":"V","con":"validity","kind":"consistency","tier":null,"ctx":null,"rev":true,"pair":"V-CS2","pole":"neg","text":"나는 공부할 때 계획 없이 닥치는 대로 하는 편이다.","note":"일관성 쌍2(부)"},{"id":"V-AT","block":"V","con":"validity","kind":"attention","tier":null,"ctx":null,"rev":false,"text":"이 문항은 집중 확인용입니다. ‘보통’을 선택해 주세요.","answer":3,"note":"지시 응답 — 오답이면 부주의"},{"id":"B21","sec":"S2","block":"B","axis":"lens","q":"어떤 실험 결과를 보면, 나는…","o":[{"t":"왜 그런 결과가 나왔는지 원리부터 따져 본다","p":"S"},{"t":"결과로 나타난 변화 자체를 자세히 들여다본다","p":"G"}]},{"id":"B22","sec":"S2","block":"B","axis":"lens","q":"물질이 변하는 걸 관찰할 때, 나는…","o":[{"t":"겉으로 드러나는 변화에 먼저 주목한다","p":"G"},{"t":"눈에 안 보이는 알갱이의 움직임을 떠올린다","p":"S"}]},{"id":"B23","sec":"S2","block":"B","axis":"think","q":"답이 떠오를 때, 나는…","o":[{"t":"근거가 맞는지 차근차근 확인한 뒤 답한다","p":"B"},{"t":"감으로 먼저 답하고 나중에 점검한다","p":"J"}]},{"id":"B24","sec":"S2","block":"B","axis":"think","q":"여러 정보를 정리할 때, 나는…","o":[{"t":"핵심을 직관으로 빠르게 추린다","p":"J"},{"t":"하나씩 따져 논리적으로 묶는다","p":"B"}]},{"id":"B25","sec":"S2","block":"B","axis":"drive","q":"수업에서 더 끌리는 활동은…","o":[{"t":"한 번도 안 해 본 새로운 실험","p":"T"},{"t":"배운 내용을 깔끔히 정리하는 활동","p":"R"}]},{"id":"B26","sec":"S2","block":"B","axis":"drive","q":"방학에 공부한다면, 나는…","o":[{"t":"지금까지 배운 걸 차곡차곡 복습한다","p":"R"},{"t":"교과서 밖 새로운 주제를 탐구한다","p":"T"}]},{"id":"B27","sec":"S2","block":"B","axis":"approach","q":"문제집을 고를 때, 나는…","o":[{"t":"조금 어렵더라도 도전적인 문제집을 고른다","p":"D"},{"t":"확실히 익힐 수 있는 적정 난도를 고른다","p":"M"}]},{"id":"B28","sec":"S2","block":"B","axis":"approach","q":"새 단원을 공부할 때, 나는…","o":[{"t":"기본을 반복해 탄탄히 다진 뒤 넘어간다","p":"M"},{"t":"어려운 부분에 먼저 부딪쳐 본다","p":"D"}]},{"id":"B1","sec":"S2","block":"B","axis":"lens","q":"새로운 현상을 보면, 나는…","o":[{"t":"눈에 보이는 결과와 변화부터 살핀다","p":"G"},{"t":"속에서 무슨 일이 일어나는지 먼저 상상한다","p":"S"}]},{"id":"B2","sec":"S2","block":"B","axis":"lens","q":"실험에서 더 흥미로운 것은…","o":[{"t":"그 변화가 '왜' 일어나는지 속 원리","p":"S"},{"t":"색·소리·온도처럼 겉으로 드러나는 변화","p":"G"}]},{"id":"B3","sec":"S2","block":"B","axis":"lens","q":"어떤 물질을 설명하라면, 나는…","o":[{"t":"어떻게 보이고 어떤 성질인지로 설명한다","p":"G"},{"t":"무엇으로 이루어졌는지로 설명한다","p":"S"}]},{"id":"B4","sec":"S2","block":"B","axis":"lens","q":"개념을 기억할 때, 나는…","o":[{"t":"머릿속 그림이나 모형으로 기억한다","p":"S"},{"t":"실제로 본 장면이나 사례로 기억한다","p":"G"}]},{"id":"B5","sec":"S2","block":"B","axis":"lens","q":"현상을 마주하면 내 첫 질문은…","o":[{"t":"\"무슨 일이 일어났지?\" (결과)","p":"G"},{"t":"\"그 안에서 뭐가 변했지?\" (속 원리)","p":"S"}]},{"id":"B6","sec":"S2","block":"B","axis":"think","q":"문제를 풀 때, 나는…","o":[{"t":"답이 먼저 '느낌'으로 떠오른다","p":"J"},{"t":"단계를 하나씩 밟아 도달한다","p":"B"}]},{"id":"B7","sec":"S2","block":"B","axis":"think","q":"새로운 규칙을 배우면, 나는…","o":[{"t":"왜 그런지 따져 본 뒤에 쓴다","p":"B"},{"t":"대충 감을 잡고 바로 써 본다","p":"J"}]},{"id":"B8","sec":"S2","block":"B","axis":"think","q":"정보가 한꺼번에 주어지면, 나는…","o":[{"t":"중요한 게 직감으로 보인다","p":"J"},{"t":"표나 순서로 정리해야 보인다","p":"B"}]},{"id":"B9","sec":"S2","block":"B","axis":"think","q":"설명을 들을 때, 나는…","o":[{"t":"처음부터 빠짐없이 듣는 게 편하다","p":"B"},{"t":"핵심만 빠르게 잡는 게 편하다","p":"J"}]},{"id":"B10","sec":"S2","block":"B","axis":"think","q":"실수했을 때, 나는…","o":[{"t":"'아, 이거구나' 하고 금방 알아챈다","p":"J"},{"t":"어디서 틀렸는지 되짚어 찾는다","p":"B"}]},{"id":"B11","sec":"S2","block":"B","axis":"drive","q":"공부가 가장 즐거운 순간은…","o":[{"t":"새롭고 신기한 걸 알게 될 때","p":"T"},{"t":"배운 걸 깔끔히 정리해 완성할 때","p":"R"}]},{"id":"B12","sec":"S2","block":"B","axis":"drive","q":"자유 시간이 생기면, 나는…","o":[{"t":"배운 걸 복습해 탄탄히 한다","p":"R"},{"t":"안 배운 걸 미리 들춰본다","p":"T"}]},{"id":"B13","sec":"S2","block":"B","axis":"drive","q":"더 끌리는 과제는…","o":[{"t":"정답이 여럿인 열린 탐구","p":"T"},{"t":"정답이 분명한 정리 문제","p":"R"}]},{"id":"B14","sec":"S2","block":"B","axis":"drive","q":"노트를 쓸 때, 나는…","o":[{"t":"보기 좋게 구조를 맞춰 적는다","p":"R"},{"t":"떠오르는 생각과 질문을 막 적는다","p":"T"}]},{"id":"B15","sec":"S2","block":"B","axis":"drive","q":"수업에서 더 신나는 것은…","o":[{"t":"\"이건 왜 그럴까?\" 하는 새 질문","p":"T"},{"t":"\"이제 이건 확실해\" 하는 정리","p":"R"}]},{"id":"B16","sec":"S2","block":"B","axis":"approach","q":"어려운 문제를 만나면, 나는…","o":[{"t":"어려워도 일단 부딪쳐 본다","p":"D"},{"t":"쉬운 문제로 기초를 다진 뒤 도전한다","p":"M"}]},{"id":"B17","sec":"S2","block":"B","axis":"approach","q":"더 뿌듯한 것은…","o":[{"t":"기본을 완벽하게 익힌 것","p":"M"},{"t":"남들이 못 푼 문제를 풀어낸 것","p":"D"}]},{"id":"B18","sec":"S2","block":"B","axis":"approach","q":"실패가 예상돼도, 나는…","o":[{"t":"도전 자체가 재미있다","p":"D"},{"t":"충분히 준비된 뒤에 하고 싶다","p":"M"}]},{"id":"B19","sec":"S2","block":"B","axis":"approach","q":"새 단원을 시작하면, 나는…","o":[{"t":"기본 개념부터 차근차근 본다","p":"M"},{"t":"어려운 문제부터 건드려 본다","p":"D"}]},{"id":"B20","sec":"S2","block":"B","axis":"approach","q":"내 공부 속도는…","o":[{"t":"빠르고 넓게 나가는 편","p":"D"},{"t":"천천히 깊게 다지는 편","p":"M"}]},{"id":"C1","sec":"S3","block":"C","cluster":"dissolve","intu":"conservation","conf":true,"q":"물 100 g과 설탕 10 g을 모두 저어 녹였다. 설탕이 안 보이게 된 뒤, 컵 안 전체(물+녹은 설탕)의 무게는?","t1":[{"t":"약 110 g 그대로다","key":1},{"t":"약 100 g에 가깝다","m":"용해=소멸"},{"t":"110 g보다 무거워진다","m":"질량 증가"},{"t":"잘 모르겠다","u":1}],"t2lab":"그렇게 생각한 이유는?","t2":[{"t":"설탕이 녹아서 사라졌기 때문에","m":"소멸"},{"t":"녹아도 설탕 입자는 물 사이에 그대로 남아 있어서","key":1},{"t":"설탕이 물로 변했기 때문에","m":"변환"},{"t":"물이 설탕을 흡수해 없앴기 때문에","m":"흡수"}]},{"id":"C2","sec":"S3","block":"C","cluster":"state-mass","intu":"conservation","q":"마개로 꽉 막은 병 안에서 얼음이 녹아 물이 되었다. 병 전체의 무게는?","t1":[{"t":"그대로다","key":1},{"t":"가벼워진다","m":"상태=감소"},{"t":"무거워진다","m":"액체가 무겁다"},{"t":"잘 모르겠다","u":1}],"t2lab":"그렇게 생각한 이유는?","t2":[{"t":"상태가 변하면 무게도 변해서","m":"연동"},{"t":"얼음과 물은 모습만 다를 뿐 같은 물질이라 양이 그대로여서","key":1},{"t":"녹으면서 일부가 공기로 빠져나가서","m":"손실"},{"t":"물이 얼음보다 원래 무거워서","m":"고유질량"}]},{"id":"C3","sec":"S3","block":"C","cluster":"combustion","intu":"conservation","q":"장작이 다 타면 가벼운 재만 남는다. \"타면 물질이 줄어 사라진다\"는 생각, 실제로는?","t1":[{"t":"정말로 물질이 사라진다","m":"소멸"},{"t":"눈에 안 보이는 기체로 빠져나가, 그 기체까지 합치면 양은 줄지 않는다","key":1},{"t":"남은 재가 곧 원래 나무다","m":"기체 무시"},{"t":"잘 모르겠다","u":1}]},{"id":"C4","sec":"S3","block":"C","cluster":"evaporation","intu":"conservation","q":"접시에 둔 물이 완전히 말라 눈에 보이지 않게 되었다. 그 물은?","t1":[{"t":"완전히 사라져 없어졌다","m":"소멸"},{"t":"수증기가 되어 공기 중으로 흩어졌을 뿐 사라진 건 아니다","key":1},{"t":"산소로 변했다","m":"분해"},{"t":"잘 모르겠다","u":1}]},{"id":"C11","sec":"S3","block":"C","cluster":"dissolve","intu":"conservation","q":"소금물을 그대로 두었더니 물이 다 증발하고 하얀 소금이 다시 남았다. 녹았던 소금은?","t1":[{"t":"녹으면서 없어졌다가 새로 생긴 것이다","m":"소멸·생성"},{"t":"물속에 그대로 있다가 물이 날아가자 다시 보이게 된 것","key":1},{"t":"물이 소금으로 변한 것이다","m":"변환"},{"t":"잘 모르겠다","u":1}]},{"id":"C12","sec":"S3","block":"C","cluster":"dissolve","intu":"conservation","q":"각설탕을 물에 넣었더니 점점 작아지다 사라졌다. 단맛은 어떻게 됐을까?","t1":[{"t":"설탕이 사라졌으니 단맛도 없다","m":"소멸"},{"t":"설탕 입자가 물 전체에 퍼져서 물이 달아졌다","key":1},{"t":"물이 원래 달았던 것이다","m":"무관"},{"t":"잘 모르겠다","u":1}]},{"id":"C13","sec":"S3","block":"C","cluster":"state-mass","intu":"conservation","q":"물 한 컵을 얼렸다. 언 얼음 전체의 무게는 원래 물과 비교해 어떨까?","t1":[{"t":"더 무겁다","m":"고체가 무겁다"},{"t":"거의 같다","key":1},{"t":"더 가볍다","m":"얼면 가벼워진다"},{"t":"잘 모르겠다","u":1}]},{"id":"C14","sec":"S3","block":"C","cluster":"combustion","intu":"conservation","conf":true,"q":"철 수세미를 공기 중에서 완전히 태웠다. 타고 난 뒤의 무게는?","t1":[{"t":"가벼워진다","m":"연소=감소"},{"t":"오히려 무거워진다","key":1},{"t":"그대로다","m":"불변 오인"},{"t":"잘 모르겠다","u":1}],"t2lab":"그렇게 생각한 이유는?","t2":[{"t":"타면 원래 줄어드니까","m":"감소"},{"t":"공기 중 기체가 철에 달라붙어 더해져서","key":1},{"t":"철이 재가 되어 가벼워져서","m":"재 산물"},{"t":"불 자체가 무게를 더해서","m":"불=물질"}]},{"id":"C15","sec":"S3","block":"C","cluster":"evaporation","intu":"conservation","q":"젖은 빨래가 마르면서 점점 가벼워졌다. 사라진 물은 어디로 갔을까?","t1":[{"t":"완전히 없어졌다","m":"소멸"},{"t":"수증기가 되어 공기 중으로 퍼졌다","key":1},{"t":"빨래가 물을 먹어 버렸다","m":"흡수"},{"t":"잘 모르겠다","u":1}]},{"id":"C16","sec":"S3","block":"C","cluster":"atom-reaction","intu":"conservation","conf":true,"q":"두 물질이 만나 전혀 새로운 물질로 변했다. 변화 전과 후, 물질을 이루는 '알갱이의 총 개수(양)'는?","t1":[{"t":"새 물질이 생겼으니 알갱이도 새로 생긴다","m":"생성"},{"t":"알갱이는 새로 생기거나 없어지지 않고, 짝만 다시 짜인다","key":1},{"t":"변하면서 일부 알갱이가 사라진다","m":"소멸"},{"t":"잘 모르겠다","u":1}],"t2lab":"그렇게 생각한 이유는?","t2":[{"t":"새 물질엔 새 알갱이가 필요해서","m":"생성"},{"t":"있던 알갱이가 자리만 바꿔 다시 결합해서","key":1},{"t":"변할 때 일부가 빛·열로 사라져서","m":"소실"},{"t":"큰 물질이 부서져 알갱이 수가 늘어서","m":"증가"}]},{"id":"C17","sec":"S3","block":"C","cluster":"atom-reaction","intu":"conservation","q":"나무가 타서 연기와 재가 되었다. 타기 전 나무를 이루던 '알갱이들'은 어떻게 됐을까?","t1":[{"t":"불에 타서 없어졌다","m":"소멸"},{"t":"연기(기체)와 재로 흩어져 모습만 바뀌었을 뿐 그대로 있다","key":1},{"t":"불의 알갱이로 변했다","m":"불=물질"},{"t":"잘 모르겠다","u":1}]},{"id":"C18","sec":"S3","block":"C","cluster":"atom-reaction","intu":"conservation","q":"설탕을 가열했더니 까맣게 타서 다른 것으로 변했다. 처음 설탕을 이루던 알갱이는 새 물질 속에 있을까?","t1":[{"t":"완전히 사라지고 전혀 다른 알갱이만 있다","m":"완전치환"},{"t":"모습은 변했어도 그 알갱이들이 다시 짜여 들어 있다","key":1},{"t":"절반쯤만 남아 있다","m":"부분소멸"},{"t":"잘 모르겠다","u":1}]},{"id":"C5","sec":"S3","block":"C","cluster":"particle-property","intu":"particle","conf":true,"q":"구리(금속)는 반짝이고 단단하며 붉은빛이 돈다. 구리를 이루는 '가장 작은 알갱이 하나'는 어떨까?","t1":[{"t":"그 알갱이 하나도 반짝이고 단단하고 붉다","m":"성질 보유"},{"t":"알갱이 하나엔 그런 성질이 없고, 아주 많이 모였을 때 나타난다","key":1},{"t":"알갱이는 작은 먼지 같은 것이다","m":"미세 덩어리"},{"t":"잘 모르겠다","u":1}],"t2lab":"그렇게 생각한 이유는?","t2":[{"t":"작아도 구리니까 성질이 똑같아서","m":"상속"},{"t":"색·단단함은 알갱이가 많이 모일 때 나타나는 것이라서","key":1},{"t":"알갱이는 원래 투명해서","m":"투명"},{"t":"알갱이는 살아있는 게 아니라서","m":"무관"}]},{"id":"C19","sec":"S3","block":"C","cluster":"particle-property","intu":"particle","q":"물 한 방울을 이루는 '가장 작은 알갱이 하나'는 어떤 모습일까?","t1":[{"t":"아주 작은 물방울 모양이다","m":"축소판"},{"t":"우리가 보는 '물방울' 같은 모습은 없다","key":1},{"t":"작은 얼음 조각이다","m":"상태혼동"},{"t":"잘 모르겠다","u":1}]},{"id":"C20","sec":"S3","block":"C","cluster":"particle-property","intu":"particle","q":"어떤 물질을 이루는 알갱이 하나의 '색'은 어떨까?","t1":[{"t":"그 물질과 똑같은 색이다","m":"색 상속"},{"t":"알갱이 하나에는 '색'이라 할 만한 것이 없다","key":1},{"t":"항상 회색이다","m":"임의 색"},{"t":"잘 모르겠다","u":1}]},{"id":"C6","sec":"S3","block":"C","cluster":"particle-space","intu":"particle","q":"끝을 막은 주사기의 피스톤을 누르면 안의 공기 부피가 줄어든다. 이때 공기 입자들은?","t1":[{"t":"입자 자체가 찌그러져 작아진다","m":"입자 압축"},{"t":"입자 사이의 빈 공간이 좁아진다 (수·크기는 그대로)","key":1},{"t":"입자들이 서로 합쳐진다","m":"융합"},{"t":"잘 모르겠다","u":1}]},{"id":"C24","sec":"S3","block":"C","cluster":"particle-space","intu":"particle","q":"같은 물(액체)보다 수증기(기체)가 훨씬 더 큰 공간을 차지한다. 왜일까?","t1":[{"t":"기체가 되면서 알갱이가 커져서","m":"팽창"},{"t":"알갱이 사이의 빈 공간이 훨씬 넓어져서","key":1},{"t":"알갱이 수가 늘어나서","m":"증가"},{"t":"잘 모르겠다","u":1}]},{"id":"C7","sec":"S3","block":"C","cluster":"particle-between","intu":"particle","q":"물질을 이루는 아주 작은 알갱이들 '사이'에는 무엇이 있을까?","t1":[{"t":"더 작은 알갱이들로 빈틈없이 차 있다","m":"연속물질관"},{"t":"아무것도 없는 빈 공간이다","key":1},{"t":"공기가 채우고 있다","m":"사이=공기"},{"t":"잘 모르겠다","u":1}]},{"id":"C25","sec":"S3","block":"C","cluster":"particle-between","intu":"particle","q":"단단한 쇠구슬 안에도 알갱이와 알갱이 사이에 '빈 공간'이 있을까?","t1":[{"t":"꽉 차 있어 빈 공간이 전혀 없다","m":"연속물질관"},{"t":"단단해 보여도 알갱이 사이에는 빈 공간이 있다","key":1},{"t":"공기가 채우고 있다","m":"사이=공기"},{"t":"잘 모르겠다","u":1}]},{"id":"C21","sec":"S3","block":"C","cluster":"particle-thermal","intu":"particle","q":"공기를 넣은 풍선을 따뜻한 곳에 두니 조금 부풀었다. 안의 공기 알갱이는?","t1":[{"t":"알갱이 자체가 커졌다","m":"입자 팽창"},{"t":"알갱이는 그대로인데 더 빠르게 움직여 서로 멀어졌다","key":1},{"t":"알갱이 수가 늘어났다","m":"증가"},{"t":"잘 모르겠다","u":1}]},{"id":"C22","sec":"S3","block":"C","cluster":"particle-thermal","intu":"particle","q":"금속 막대를 가열하면 길이가 살짝 늘어난다. 이때 금속을 이루는 알갱이는?","t1":[{"t":"알갱이 하나하나가 부풀어 커진다","m":"입자 팽창"},{"t":"크기는 그대로이고, 활발히 움직여 사이 간격이 벌어진다","key":1},{"t":"알갱이 개수가 늘어난다","m":"증가"},{"t":"잘 모르겠다","u":1}]},{"id":"C23","sec":"S3","block":"C","cluster":"particle-thermal","intu":"particle","q":"온도가 높아지면 물질을 이루는 알갱이는 어떻게 달라질까?","t1":[{"t":"알갱이가 점점 커진다","m":"입자 팽창"},{"t":"크기·개수는 그대로이고 움직임이 빨라진다","key":1},{"t":"알갱이가 뜨거워져 색이 변한다","m":"무관"},{"t":"잘 모르겠다","u":1}]},{"id":"C8","sec":"S3","block":"C","cluster":"boiling","intu":"change","q":"물을 펄펄 끓일 때 바닥에서 올라오는 기포(거품)의 정체는?","t1":[{"t":"물에 녹아 있던 공기","m":"기포=공기"},{"t":"산소와 수소로 쪼개진 것","m":"끓음=분해"},{"t":"기체로 변한 물, 즉 수증기","key":1},{"t":"잘 모르겠다","u":1}]},{"id":"C26","sec":"S3","block":"C","cluster":"boiling","intu":"change","q":"냄비 뚜껑 안쪽에 물방울이 맺혔다. 이 물방울은 어디서 왔을까?","t1":[{"t":"뚜껑에서 새로 생긴 물이다","m":"생성"},{"t":"올라온 수증기가 차가운 뚜껑에서 다시 물이 된 것","key":1},{"t":"공기 속 산소가 물로 변한 것","m":"변환"},{"t":"잘 모르겠다","u":1}]},{"id":"C9","sec":"S3","block":"C","cluster":"phys-chem","intu":"change","q":"다음 중 '새로운 물질이 만들어진 변화'에 가장 가까운 것은?","t1":[{"t":"종이를 잘게 찢는다","m":"모양=새물질"},{"t":"물이 얼어 얼음이 된다","m":"상태=새물질"},{"t":"철이 녹슬어 붉게 변한다","key":1},{"t":"설탕이 물에 녹는다","m":"용해=새물질"},{"t":"잘 모르겠다","u":1}]},{"id":"C27","sec":"S3","block":"C","cluster":"phys-chem","intu":"change","q":"다음 중 '물질 자체는 그대로인 변화(물리 변화)'에 해당하는 것은?","t1":[{"t":"양초가 타서 빛과 열을 낸다","m":"연소를 물리로"},{"t":"양초가 열에 녹아 액체가 된다","key":1},{"t":"철이 녹슨다","m":"화학을 물리로"},{"t":"음식이 상한다","m":"화학을 물리로"},{"t":"잘 모르겠다","u":1}]},{"id":"C28","sec":"S3","block":"C","cluster":"phys-chem","intu":"change","conf":true,"q":"깎아 둔 사과의 단면이 갈색으로 변했다. 이 변화는?","t1":[{"t":"모양이 안 변했으니 아무 변화도 아니다","m":"변화 부정"},{"t":"새로운 물질이 생긴 화학 변화다","key":1},{"t":"단순히 색만 칠해진 것이다","m":"표면 현상"},{"t":"잘 모르겠다","u":1}],"t2lab":"그렇게 생각한 이유는?","t2":[{"t":"자르기만 했으니까","m":"물리 오인"},{"t":"공기와 반응해 다른 물질이 새로 생겨서","key":1},{"t":"원래 속이 갈색이라서","m":"무관"},{"t":"빛 때문에 색이 바래서","m":"무관"}]},{"id":"C10","sec":"S3","block":"C","cluster":"gas-mass","intu":"change","q":"비어 보이는 공기(예: 풍선 속 공기)도 무게가 있을까?","t1":[{"t":"공기는 무게가 없다 (아무것도 아니니까)","m":"기체=무"},{"t":"아주 작지만 분명히 무게가 있다","key":1},{"t":"위로 뜨니까 무게가 마이너스다","m":"음의 무게"},{"t":"잘 모르겠다","u":1}]},{"id":"C29","sec":"S3","block":"C","cluster":"gas-mass","intu":"change","q":"똑같은 빈 페트병 두 개 중 하나에만 공기를 잔뜩 압축해 넣었다. 두 병의 무게는?","t1":[{"t":"똑같다 (공기는 무게가 없으니까)","m":"기체=무"},{"t":"공기를 넣은 쪽이 아주 조금 더 무겁다","key":1},{"t":"공기를 넣은 쪽이 더 가볍다 (공기는 뜨니까)","m":"음의 무게"},{"t":"잘 모르겠다","u":1}]},{"id":"C30","sec":"S3","block":"C","cluster":"melt-dissolve","intu":"change","conf":true,"q":"초콜릿이 더운 날 '녹았다.' 그리고 소금이 물에 '녹았다.' 이 두 '녹다'는?","t1":[{"t":"똑같은 현상이다","m":"융해=용해"},{"t":"서로 다른 현상이다","key":1},{"t":"둘 다 물이 있어야 일어난다","m":"조건 오인"},{"t":"잘 모르겠다","u":1}],"t2lab":"그렇게 생각한 이유는?","t2":[{"t":"둘 다 모양이 사라지니까","m":"표면 유사"},{"t":"초콜릿은 열로 액체가 되고, 소금은 물속에 흩어진 것이라서","key":1},{"t":"둘 다 사라지는 거라서","m":"소멸"},{"t":"둘 다 새 물질이 생겨서","m":"화학 오인"}]},{"id":"C31","sec":"S3","block":"C","cluster":"melt-dissolve","intu":"change","q":"얼음이 '녹는' 것과 설탕이 물에 '녹는' 것 중, 물이 꼭 있어야 하는 것은?","t1":[{"t":"둘 다 물이 있어야 한다","m":"조건 오인"},{"t":"설탕이 녹을 때만 물이 필요하다","key":1},{"t":"둘 다 물이 없어도 된다","m":"용해 부정"},{"t":"잘 모르겠다","u":1}]},{"id":"C32","sec":"S3","block":"C","cluster":"melt-dissolve","intu":"change","q":"버터가 프라이팬 위에서 '녹았다.' 이것은 어떤 변화에 가까울까?","t1":[{"t":"물에 무언가가 퍼지는 용해다","m":"용해 오인"},{"t":"열을 받아 고체가 액체가 되는 상태 변화다","key":1},{"t":"새로운 물질이 생기는 변화다","m":"화학 오인"},{"t":"잘 모르겠다","u":1}]}];</script>
+<script id="fxAuroraGlass">(function(){
+ var rm = (window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches);
+ /* ripple on buttons (delegated, capture) */
+ document.addEventListener("click",function(e){
+  if(rm)return; var t=e.target; var b=(t&&t.closest)?t.closest(".btn,.gbtn,.opt,.vbtn"):null; if(!b)return;
+  var r=b.getBoundingClientRect(); var s=document.createElement("span"); s.className="fx-ripple";
+  var sz=Math.max(r.width,r.height)*1.25; s.style.width=s.style.height=sz+"px";
+  s.style.left=(e.clientX-r.left)+"px"; s.style.top=(e.clientY-r.top)+"px";
+  b.appendChild(s); setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },680);
+ },true);
+ /* intro hero gradient */
+ try{ var it=document.querySelector("#introScreen h1, #introScreen h2, .mast h1, .mast .ttl, .hero h1, .brand-title"); if(it)it.classList.add("fx-grad-text"); }catch(e){}
+ /* standalone report views (e.g. 관리자.html) get burst + reveal; the main app handles its own reveal */
+ var hasAppReveal = !!document.getElementById("reportScreen");
+ if(!hasAppReveal){
+  function revealCards(root){
+   if(rm)return; root=root||document;
+   var cards=[].slice.call(root.querySelectorAll(".card:not(.fx-seen)")); if(!cards.length)return;
+   if(!("IntersectionObserver" in window)){ cards.forEach(function(c){c.classList.add("fx-seen");}); return; }
+   document.body.classList.add("fxreveal");
+   var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("fx-in"); io.unobserve(en.target);} }); },{threshold:.08,rootMargin:"0px 0px -6% 0px"});
+   cards.forEach(function(c,i){ c.classList.add("fx-rev","fx-seen"); c.style.transitionDelay=(Math.min(i,8)*60)+"ms"; io.observe(c); });
+   setTimeout(function(){ cards.slice(0,3).forEach(function(c){c.classList.add("fx-in");}); },40);
+  }
+  function burst(){ var r=document.getElementById("report"); if(!r||rm)return; r.classList.remove("fx-burst"); void r.offsetWidth; r.classList.add("fx-burst"); }
+  var rep=document.getElementById("report");
+  if(rep){ var seen=false;
+   var mo=new MutationObserver(function(){ if(rep.children.length){ if(!seen){ seen=true; burst(); revealCards(rep);} } else { seen=false; } });
+   mo.observe(rep,{childList:true});
+   if(rep.children.length){ seen=true; burst(); revealCards(rep); }
+  }
+ }
+})();</script>
+<script>"use strict";
+function renderAnswersV2(ans, ITEMS){
+  var LIK=["전혀 아니다","아니다","보통","그렇다","매우 그렇다"];
+  function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function kindOf(it){ if(it.kind)return it.kind; if(it.block==="B")return "forced16"; if(it.block==="C")return "misconception"; return "unknown"; }
+  var PICK='background:rgba(14,122,110,.10);border-color:var(--teal);color:var(--ink)';
+  var DIM='background:var(--paper-2);border-color:var(--line);color:var(--muted)';
+  function optLine(text, picked, extra, st){
+    return '<div style="border:1px solid;border-radius:9px;padding:7px 11px;margin:4px 0;font-size:12.5px;line-height:1.5;'+(st||(picked?PICK:DIM))+'">'+
+      (picked?'<span style="color:var(--teal-d);font-weight:700">● </span>':'<span style="opacity:.35">○ </span>')+
+      '<span style="'+(picked?'font-weight:600':'')+'">'+esc(text)+'</span>'+(extra||'')+'</div>';
+  }
+  function likertView(v){
+    var segs=LIK.map(function(t,i){var on=(v===i+1);
+      return '<div style="flex:1;text-align:center"><div style="height:8px;border-radius:6px;margin:0 2px 4px;background:'+(on?'var(--teal)':'var(--line-2)')+';opacity:'+(on?1:.45)+'"></div><div style="font-size:9.5px;color:'+(on?'var(--teal-d)':'var(--grey)')+';font-weight:'+(on?700:400)+'">'+t+'</div></div>';
+    }).join("");
+    return '<div style="display:flex;margin-top:7px">'+segs+'</div>'+(v==null?'<div style="font-size:11px;color:var(--rose);margin-top:4px">무응답</div>':'');
+  }
+  function qcard(it, inner, sub){
+    var stem=it.text||it.q||it.stem||it.id;
+    return '<div class="card" style="padding:13px 15px;margin:9px 0">'+
+      '<div style="font-size:10px;font-family:var(--mono);color:var(--gold-deep);letter-spacing:.08em;margin-bottom:3px">'+esc(it.id)+(sub?' · '+esc(sub):'')+'</div>'+
+      '<div style="font-size:13.5px;color:var(--ink);font-weight:500;line-height:1.55;margin-bottom:4px">'+esc(stem)+'</div>'+inner+'</div>';
+  }
+  function renderOne(it){
+    var k=kindOf(it), a=ans[it.id];
+    if(k==="ladder"||k==="context"||k==="general"||k==="relative"||k==="internalize"||k==="sd"||k==="consistency"){
+      return qcard(it, likertView(typeof a==="number"?a:null));
+    }
+    if(k==="attention"){
+      var ok=(a===it.answer);
+      return qcard(it, likertView(typeof a==="number"?a:null)+'<div style="font-size:11.5px;margin-top:5px;color:'+(ok?'var(--emerald)':'var(--rose)')+'">'+(ok?'✓ 지시대로 응답 (정상)':'✗ 지시와 다른 응답 — 부주의 신호')+'</div>', "주의력 점검");
+    }
+    if(k==="forced16"){
+      return qcard(it, (it.o||[]).map(function(o,i){return optLine(o.t, a===i);}).join(""), "사고 성향");
+    }
+    if(k==="scenario"){
+      return qcard(it, (it.opts||[]).map(function(o,i){return optLine(o, a===i);}).join(""), "대처 시나리오");
+    }
+    if(k==="mostleast"){
+      var rows=(it.set||[]).map(function(s,i){
+        var isM=(a&&a.most===i), isL=(a&&a.least===i);
+        var st=isM?'background:rgba(46,125,91,.10);border-color:var(--emerald);color:var(--ink)':isL?'background:rgba(178,58,107,.09);border-color:var(--rose);color:var(--ink)':DIM;
+        var badge=isM?'<span style="font-size:9.5px;background:var(--emerald);color:#fff;padding:1px 8px;border-radius:999px;margin-left:7px;font-weight:600">가장 나</span>':isL?'<span style="font-size:9.5px;background:var(--rose);color:#fff;padding:1px 8px;border-radius:999px;margin-left:7px;font-weight:600">가장 아님</span>':'';
+        return '<div style="border:1px solid;border-radius:9px;padding:7px 11px;margin:4px 0;font-size:12.5px;line-height:1.5;'+st+'"><span style="'+((isM||isL)?'font-weight:600':'')+'">'+esc(s)+'</span>'+badge+'</div>';
+      }).join("");
+      return qcard(it, rows, "강제선택 (가장 나 / 가장 아님)");
+    }
+    if(k==="overclaim"){
+      var checked=Array.isArray(a)?a:[];
+      var chips=(it.terms||[]).map(function(t,i){
+        var on=checked.indexOf(i)>=0, fake=!t.real;
+        var col=on?(fake?'background:rgba(178,58,107,.14);border-color:var(--rose);color:var(--rose);font-weight:600':'background:rgba(14,122,110,.12);border-color:var(--teal);color:var(--ink)'):'background:var(--paper-2);border-color:var(--line);color:var(--muted)';
+        return '<span style="display:inline-block;border:1px solid;border-radius:999px;padding:4px 11px;margin:3px;font-size:12px;'+col+'">'+(on?'☑ ':'☐ ')+esc(t.t)+(fake&&on?' ⚠':'')+'</span>';
+      }).join("");
+      var fk=(it.terms||[]).filter(function(t,i){return !t.real&&checked.indexOf(i)>=0;}).length;
+      return qcard(it, '<div style="margin-top:2px">'+chips+'</div>'+(fk?'<div style="font-size:11.5px;color:var(--rose);margin-top:6px">⚠ 실제로 없는 용어 '+fk+'개 선택 — 과대주장 신호</div>':'<div style="font-size:11.5px;color:var(--emerald);margin-top:6px">✓ 가짜 용어 선택 없음</div>'), "과대주장 점검");
+    }
+    if(k==="misconception"){
+      var h=(it.t1||[]).map(function(o,i){return optLine(o.t, (a&&a.t1===i));}).join("");
+      if(it.t2){ h+='<div style="font-size:11.5px;color:var(--muted);margin:8px 0 3px">'+esc(it.t2lab||"그렇게 생각한 이유는?")+'</div>'+(it.t2||[]).map(function(o,i){return optLine(o.t,(a&&a.t2===i));}).join(""); }
+      if(it.conf){ var cf=(a&&a.conf), lab=["","낮음","보통","높음"][cf]||"무응답"; h+='<div style="font-size:11.5px;color:var(--muted);margin-top:7px">확신도 <b style="color:var(--cobalt)">'+esc(lab)+'</b></div>'; }
+      return qcard(it, h, "개념 · 오개념");
+    }
+    return qcard(it, '<div style="font-size:12px;color:var(--muted)">응답: '+esc(JSON.stringify(a))+'</div>');
+  }
+  var GROUPS=[
+    {key:"A", title:"흥미 · 자신감 · 정서 · 가치", desc:"리커트 (전혀 아니다 ~ 매우 그렇다)"},
+    {key:"B", title:"사고 성향", desc:"둘 중 더 나에 가까운 쪽"},
+    {key:"C", title:"개념 직관 · 오개념", desc:"개념 판단과 그 이유"},
+    {key:"D", title:"학습 접근 · 대처", desc:"강제선택 · 시나리오"},
+    {key:"V", title:"응답 신뢰도 점검 문항", desc:"과대응답 · 일관성 · 주의력"}
+  ];
+  var answered=ITEMS.filter(function(it){return ans[it.id]!=null;}).length;
+  var html='<div class="card" style="padding:12px 15px;margin:0 0 6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">'+
+    '<div style="font-size:12.5px;color:var(--ink-2)"><b style="color:var(--teal-d)">●</b> 학생이 선택한 답입니다 (총 '+ITEMS.length+'문항, 응답 '+answered+')</div>'+
+    '<div style="font-size:11px;color:var(--muted)">점수가 아니라 원응답 그대로의 기록입니다</div></div>';
+  GROUPS.forEach(function(g){
+    var items=ITEMS.filter(function(it){return it.block===g.key;});
+    if(!items.length)return;
+    html+='<div style="margin:22px 0 8px;padding-bottom:6px;border-bottom:1.5px solid var(--line-2)"><div style="font-family:var(--serif);font-size:18px;color:var(--ink)">'+esc(g.title)+'</div><div style="font-size:11.5px;color:var(--muted)">'+esc(g.desc)+' · '+items.length+'문항</div></div>';
+    html+=items.map(renderOne).join("");
+  });
+  return html;
+}
+</script>
+<script>(function(){
+ var p=new URLSearchParams(location.search);
+ var d=p.get("d"), nm=p.get("n")||"", gr=p.get("g")||"";
+ try{ nm=decodeURIComponent(nm); }catch(e){}
+ try{ gr=decodeURIComponent(gr); }catch(e){}
+ var rep=document.getElementById("report"), hn=document.getElementById("repName");
+ if(nm&&hn){ hn.textContent=nm+" 학생"+(gr?(" · "+gr):""); }
+ if(nm){ document.title=nm+" 학생 · 문항별 응답"; }
+ try{var _h=document.querySelector(".masthead h1");if(_h)_h.classList.add("fx-grad-text");}catch(e){}
+ try{var tr=document.getElementById("toReport"); if(tr)tr.href="report.html"+location.search;}catch(e){}
+ if(!d){ rep.innerHTML='<div style="text-align:center;color:var(--muted);padding:44px 16px;font-size:14px;line-height:1.7">응답 데이터가 없습니다.<br>선생님께 받은 링크로 다시 열어 주세요.</div>'; return; }
+ var ans=null;
+ try{ ans=JSON.parse(decodeURIComponent(escape(atob(d.replace(/\s+/g,""))))); }
+ catch(e){ try{ ans=JSON.parse(atob(d.replace(/\s+/g,""))); }catch(e2){ ans=null; } }
+ if(!ans||typeof ans!=="object"){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px;line-height:1.7">링크가 손상된 것 같습니다.<br>선생님께 링크를 다시 요청해 주세요.</div>'; return; }
+ try{ rep.innerHTML=renderAnswersV2(ans, ITEMS); }
+ catch(e){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px">응답을 여는 중 문제가 생겼습니다. ('+(e&&e.message||e)+')</div>'; }
+})();</script>
+</body></html>
