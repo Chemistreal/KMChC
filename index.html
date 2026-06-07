@@ -156,6 +156,88 @@ body::-webkit-scrollbar{width:11px;height:11px}body::-webkit-scrollbar-thumb{bac
  .card{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border-color:var(--line-2)}
  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+/* ===================== Aurora Glass Premium FX (additive layer) ===================== */
+@media screen{
+:root{--fxblur:16px}
+body{position:relative}
+body::before{content:"";position:fixed;inset:-25vmax;z-index:-2;pointer-events:none;
+ background:
+  radial-gradient(38vmax 30vmax at 16% 10%, rgba(14,122,110,.42), transparent 60%),
+  radial-gradient(36vmax 28vmax at 86% 16%, rgba(42,84,112,.38), transparent 62%),
+  radial-gradient(42vmax 32vmax at 78% 90%, rgba(201,162,75,.34), transparent 60%),
+  radial-gradient(34vmax 28vmax at 10% 88%, rgba(178,58,107,.26), transparent 62%);
+ filter:blur(46px) saturate(118%);opacity:.5;animation:fxDrift 34s ease-in-out infinite alternate;will-change:transform}
+body::after{content:"";position:fixed;inset:-35vmax;z-index:-2;pointer-events:none;
+ background:conic-gradient(from 0deg, transparent 0%, rgba(46,125,91,.16) 18%, transparent 40%, rgba(42,84,112,.14) 62%, transparent 82%);
+ filter:blur(70px);opacity:.16;animation:fxSpin 70s linear infinite;will-change:transform}
+@keyframes fxDrift{to{transform:translate3d(2.5%,-2%,0) scale(1.07)}}
+@keyframes fxSpin{to{transform:rotate(360deg)}}
+/* frosted glass cards */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.44))!important;
+ -webkit-backdrop-filter:blur(var(--fxblur)) saturate(140%);backdrop-filter:blur(var(--fxblur)) saturate(140%);
+ border:1px solid rgba(255,255,255,.72)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 22px 46px -26px rgba(28,30,46,.45), 0 3px 12px -8px rgba(28,30,46,.22)!important;
+ transition:opacity .6s var(--ease),transform .55s var(--ease),box-shadow .55s var(--ease),filter .55s var(--ease)}
+.card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 30px 60px -28px rgba(14,122,110,.4), 0 6px 18px -8px rgba(42,84,112,.3)!important}
+/* type-code hero: flowing gradient + glow */
+.tcode{background:linear-gradient(100deg,var(--teal),var(--cobalt) 52%,var(--gold-2))!important;
+ background-size:220% auto!important;-webkit-background-clip:text!important;background-clip:text!important;
+ -webkit-text-fill-color:transparent!important;color:transparent!important;
+ filter:drop-shadow(0 3px 16px rgba(14,122,110,.32));animation:fxGrad 9s linear infinite}
+@keyframes fxGrad{to{background-position:220% center}}
+/* block-header accent bar (inside cards) */
+.card .bh{position:relative}
+.card .bh::before{content:"";position:absolute;left:-20px;top:.1em;bottom:.42em;width:3px;border-radius:3px;
+ background:linear-gradient(180deg,var(--teal),var(--cobalt));box-shadow:0 0 12px rgba(14,122,110,.4)}
+/* radar glow */
+.snap{box-shadow:0 22px 50px -26px rgba(14,122,110,.5), inset 0 0 0 1px rgba(201,162,75,.35)!important}
+.snap svg{overflow:visible}
+.snap .poly-in{filter:drop-shadow(0 0 7px rgba(14,122,110,.55))}
+/* validity badge glow */
+.vbadge{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+ box-shadow:0 2px 10px rgba(28,24,18,.18), inset 0 0 0 1px rgba(255,255,255,.5), 0 4px 16px -6px rgba(14,122,110,.35)!important}
+/* view-toggle glass */
+.vbar{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+ background:rgba(255,255,255,.42)!important;border:1px solid rgba(255,255,255,.6);
+ box-shadow:0 8px 24px -14px rgba(28,30,46,.45)!important}
+.vbtn.on{box-shadow:0 4px 14px -6px rgba(14,122,110,.5)!important}
+/* report entrance burst (standalone report views) */
+#report.fx-burst{animation:fxBurst .85s var(--ease)}
+@keyframes fxBurst{0%{opacity:0;transform:translateY(20px) scale(.99);filter:blur(9px)}60%{opacity:1;filter:blur(0)}100%{transform:none}}
+/* scroll reveal (standalone report views only) */
+body.fxreveal .card.fx-rev{opacity:0;transform:translateY(26px) scale(.984);filter:blur(8px)}
+body.fxreveal .card.fx-rev.fx-in{opacity:1;transform:none;filter:none}
+/* buttons: hover lift + ripple */
+.btn,.gbtn,.opt,.vbtn{position:relative;overflow:hidden}
+.btn{transition:transform .2s var(--ease),box-shadow .3s var(--ease)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px -12px rgba(14,122,110,.5)}
+.gbtn:hover{box-shadow:0 8px 20px -10px rgba(42,84,112,.4)}
+.gbtn.on,.gbtn[aria-pressed="true"]{box-shadow:0 6px 18px -8px rgba(14,122,110,.45)}
+.opt:hover{box-shadow:0 6px 16px -8px rgba(42,84,112,.35)}
+.fx-ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%) scale(0);
+ background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);pointer-events:none;animation:fxRipple .62s ease-out;z-index:2}
+@keyframes fxRipple{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+/* intro hero gradient text */
+.fx-grad-text{background:linear-gradient(100deg,var(--teal),var(--cobalt) 50%,var(--gold-deep))!important;
+ background-size:220% auto;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important;
+ animation:fxGrad 10s linear infinite}
+}
+@media (prefers-reduced-motion:reduce){
+ body::before,body::after{animation:none}
+ .tcode,.fx-grad-text{animation:none}
+ #report.fx-burst{animation:none}
+ body.fxreveal .card.fx-rev{opacity:1;transform:none;filter:none}
+ .fx-ripple{display:none}
+}
+@media print{
+ body::before,body::after{display:none!important}
+ .card{background:#fff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:1px solid #ddd!important;box-shadow:none!important;transform:none!important;opacity:1!important;filter:none!important}
+ .tcode,.fx-grad-text{-webkit-text-fill-color:initial!important;color:var(--teal-d)!important;filter:none!important;animation:none!important}
+ .snap{box-shadow:none!important}.snap .poly-in{filter:none!important}
+ .vbar,.vbadge{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important}
+}
+/* ===================== /FX layer ===================== */
 </style></head><body><div class="wrap"><div class="masthead"><div class="kicker">CHEMISTRY DIAGNOSTIC · v2</div><h1>화학 학습 진단</h1><div class="who" id="repWho">초6~중3 · 약 15분</div></div><div id="introScreen" class="screen on intro"><p class="lead">문항은 ‘정답’이 없습니다. 평소 느끼고 행동하는 그대로 솔직히 고르면, 가장 정확한 진단이 됩니다.</p><div class="field"><label>이름</label><input id="nameIn" type="text" placeholder="이름" autocomplete="off"></div><div class="field"><label>학년</label><div class="grades"><button type="button" class="gbtn" data-g="초6">초6</button><button type="button" class="gbtn" data-g="중1">중1</button><button type="button" class="gbtn" data-g="중2">중2</button><button type="button" class="gbtn" data-g="중3">중3</button></div></div><button class="btn" id="startBtn" disabled>진단 시작</button><button class="btn ghost" id="demoBtn">예시 결과 보기 (데모)</button><div style="margin-top:20px;text-align:center"><a href="관리자.html" style="font-size:11.5px;color:#a9a39a;text-decoration:none;border-bottom:1px dotted #cfc8bd;padding-bottom:1px">관리자 · 오프라인 수기 입력</a></div></div><div id="testScreen" class="screen"><div class="progress"><div class="pbar"><div id="pfill"></div></div><div class="pcount" id="pcount">0 / 0</div></div><div id="test"></div><button class="btn" id="submitBtn" disabled>리포트 생성</button></div><div id="analyzeScreen" class="screen"><div class="analyze"><div class="az-orb"><i></i></div><div class="az-title">분석 중</div><div class="az-sub">응답을 정밀 분석해 맞춤 리포트를 만들고 있어요</div><div class="az-bar"><i></i></div><div class="az-steps"><div class="az-step">응답 패턴 정합성 검토</div><div class="az-step">화학 두뇌 유형 판별</div><div class="az-step">개념·오개념 진단</div><div class="az-step">맞춤 해석 생성</div></div></div></div><div id="reportScreen" class="screen"><div id="report"></div></div></div><script>"use strict";
 /* ===== 화학 진단 v2 — 문항 UI 렌더 (순수 함수, HTML 문자열) ===== */
 function escT(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
@@ -656,11 +738,12 @@ function axisLogicHTML(r) {
 /* ── G9b: 진학 트랙 적합도 + 다년 로드맵 (영재원 제외) ── */
 function josa(w, a, b) { if (!w) return a; var c = w.charCodeAt(w.length - 1); if (c < 0xAC00 || c > 0xD7A3) return a; return ((c - 0xAC00) % 28) ? a : b; }
 var TRACKS_V2 = [
-  { key: "과학고", name: "과학고", tag: "단단한 개념과 꾸준한 심층 학습", w: { concept: .3, deep: .25, efficacy: .2, analysis: .15, calm: .1 }, pen: 3, boost: 0, pri: 1 },
-  { key: "영재고", name: "영재고", tag: "깊이·분석·도전과 강한 개념을 모두 요구하는 최상위", w: { deep: .28, concept: .22, challenge: .18, analysis: .17, efficacy: .15 }, pen: 3, boost: 8, pri: 4 },
-  { key: "올림피아드", name: "올림피아드", tag: "고난도 도전과 끝까지 파고드는 분석", w: { challenge: .3, analysis: .25, depthLens: .2, deep: .15, concept: .1 }, pen: 2, boost: 9, pri: 3 },
-  { key: "전국자사고", name: "전국 자사고", tag: "균형 잡힌 성실함과 가치 인식", w: { value: .25, mastery: .2, concept: .2, calm: .15, metacog: .1, efficacy: .1 }, pen: 1, boost: 0, pri: 0 },
-  { key: "의대", name: "의대 (장기 트랙)", tag: "긴 호흡의 숙달·정확성·정서 안정", w: { mastery: .25, metacog: .2, calm: .2, value: .15, concept: .1, lowSurf: .1 }, pen: 2, boost: 0, pri: 0 }
+  { key: "화학대회", name: "중학생 화학대회", tag: "개념 깊이·도전·분석을 겨루는 지금의 주무대", w: { concept: .26, deep: .22, challenge: .18, analysis: .16, interest: .1, efficacy: .08 }, pen: 2, boost: 4, pri: 5 },
+  { key: "과학고", name: "과학고", tag: "단단한 개념과 꾸준한 심층 학습", w: { concept: .3, deep: .25, efficacy: .2, analysis: .15, calm: .1 }, pen: 3, boost: 0, pri: 3 },
+  { key: "영재고", name: "영재고", tag: "깊이·분석·도전과 강한 개념을 모두 요구하는 최상위", w: { deep: .28, concept: .22, challenge: .18, analysis: .17, efficacy: .15 }, pen: 4, boost: 0, pri: 2 },
+  { key: "물리대회", name: "중학생 물리대회", tag: "정량·추상·논리를 겨루는 또 하나의 무대 (사고 방식 기반 추정)", w: { analysis: .28, challenge: .24, depthLens: .22, deep: .14, inquiry: .12 }, pen: 2, boost: 2, pri: 4 },
+  { key: "의대", name: "의대 (장기 트랙)", tag: "긴 호흡의 숙달·정확성·정서 안정", w: { mastery: .25, metacog: .2, calm: .2, value: .15, concept: .1, lowSurf: .1 }, pen: 2, boost: 0, pri: 1 },
+  { key: "전국자사고", name: "전국 자사고", tag: "균형 잡힌 성실함과 가치 인식", w: { value: .25, mastery: .2, concept: .2, calm: .15, metacog: .1, efficacy: .1 }, pen: 1, boost: 0, pri: 1 }
 ];
 var SIG_LAB = { interest: "흥미", efficacy: "자신감", value: "가치 인식", calm: "정서 안정", concept: "개념", deep: "심층 학습", metacog: "메타인지", lowSurf: "표층 탈피", challenge: "도전", analysis: "분석", depthLens: "원리 지향", inquiry: "탐구", mastery: "숙달" };
 var SIGNEXT = { interest: "흥미를 여는 현상·실험 비중을 늘려 몰입 시간을 확보", efficacy: "작은 성공 경험을 쌓아 자신감 끌어올리기", value: "배우는 이유를 스스로 말로 정리하는 습관", calm: "쉬운 문제로 긴장을 낮춘 뒤 난도 올리기", concept: "핵심 개념을 반례·실험으로 다시 세우기", deep: "답보다 ‘왜’를 한 줄 더 적는 심층 습관", metacog: "풀이 후 ‘무엇을 어떻게 알았나’ 점검하기", lowSurf: "암기 의존을 줄이고 원리로 재구성", challenge: "한 단계 위 문제에 정기적으로 도전", analysis: "근거를 따져 논증하는 분석 훈련", depthLens: "입자·원리 수준으로 내려가 설명하기", inquiry: "새 주제를 직접 탐구하는 미니 프로젝트", mastery: "반복으로 정확도와 숙달 굳히기" };
@@ -680,20 +763,31 @@ function trackScores2(r) {
     var strong = null, gap = null, k2; for (k2 in t.w) { var ss = t.w[k2] * (S[k2] || 0); if (strong === null || ss > strong.s) strong = { k: k2, s: ss }; var gs = t.w[k2] * (75 - (S[k2] || 0)); if (gap === null || gs > gap.s) gap = { k: k2, s: gs }; }
     var L = fit >= 72 ? ["강한 적합", "var(--emerald)"] : fit >= 58 ? ["유망", "var(--teal)"] : fit >= 44 ? ["준비 단계", "var(--cobalt)"] : ["탐색 단계", "var(--muted)"];
     return { key: t.key, name: t.name, tag: t.tag, fit: fit, pri: t.pri || 0, level: L[0], color: L[1], strong: SIG_LAB[strong.k], gapKey: gap.k, gapLab: gap.s > 0 ? SIG_LAB[gap.k] : null };
-  }); var _y, _k; _o.forEach(function (x) { if (x.key === "영재고") _y = x; if (x.key === "과학고") _k = x; }); if (_y && _k && _y.fit < _k.fit) _y.fit = _k.fit; return _o.sort(function (a, b) { return (b.fit - a.fit) || ((b.pri || 0) - (a.pri || 0)); });
+  }); return _o.sort(function (a, b) { return (b.fit - a.fit) || ((b.pri || 0) - (a.pri || 0)); });
+}
+var TRACK_WHAT = {
+  "화학대회": "중등 화학 경시·탐구 대회입니다. 개념의 깊이, 까다로운 문제에 대한 도전, 근거를 따지는 분석력을 함께 봅니다. 지금 이 또래의 주무대이자, 어느 진학으로 가든 공통 토대가 됩니다.",
+  "물리대회": "중등 물리 경시·탐구 대회입니다. 정량적 계산과 추상적 원리, 논리적 분석을 강하게 요구합니다. (이 적합도는 화학 진단에서 드러난 ‘사고 방식’으로 추정한 참고값이라, 실제 물리 흥미·경험과 함께 보셔야 합니다.)",
+  "과학고": "과학 중점 고교입니다. 단단한 개념과 꾸준한 심층 학습, 안정적인 자신감을 중시합니다.",
+  "영재고": "최상위 영재 고교입니다. 깊이·분석·도전·강한 개념을 모두 높은 수준으로 요구합니다. 한 영역만으로는 부족하고 전 영역이 함께 높아야 합니다.",
+  "의대": "긴 호흡의 장기 트랙입니다. 반복을 통한 정확성과 숙달, 정서 안정, 스스로 점검하는 메타인지가 핵심입니다.",
+  "전국자사고": "전국 단위 자율형 사립고입니다. 균형 잡힌 성실함과 ‘왜 배우는가’에 대한 인식을 봅니다."
+};
+function trackExplainHTML(t, r) {
+  var what = TRACK_WHAT[t.key] || esc(t.tag);
+  var why = '<b>지금 이 학생은</b> ' + esc(t.strong) + josa(t.strong, "이", "가") + ' 이 길을 받쳐 줍니다.' + (t.gapLab ? (' 더 끌어올리려면 <b>' + esc(t.gapLab) + '</b>' + josa(t.gapLab, "을", "를") + ' 보완하면 적합도가 함께 올라갑니다.') : ' 신호가 비교적 고르게 받쳐 주고 있습니다.');
+  return '<div style="font-size:12.5px;color:var(--ink-2);line-height:1.72">' + what + '</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.72;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)">' + why + '</div>';
 }
 function trackFitHTML(r) {
   var arr = trackScores2(r);
   var rows = arr.map(function (t, i) {
     var top = (i === 0 && t.fit >= 58);
-    return '<div style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:9px 0;background:' + (top ? 'rgba(46,125,91,.05)' : 'var(--paper-2)') + ';box-shadow:0 1px 2px rgba(28,24,18,.05),0 10px 26px -20px rgba(28,24,18,.4)">' +
-      '<div style="display:flex;align-items:center;gap:8px"><b style="font-size:14px">' + esc(t.name) + '</b>' + (top ? '<span style="font-size:10px;background:var(--emerald);color:#fff;padding:1px 7px;border-radius:999px">우선</span>' : '') + '<span style="margin-left:auto;font-size:11px;background:' + t.color + ';color:#fff;padding:1px 9px;border-radius:999px">' + t.level + '</span><span style="font-family:var(--serif);font-size:18px;color:' + t.color + '">' + t.fit + '</span></div>' +
-      '<div style="height:7px;background:var(--line);border-radius:99px;margin:8px 0;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.08)"><i style="display:block;height:100%;width:' + t.fit + '%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(0,0,0,.08)),' + t.color + '"></i></div>' +
-      '<div style="font-size:11.5px;color:var(--muted)">' + esc(t.tag) + '</div>' +
-      '<div style="font-size:12.5px;color:var(--ink-2);margin-top:5px"><b>강점</b> ' + esc(t.strong) + josa(t.strong, "이", "가") + ' 받쳐줌' + (t.gapLab ? ' · <b>보완</b> ' + esc(t.gapLab) : '') + '</div></div>';
+    var head = '<summary class="trk"><div style="display:flex;align-items:center;gap:8px"><span class="trk-cv" style="font-size:11px;color:var(--muted)">▸</span><b style="font-size:14px">' + esc(t.name) + '</b>' + (top ? '<span style="font-size:10px;background:var(--emerald);color:#fff;padding:1px 7px;border-radius:999px">우선</span>' : '') + '<span style="margin-left:auto;font-size:11px;background:' + t.color + ';color:#fff;padding:1px 9px;border-radius:999px">' + t.level + '</span><span style="font-family:var(--serif);font-size:18px;color:' + t.color + '">' + t.fit + '</span></div><div style="height:7px;background:var(--line);border-radius:99px;margin:8px 0 6px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.08)"><i style="display:block;height:100%;width:' + t.fit + '%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(0,0,0,.08)),' + t.color + '"></i></div><div style="font-size:11px;color:var(--teal-d);font-weight:600">▾ 이름을 눌러 해설 보기</div></summary>';
+    return '<details' + (top ? ' open' : '') + ' style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:9px 0;background:' + (top ? 'rgba(46,125,91,.05)' : 'var(--paper-2)') + ';box-shadow:0 1px 2px rgba(28,24,18,.05),0 10px 26px -20px rgba(28,24,18,.4)">' + head + '<div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)">' + trackExplainHTML(t, r) + '</div></details>';
   }).join("");
-  return '<p style="font-size:12.5px;color:var(--muted);margin:0 0 6px">점수가 아니라 <b>지금 신호 기준의 방향</b>입니다. 한 줄로 가두기보다 다년 경로에서 어느 길이 더 맞는지를 봅니다.</p>' + rows + '<p style="font-size:11px;color:var(--muted);font-style:italic;margin:8px 0 0">가중치는 전문가 사전값으로, 누적 데이터로 보정될 예정입니다.</p>';
+  return '<style>details>summary.trk{list-style:none;cursor:pointer;outline:none}details>summary.trk::-webkit-details-marker{display:none}details>summary.trk .trk-cv{display:inline-block;transition:transform .2s}details[open]>summary.trk .trk-cv{transform:rotate(90deg)}details[open]>summary.trk>div:last-child{display:none}details>summary.trk:hover{filter:brightness(.99)}</style><p style="font-size:12.5px;color:var(--muted);margin:0 0 6px"><b>점수가 아니라 지금 신호 기준의 방향</b>입니다. 트랙 이름을 누르면 해설이 바로 펼쳐집니다.</p>' + rows + '<p style="font-size:11px;color:var(--muted);font-style:italic;margin:8px 0 0">가중치는 전문가 사전값으로, 누적 데이터로 보정될 예정입니다.</p>';
 }
+
 function roadmapHTML2(r) {
   var top = trackScores2(r)[0], tn = (top.name || "").split("(")[0].trim().replace("전국 ", "");
   var S = sigVals2(r);
@@ -752,17 +846,32 @@ function misconceptionDetailHTML(r) {
       '<div style="font-size:12.5px;color:var(--ink-2);margin-top:5px"><b style="color:var(--teal-d)">교정 활동 </b>' + esc(C.cls) + '</div></div>';
   }).join("") + '</div>';
 }
-function counselNoteHTML(r) {
-  var top = trackScores2(r)[0], T = TYPES[r.type.code] || {}, I = TYPE_INFO[r.type.code] || {};
-  var nm = r.name || "", strong = strongSigLabel(r), ent = topEntrenched(r);
-  var script = '안녕하세요, ' + (nm ? esc(nm) + ' ' : '') + '학부모님. ' + (nm ? esc(nm) + josa(nm, "은", "는") + ' ' : '학생은 ') + esc(T.name || r.type.code) + ' 유형입니다' + (I.tag ? (' \u2014 ' + esc(I.tag) + '.') : '.') +
-    ' 지금은 ' + esc(strong) + josa(strong, "이", "가") + ' 가장 두드러지고, ' +
-    (ent.length ? ('\u2018' + esc(ent[0].label) + '\u2019 개념을 먼저 바로잡으면 크게 도약할 수 있습니다.') : '개념 토대도 비교적 탄탄합니다.') +
-    ' 점수보다 ' + esc(shortTrack(top.name)) + ' 방향의 다년 성장 경로를 함께 봅니다. 다음 한 걸음은 ' + esc(firstStepText(r)) + '입니다.';
-  var cases = ent.slice(0, 2).map(function (e) { var C = CLUSTERS[e.cluster] || {}; if (!C.nm) return ""; return '<div style="border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin:7px 0;background:#fff"><div style="font-size:12.5px;color:var(--cobalt);font-weight:600">\u201C' + esc((C.nm || "").split("\u2014")[0].trim()) + '\u201D 장면</div><div style="font-size:12px;color:var(--ink-2);margin-top:3px"><b>해석 </b>' + esc(C.why || "") + '</div><div style="font-size:12px;color:var(--ink-2);margin-top:2px"><b>처방 </b>' + esc(C.cls || "") + '</div></div>'; }).join("");
-  return '<blockquote style="margin:0;padding:13px 15px;background:rgba(42,84,112,.06);border-left:3px solid var(--cobalt);border-radius:0 10px 10px 0;font-size:13px;color:var(--ink-2);line-height:1.7">' + script + '</blockquote>' +
-    (cases ? '<div style="font-size:12px;font-weight:600;color:var(--ink-2);margin:13px 0 2px">자주 보는 장면 · 이렇게 읽습니다</div>' + cases : '');
+function parentFAQHTML(r) {
+  var arr = trackScores2(r), top = arr[0], T = TYPES[r.type.code] || {};
+  var nm = r.name || "", ent = topEntrenched(r), S = sigVals2(r);
+  var yj = null; arr.forEach(function (x) { if (x.key === "영재고") yj = x; });
+  var yjMsg = yj ? (yj.fit >= 72 ? "영재고도 충분히 도전권에 있습니다" : yj.fit >= 58 ? "영재고는 ‘유망’ 단계로, 깊이·도전 신호를 더 쌓으면 충분히 열립니다" : "영재고는 아직 ‘준비 단계’라, 기초 개념과 자신감부터 다지는 편이 빠릅니다") : "";
+  function qa(q, a) { return '<div style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:9px 0;background:var(--paper-2)"><div style="font-size:13px;font-weight:600;color:var(--cobalt)"><span style="opacity:.55">학부모 </span>' + esc(q) + '</div><div style="font-size:12.8px;color:var(--ink-2);line-height:1.74;margin-top:6px"><span style="color:var(--teal-d);font-weight:600">상담 </span>' + a + '</div></div>'; }
+  var items = [];
+  items.push(qa("우리 아이, 어떤 진학을 목표로 잡아야 할까요? 영재고를 노려야 하나요?",
+    (nm ? esc(nm) + josa(nm, "은", "는") + " " : "지금 ") + "신호로 보면 <b>" + esc(T.name || r.type.code) + "</b> 유형이고, 가장 잘 맞는 방향은 <b>" + esc(shortTrack(top.name)) + "</b>(적합도 " + top.fit + "·" + top.level + ")입니다. 무엇보다 이 또래는 <b>중학생 화학대회</b>가 지금의 주무대이고, 그 준비가 과학고·영재고·의대 어디로 가든 공통 토대가 됩니다. " + (yjMsg ? (esc(yjMsg) + ". ") : "") + "한 학교로 못박기보다, 대회를 발판 삼아 여러 길을 함께 열어 두는 편이 이 시기엔 더 유리합니다."));
+  items.push(qa("적합도 점수가 생각보다 낮은데, 너무 늦은 걸까요?",
+    "이 적합도는 등수나 성적표가 아니라 <b>지금 신호 기준의 방향</b>입니다. 중2는 성향과 개념이 한창 자라는 시기라, 지금 숫자보다 ‘어디를 채우면 어디가 열리는가’가 훨씬 중요합니다. " + (top.gapLab ? ("당장은 <b>" + esc(top.gapLab) + "</b>" + josa(top.gapLab, "을", "를") + " 보완하면 적합도가 함께 올라갑니다.") : "지금은 강점을 한 단계 위로 밀어 줄 시점입니다.")));
+  var homeTip = ent.length ? ("우선 ‘" + esc(ent[0].label) + "’ 개념을 실험·반례로 한 번 바로잡아 주세요(아래 ‘개념 직관·오개념’ 칸에 방법이 정리돼 있습니다).") : ("개념 토대는 안정적이니, 문제를 풀고 나면 ‘왜 그렇게 되는지’ 한 줄 더 적게 하는 심층 습관을 붙여 주세요.");
+  items.push(qa("집에서는 무엇을 도와주면 좋을까요?",
+    homeTip + " 그리고 " + (S.efficacy < 45 ? "작은 성공 경험을 자주 만들어 ‘하면 된다’는 자신감을 먼저 채워 주세요" : S.interest < 45 ? "흥미가 켜지는 현상·실험부터 노출해 몰입 시간을 늘려 주세요" : "잘하고 있을 때 구체적으로 인정해 주는 것만으로도 큰 동력이 됩니다") + ".") );
+  if (ent.length) { var C = CLUSTERS[ent[0].cluster] || {};
+    items.push(qa("‘오개념’이 있다고 나오는데, 큰 문제인가요?",
+      "전혀 드문 일이 아니라, 또래 대부분이 거치는 자연스러운 단계입니다. " + esc(C.why || "") + " 핵심은 혼내는 게 아니라 <b>한 번의 반례</b>로 직접 보게 하는 것입니다. " + esc(C.cls || "") + " 이렇게 한 번 바로잡으면 개념이 오히려 더 단단해집니다."));
+  } else {
+    items.push(qa("개념은 괜찮은 편인가요?",
+      "네, 굳어진 오개념 없이 개념 직관이 안정적입니다. 지금은 기초를 지키면서 한 단계 위 개념·문제로 <b>심화</b>해 갈 시점입니다."));
+  }
+  items.push(qa("중학생 화학대회 준비가 진학에도 도움이 되나요?",
+    "그렇습니다. 대회 준비는 ‘개념 깊이 + 도전 + 분석’을 동시에 키우는데, 이 셋은 과학고·영재고 평가의 핵심이자 의대 장기 트랙에서 요구되는 정확성·끈기의 바탕이기도 합니다. 즉 대회는 특정 진학의 곁가지가 아니라 <b>여러 길로 갈라지는 공통 줄기</b>입니다."));
+  return '<p style="font-size:12.5px;color:var(--muted);margin:0 0 8px">상담에서 학부모님이 가장 자주 여쭤보시는 질문과, 그에 대한 설명을 대화 그대로 옮겼습니다. 천천히 읽어 보시면 결과를 스스로 이해하시는 데 도움이 됩니다.</p>' + items.join("");
 }
+
 function snapshotHTML(r) {
   var top = trackScores2(r)[0], T = TYPES[r.type.code] || {};
   var cell = function (lab, val, col) { return '<div style="text-align:center;flex:1;min-width:60px"><div style="font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.5px">' + lab + '</div><div style="font-family:var(--serif);font-size:16px;color:' + (col || '#fff') + ';margin-top:2px">' + val + '</div></div>'; };
@@ -847,7 +956,7 @@ function narrativeHTML(r) {
   var pInner = "마음의 결을 들여다보면, " + bn[0] + " " + bn[1] + effTie + " " + bn[2] + anxTie + valScene;
   var pClose = P(50, ["지금은 가능성이 한창 자라나는 시기입니다. ", "지금의 모습은 완성형이 아니라 자라나는 중간 과정입니다. "]) + P(51, ["맞는 자극과 인정이 더해지면, 지금 보이는 것보다 훨씬 멀리 갈 수 있는 아이입니다.", "방향을 잘 잡아 주면, 지금의 강점이 몇 배의 결과로 돌아올 잠재력을 지녔습니다.", "조급해하지 않고 이 아이의 속도를 믿어 줄 때, 가장 크게 자랍니다."]) + " " + P(52, ["오늘의 리포트는 점수표가 아니라, 이 아이를 더 깊이 이해하기 위한 지도입니다.", "이 결과는 등수를 매기려는 것이 아니라, 아이에게 맞는 길을 함께 찾기 위한 출발점입니다."]);
   function para(x) { return '<p style="margin:0 0 11px;font-size:13.5px;line-height:1.78;color:var(--ink-2)">' + x + '</p>'; }
-  return '<section class="card aud-no-student"><div class="bh"><span class="ix" style="background:var(--cobalt)">✦</span><h3>맞춤 종합 해설</h3><span class="sub">이 학생만의 종합 읽기</span></div>' + para(p1) + para(pPortrait) + para(pShine) + para(p2) + para(p3) + para(pInner) + para(p4) + para(p5) + para(pClose) + '<p style="margin:6px 0 0;font-size:11px;color:var(--muted);font-style:italic">측정모델(위계 사다리·동등바람직 강제선택·맥락 층화·타당도 척도)이 산출한 프로필을 바탕으로 구성한 종합 해설입니다.</p></section>';
+  return '<section class="card"><div class="bh"><span class="ix" style="background:var(--cobalt)">✦</span><h3>맞춤 종합 해설</h3><span class="sub">이 학생만의 종합 읽기</span></div>' + para(p1) + para(pPortrait) + para(pShine) + para(p2) + para(p3) + para(pInner) + para(p4) + para(p5) + para(pClose) + '<p style="margin:6px 0 0;font-size:11px;color:var(--muted);font-style:italic">측정모델(위계 사다리·동등바람직 강제선택·맥락 층화·타당도 척도)이 산출한 프로필을 바탕으로 구성한 종합 해설입니다.</p></section>';
 }
 
 
@@ -873,25 +982,20 @@ function methodologyHTML(r) {
 
 function renderReportV2(r) {
   var H = "";
-  H += '<div class="vbar">' +
-    '<button class="vbtn" data-rv="student" onclick="setRV(this)">학생용</button>' +
-    '<button class="vbtn" data-rv="parent" onclick="setRV(this)">학부모용</button>' +
-    '<button class="vbtn on" data-rv="teacher" onclick="setRV(this)">강사용</button></div>';
   H += snapshotHTML(r);
   H += narrativeHTML(r);
-  H += sec("01", "종합 프로필", "6개 핵심 차원 한눈에",
-    hexRadarSVG(r) + '<p style="font-size:12px;color:var(--muted);text-align:center;margin-top:2px">흥미·자신감·정서안정·가치·학습깊이·개념직관 (0~100)</p>');
+  H += sec("01", "종합 프로필", "6개 핵심 차원 한눈에", hexRadarSVG(r) + '<p style="font-size:12px;color:var(--muted);text-align:center;margin-top:2px">흥미·자신감·정서안정·가치·학습깊이·개념직관 (0~100)</p>');
   H += sec("02", "맥락 지도", "맥락별 흥미·불안·오개념", contextBarsHTML(r));
   H += sec("03", "성장 사다리", "‘좋아한다’가 아니라 도달 단계", ladderHTML(r));
   H += sec("04", "학습 접근 우선순위", "동등바람직 강제선택", approachHTML(r));
   H += sec("05", "대처 패턴", "행동 시나리오", copingHTML(r));
   H += sec("06", "사고 성향(16유형)", "강제선택 · 위조 불가", typeIdentityHTML(r) + '<div style="height:1px;background:var(--line);margin:14px 0"></div>' + typeMiniHTML(r) + axisLogicHTML(r));
-  H += sec("07", "진학 트랙 적합도", "다섯 갈래 · 지금의 방향", trackFitHTML(r), "aud-no-student");
-  H += sec("08", "다년 성장 로드맵", "점수가 아니라 궤적", roadmapHTML2(r), "aud-no-student");
-  H += sec("09", "개념 직관·오개념", "보존 / 입자 / 변화", conceptMiniHTML(r) + misconceptionDetailHTML(r), "aud-no-student");
-  H += sec("10", "응답 신뢰도", "과대응답·부주의 탐지", validityBadge(r), "aud-teacher");
-  H += sec("11", "상담 노트 · 강사용", "학부모 상담에 그대로", counselNoteHTML(r), "aud-teacher");
-  H += sec("12", "방법론·한계", "측정 모델과 현재 한계", methodologyHTML(r), "aud-teacher");
+  H += sec("07", "진학 트랙 적합도", "여러 갈래 · 지금의 방향", trackFitHTML(r));
+  H += sec("08", "다년 성장 로드맵", "점수가 아니라 궤적", roadmapHTML2(r));
+  H += sec("09", "개념 직관·오개념", "보존 / 입자 / 변화", conceptMiniHTML(r) + misconceptionDetailHTML(r));
+  H += sec("10", "응답 신뢰도", "과대응답·부주의 탐지", validityBadge(r));
+  H += sec("11", "학부모 상담 문답", "자주 묻는 질문 · 자가학습 대본", parentFAQHTML(r));
+  H += sec("12", "방법론·한계", "측정 모델과 현재 한계", methodologyHTML(r));
   return H;
 }
 
@@ -943,4 +1047,37 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
   function showAnalyze(after){ var az=$("#analyzeScreen"); var rm=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches; $("#introScreen").classList.remove("on"); $("#testScreen").classList.remove("on"); if(!az||rm){ if(after)after(); return; } var steps=az.querySelectorAll(".az-step"); Array.prototype.forEach.call(steps,function(s){ s.classList.remove("active","done"); }); az.classList.add("on"); window.scrollTo(0,0); var sub=az.querySelector(".az-sub"); if(sub){ var _nm=(typeof META!=="undefined"&&META.name)?(""+META.name).trim():""; sub.textContent=(_nm?_nm+"님의 ":"")+"응답을 한 문항씩 정밀 분석하고 있습니다"; } var per=560; var _total=180+steps.length*per+260; var _bi=az.querySelector(".az-bar i"); if(_bi){ _bi.style.transition="none"; _bi.style.width="0"; void _bi.offsetWidth; _bi.style.transition="width "+(_total-220)+"ms linear"; _bi.style.width="100%"; } Array.prototype.forEach.call(steps,function(s,i){ setTimeout(function(){ s.classList.add("active"); },180+i*per); setTimeout(function(){ s.classList.remove("active"); s.classList.add("done"); },180+i*per+per-140); }); setTimeout(function(){ az.classList.remove("on"); if(_bi){ _bi.style.transition="none"; _bi.style.width="0"; } if(after)after(); }, _total); }
   function revealCards(){ try{ if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches)return; var rs=$("#reportScreen"); if(!rs||!("IntersectionObserver" in window))return; rs.classList.add("reveal-on"); var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } }); },{threshold:.12,rootMargin:"0px 0px -8% 0px"}); Array.prototype.forEach.call(rs.querySelectorAll(".card"),function(c){ io.observe(c); }); }catch(e){} }
   (function setup(){ try{ var rs=$("#reportScreen"); if(rs&&!$("#printBtn")){ var bar=document.createElement("div"); bar.className="repbar"; var pb=document.createElement("button"); pb.id="printBtn"; pb.type="button"; pb.className="btn ghost"; pb.textContent="PDF로 저장 / 인쇄"; pb.addEventListener("click",function(){ window.print(); }); bar.appendChild(pb); rs.insertBefore(bar, rs.firstChild); } }catch(e){} try{ var raw=localStorage.getItem("kmchc_v2_progress"); if(!raw)return; var pg=JSON.parse(raw); if(!pg||!pg.answers)return; var tot=buildOrder().length, done=answeredCount(pg.answers); if(done<=0||done>=tot)return; var intro=$("#introScreen"); if(!intro)return; var box=document.createElement("div"); box.className="resume"; var t=document.createElement("div"); t.className="resume-t"; t.textContent="이전에 진행하던 진단이 있어요 ("+done+"/"+tot+" 문항). 이어서 하시겠어요?"; var bb=document.createElement("div"); bb.className="resume-b"; var r1=document.createElement("button"); r1.type="button"; r1.className="btn"; r1.textContent="이어서 하기"; r1.addEventListener("click",function(){ startSession(pg.meta,pg.answers,pg.elapsedMs||0); scrollFirstUnanswered(); }); var r2=document.createElement("button"); r2.type="button"; r2.className="btn ghost"; r2.textContent="새로 시작"; r2.addEventListener("click",function(){ clearProgress(); if(box.parentNode)box.parentNode.removeChild(box); }); bb.appendChild(r1); bb.appendChild(r2); box.appendChild(t); box.appendChild(bb); intro.insertBefore(box, intro.firstChild); }catch(e){} })();
-})();</script></body></html>
+})();</script><script id="fxAuroraGlass">(function(){
+ var rm = (window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches);
+ /* ripple on buttons (delegated, capture) */
+ document.addEventListener("click",function(e){
+  if(rm)return; var t=e.target; var b=(t&&t.closest)?t.closest(".btn,.gbtn,.opt,.vbtn"):null; if(!b)return;
+  var r=b.getBoundingClientRect(); var s=document.createElement("span"); s.className="fx-ripple";
+  var sz=Math.max(r.width,r.height)*1.25; s.style.width=s.style.height=sz+"px";
+  s.style.left=(e.clientX-r.left)+"px"; s.style.top=(e.clientY-r.top)+"px";
+  b.appendChild(s); setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },680);
+ },true);
+ /* intro hero gradient */
+ try{ var it=document.querySelector("#introScreen h1, #introScreen h2, .mast h1, .mast .ttl, .hero h1, .brand-title"); if(it)it.classList.add("fx-grad-text"); }catch(e){}
+ /* standalone report views (e.g. 관리자.html) get burst + reveal; the main app handles its own reveal */
+ var hasAppReveal = !!document.getElementById("reportScreen");
+ if(!hasAppReveal){
+  function revealCards(root){
+   if(rm)return; root=root||document;
+   var cards=[].slice.call(root.querySelectorAll(".card:not(.fx-seen)")); if(!cards.length)return;
+   if(!("IntersectionObserver" in window)){ cards.forEach(function(c){c.classList.add("fx-seen");}); return; }
+   document.body.classList.add("fxreveal");
+   var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("fx-in"); io.unobserve(en.target);} }); },{threshold:.08,rootMargin:"0px 0px -6% 0px"});
+   cards.forEach(function(c,i){ c.classList.add("fx-rev","fx-seen"); c.style.transitionDelay=(Math.min(i,8)*60)+"ms"; io.observe(c); });
+   setTimeout(function(){ cards.slice(0,3).forEach(function(c){c.classList.add("fx-in");}); },40);
+  }
+  function burst(){ var r=document.getElementById("report"); if(!r||rm)return; r.classList.remove("fx-burst"); void r.offsetWidth; r.classList.add("fx-burst"); }
+  var rep=document.getElementById("report");
+  if(rep){ var seen=false;
+   var mo=new MutationObserver(function(){ if(rep.children.length){ if(!seen){ seen=true; burst(); revealCards(rep);} } else { seen=false; } });
+   mo.observe(rep,{childList:true});
+   if(rep.children.length){ seen=true; burst(); revealCards(rep); }
+  }
+ }
+})();</script>
+</body></html>
