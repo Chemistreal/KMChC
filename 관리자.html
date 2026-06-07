@@ -175,6 +175,88 @@ body::-webkit-scrollbar{width:11px;height:11px}body::-webkit-scrollbar-thumb{bac
 #status.ok{color:#1c5e3f;background:rgba(46,125,91,.08)}
 #status.err{color:#9a2828;background:rgba(176,40,40,.07)}
 .repbar{display:flex;justify-content:flex-end;margin-bottom:10px}
+
+/* ===================== Aurora Glass Premium FX (additive layer) ===================== */
+@media screen{
+:root{--fxblur:16px}
+body{position:relative}
+body::before{content:"";position:fixed;inset:-25vmax;z-index:-2;pointer-events:none;
+ background:
+  radial-gradient(38vmax 30vmax at 16% 10%, rgba(14,122,110,.42), transparent 60%),
+  radial-gradient(36vmax 28vmax at 86% 16%, rgba(42,84,112,.38), transparent 62%),
+  radial-gradient(42vmax 32vmax at 78% 90%, rgba(201,162,75,.34), transparent 60%),
+  radial-gradient(34vmax 28vmax at 10% 88%, rgba(178,58,107,.26), transparent 62%);
+ filter:blur(46px) saturate(118%);opacity:.5;animation:fxDrift 34s ease-in-out infinite alternate;will-change:transform}
+body::after{content:"";position:fixed;inset:-35vmax;z-index:-2;pointer-events:none;
+ background:conic-gradient(from 0deg, transparent 0%, rgba(46,125,91,.16) 18%, transparent 40%, rgba(42,84,112,.14) 62%, transparent 82%);
+ filter:blur(70px);opacity:.16;animation:fxSpin 70s linear infinite;will-change:transform}
+@keyframes fxDrift{to{transform:translate3d(2.5%,-2%,0) scale(1.07)}}
+@keyframes fxSpin{to{transform:rotate(360deg)}}
+/* frosted glass cards */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.44))!important;
+ -webkit-backdrop-filter:blur(var(--fxblur)) saturate(140%);backdrop-filter:blur(var(--fxblur)) saturate(140%);
+ border:1px solid rgba(255,255,255,.72)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 22px 46px -26px rgba(28,30,46,.45), 0 3px 12px -8px rgba(28,30,46,.22)!important;
+ transition:opacity .6s var(--ease),transform .55s var(--ease),box-shadow .55s var(--ease),filter .55s var(--ease)}
+.card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 30px 60px -28px rgba(14,122,110,.4), 0 6px 18px -8px rgba(42,84,112,.3)!important}
+/* type-code hero: flowing gradient + glow */
+.tcode{background:linear-gradient(100deg,var(--teal),var(--cobalt) 52%,var(--gold-2))!important;
+ background-size:220% auto!important;-webkit-background-clip:text!important;background-clip:text!important;
+ -webkit-text-fill-color:transparent!important;color:transparent!important;
+ filter:drop-shadow(0 3px 16px rgba(14,122,110,.32));animation:fxGrad 9s linear infinite}
+@keyframes fxGrad{to{background-position:220% center}}
+/* block-header accent bar (inside cards) */
+.card .bh{position:relative}
+.card .bh::before{content:"";position:absolute;left:-20px;top:.1em;bottom:.42em;width:3px;border-radius:3px;
+ background:linear-gradient(180deg,var(--teal),var(--cobalt));box-shadow:0 0 12px rgba(14,122,110,.4)}
+/* radar glow */
+.snap{box-shadow:0 22px 50px -26px rgba(14,122,110,.5), inset 0 0 0 1px rgba(201,162,75,.35)!important}
+.snap svg{overflow:visible}
+.snap .poly-in{filter:drop-shadow(0 0 7px rgba(14,122,110,.55))}
+/* validity badge glow */
+.vbadge{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+ box-shadow:0 2px 10px rgba(28,24,18,.18), inset 0 0 0 1px rgba(255,255,255,.5), 0 4px 16px -6px rgba(14,122,110,.35)!important}
+/* view-toggle glass */
+.vbar{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+ background:rgba(255,255,255,.42)!important;border:1px solid rgba(255,255,255,.6);
+ box-shadow:0 8px 24px -14px rgba(28,30,46,.45)!important}
+.vbtn.on{box-shadow:0 4px 14px -6px rgba(14,122,110,.5)!important}
+/* report entrance burst (standalone report views) */
+#report.fx-burst{animation:fxBurst .85s var(--ease)}
+@keyframes fxBurst{0%{opacity:0;transform:translateY(20px) scale(.99);filter:blur(9px)}60%{opacity:1;filter:blur(0)}100%{transform:none}}
+/* scroll reveal (standalone report views only) */
+body.fxreveal .card.fx-rev{opacity:0;transform:translateY(26px) scale(.984);filter:blur(8px)}
+body.fxreveal .card.fx-rev.fx-in{opacity:1;transform:none;filter:none}
+/* buttons: hover lift + ripple */
+.btn,.gbtn,.opt,.vbtn{position:relative;overflow:hidden}
+.btn{transition:transform .2s var(--ease),box-shadow .3s var(--ease)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px -12px rgba(14,122,110,.5)}
+.gbtn:hover{box-shadow:0 8px 20px -10px rgba(42,84,112,.4)}
+.gbtn.on,.gbtn[aria-pressed="true"]{box-shadow:0 6px 18px -8px rgba(14,122,110,.45)}
+.opt:hover{box-shadow:0 6px 16px -8px rgba(42,84,112,.35)}
+.fx-ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%) scale(0);
+ background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);pointer-events:none;animation:fxRipple .62s ease-out;z-index:2}
+@keyframes fxRipple{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+/* intro hero gradient text */
+.fx-grad-text{background:linear-gradient(100deg,var(--teal),var(--cobalt) 50%,var(--gold-deep))!important;
+ background-size:220% auto;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important;
+ animation:fxGrad 10s linear infinite}
+}
+@media (prefers-reduced-motion:reduce){
+ body::before,body::after{animation:none}
+ .tcode,.fx-grad-text{animation:none}
+ #report.fx-burst{animation:none}
+ body.fxreveal .card.fx-rev{opacity:1;transform:none;filter:none}
+ .fx-ripple{display:none}
+}
+@media print{
+ body::before,body::after{display:none!important}
+ .card{background:#fff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:1px solid #ddd!important;box-shadow:none!important;transform:none!important;opacity:1!important;filter:none!important}
+ .tcode,.fx-grad-text{-webkit-text-fill-color:initial!important;color:var(--teal-d)!important;filter:none!important;animation:none!important}
+ .snap{box-shadow:none!important}.snap .poly-in{filter:none!important}
+ .vbar,.vbadge{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important}
+}
+/* ===================== /FX layer ===================== */
 </style></head><body><div class="adminwrap">
 <h1 class="ad-h1">오프라인 OMR 수기 입력</h1>
 <p class="ad-sub">종이 OMR 답안지를 보고 블록별 숫자를 입력한 뒤 <b>채점 &amp; 저장</b>을 누르면, 온라인과 동일하게 자동 채점되어 같은 구글 시트에 저장되고 아래에 리포트가 표시됩니다.</p>
@@ -1073,5 +1155,38 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
   try{ var p=new URLSearchParams(location.search); var d=p.get("d");
     if(d){ var t=$("#ld_b64"); if(t){ t.value=d; var c=$("#ld_cnt"); if(c)c.textContent=d.length+"자"; }
       var n=p.get("n"); if(n)$("#ld_name").value=decodeURIComponent(n); var g=p.get("g"); if(g)$("#ld_grade").value=g; go(); } }catch(e){}
+})();</script>
+<script id="fxAuroraGlass">(function(){
+ var rm = (window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches);
+ /* ripple on buttons (delegated, capture) */
+ document.addEventListener("click",function(e){
+  if(rm)return; var t=e.target; var b=(t&&t.closest)?t.closest(".btn,.gbtn,.opt,.vbtn"):null; if(!b)return;
+  var r=b.getBoundingClientRect(); var s=document.createElement("span"); s.className="fx-ripple";
+  var sz=Math.max(r.width,r.height)*1.25; s.style.width=s.style.height=sz+"px";
+  s.style.left=(e.clientX-r.left)+"px"; s.style.top=(e.clientY-r.top)+"px";
+  b.appendChild(s); setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },680);
+ },true);
+ /* intro hero gradient */
+ try{ var it=document.querySelector(".masthead h1, .ad-h1, #introScreen h1, #introScreen h2, .hero h1, .brand-title"); if(it)it.classList.add("fx-grad-text"); }catch(e){}
+ /* standalone report views (e.g. 관리자.html) get burst + reveal; the main app handles its own reveal */
+ var hasAppReveal = !!document.getElementById("reportScreen");
+ if(!hasAppReveal){
+  function revealCards(root){
+   if(rm)return; root=root||document;
+   var cards=[].slice.call(root.querySelectorAll(".card:not(.fx-seen)")); if(!cards.length)return;
+   if(!("IntersectionObserver" in window)){ cards.forEach(function(c){c.classList.add("fx-seen");}); return; }
+   document.body.classList.add("fxreveal");
+   var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("fx-in"); io.unobserve(en.target);} }); },{threshold:.08,rootMargin:"0px 0px -6% 0px"});
+   cards.forEach(function(c,i){ c.classList.add("fx-rev","fx-seen"); c.style.transitionDelay=(Math.min(i,8)*60)+"ms"; io.observe(c); });
+   setTimeout(function(){ cards.slice(0,3).forEach(function(c){c.classList.add("fx-in");}); },40);
+  }
+  function burst(){ var r=document.getElementById("report"); if(!r||rm)return; r.classList.remove("fx-burst"); void r.offsetWidth; r.classList.add("fx-burst"); }
+  var rep=document.getElementById("report");
+  if(rep){ var seen=false;
+   var mo=new MutationObserver(function(){ if(rep.children.length){ if(!seen){ seen=true; burst(); revealCards(rep);} } else { seen=false; } });
+   mo.observe(rep,{childList:true});
+   if(rep.children.length){ seen=true; burst(); revealCards(rep); }
+  }
+ }
 })();</script>
 </body></html>
