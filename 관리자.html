@@ -258,7 +258,78 @@ body.fxreveal .card.fx-rev.fx-in{opacity:1;transform:none;filter:none}
 }
 /* ===================== /FX layer ===================== */
 
-</style></head><body><div class="adminwrap">
+</style><style id="premiumDossier">
+/* ===== Premium Dossier · 크림 & 골드 에디토리얼 ===== */
+:root{
+  --foil:linear-gradient(135deg,#7A5E1C,#C9A24B 32%,#F1E2A6 50%,#C9A24B 68%,#7A5E1C);
+  --foil-line:linear-gradient(90deg,transparent,rgba(160,126,43,.55),transparent);
+  --gold-hair:rgba(160,126,43,.30);
+}
+/* 배경 — 따뜻한 크림 깊이 + 미세 비네트 */
+body{ background:
+  radial-gradient(120% 80% at 50% -8%, #FCF8EF 0%, rgba(252,248,239,0) 46%),
+  radial-gradient(150% 130% at 50% 122%, rgba(122,94,28,.055) 0%, rgba(122,94,28,0) 42%),
+  var(--paper) !important; }
+/* 카드 — 이중 금박 프레임 + 깊은 재질 */
+.card{ position:relative; border:1px solid var(--gold-hair) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 1px 2px rgba(28,24,18,.05),
+    0 22px 50px -30px rgba(46,32,8,.5) !important; }
+.card::before{ content:""; position:absolute; inset:6px; border:1px solid rgba(160,126,43,.16);
+  border-radius:11px; pointer-events:none; }
+/* 섹션 번호 — 대형 금박 디스플레이 숫자 */
+.bh{ align-items:baseline; border-bottom:1px solid var(--gold-hair) !important; }
+.bh .ix{ font-family:var(--serif) !important; font-weight:300 !important; font-size:27px !important;
+  letter-spacing:0 !important; line-height:.9;
+  background:var(--foil); -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent !important;
+  filter:drop-shadow(0 1px 1px rgba(122,94,28,.15)); }
+.card .bh::before{ background:linear-gradient(180deg,#C9A24B,var(--teal-d)) !important;
+  box-shadow:0 0 12px rgba(160,126,43,.4) !important; }
+/* 유형 코드 — 금박 + 진입 1회 시닝 후 정착 */
+.tcode{ background:var(--foil) !important; background-size:220% auto !important;
+  -webkit-background-clip:text !important; background-clip:text !important;
+  -webkit-text-fill-color:transparent !important; color:transparent !important;
+  filter:drop-shadow(0 3px 14px rgba(160,126,43,.30)) !important;
+  animation:premSheen 2.8s ease-out 1 both !important; }
+@keyframes premSheen{ from{ background-position:140% center } to{ background-position:0% center } }
+/* 스냅샷 — 내부 금박 프레임 */
+.snap{ box-shadow:0 24px 54px -26px rgba(46,32,8,.55), inset 0 0 0 1px rgba(201,162,75,.45) !important; }
+.snap::after{ content:""; position:absolute; inset:7px; border:1px solid rgba(201,162,75,.30);
+  border-radius:12px; pointer-events:none; }
+/* 표지 (report.html) */
+.dossier .emblem{ width:62px;height:62px;border-radius:50%;margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(160,126,43,.55);
+  box-shadow:0 8px 22px -12px rgba(160,126,43,.7), inset 0 0 0 4px rgba(255,255,255,.45); }
+.dossier .emblem svg{ width:30px;height:34px; display:block; }
+.dossier .kicker{ font-family:var(--mono); font-size:10.5px; letter-spacing:.34em;
+  text-transform:uppercase; color:var(--gold-deep); }
+.dossier .cover-title{ font-family:var(--serif); font-weight:600; font-size:30px;
+  letter-spacing:-.01em; color:var(--ink); margin:.2em 0 0; line-height:1.1; }
+.dossier .cover-rule{ position:relative; height:1px; width:200px; margin:15px auto 12px;
+  background:var(--foil-line); }
+.dossier .cover-rule::after{ content:""; position:absolute; left:50%; top:50%; width:7px;height:7px;
+  background:linear-gradient(135deg,#EBD89B,#7A5E1C); transform:translate(-50%,-50%) rotate(45deg);
+  box-shadow:0 0 0 4px var(--paper); }
+.dossier #repName{ font-family:var(--serif); font-size:18px; font-weight:500; }
+/* 반응형 (기존에 없던 브레이크포인트) */
+@media (max-width:560px){
+  .card{ padding:16px 15px 18px; }
+  .card::before{ inset:5px; }
+  .bh{ flex-wrap:wrap; }
+  .bh .ix{ font-size:21px !important; }
+  .bh h3{ font-size:16.5px; }
+  .sub{ margin-left:0; text-align:left; width:100%; margin-top:2px; }
+  .tcode{ font-size:26px !important; letter-spacing:.06em !important; }
+  .dossier .cover-title{ font-size:23px; }
+  .dossier .emblem{ width:54px;height:54px; }
+}
+@media (prefers-reduced-motion:reduce){ .tcode{ animation:none !important; background-position:0 center !important; } }
+@media print{ .card::before,.snap::after{ display:none !important; } .tcode{ animation:none !important; } }
+</style>
+</head><body><div class="adminwrap">
 <h1 class="ad-h1">오프라인 OMR 수기 입력</h1>
 <p class="ad-sub">종이 OMR 답안지를 보고 블록별 숫자를 입력한 뒤 <b>채점 &amp; 저장</b>을 누르면, 온라인과 동일하게 자동 채점되어 같은 구글 시트에 저장되고 아래에 리포트가 표시됩니다.</p>
 <section class="card" style="padding:18px 20px">
@@ -862,10 +933,9 @@ function axisLogicHTML(r) {
 /* ── G9b: 진학 트랙 적합도 + 다년 로드맵 (영재원 제외) ── */
 function josa(w, a, b) { if (!w) return a; var c = w.charCodeAt(w.length - 1); if (c < 0xAC00 || c > 0xD7A3) return a; return ((c - 0xAC00) % 28) ? a : b; }
 var TRACKS_V2 = [
-  { key: "화학대회", name: "중학생 화학대회", tag: "개념 깊이·도전·분석을 겨루는 지금의 주무대", w: { concept: .26, deep: .22, challenge: .18, analysis: .16, interest: .1, efficacy: .08 }, pen: 2, boost: 4, pri: 5 },
+  { key: "올림피아드", name: "중등 올림피아드 (중학생 화학대회·물리대회)", tag: "화학·물리를 아우르는 중등 경시 무대 · 개념 깊이·도전·분석·추상 사고", w: { concept: .2, deep: .2, challenge: .2, analysis: .2, depthLens: .12, interest: .08 }, pen: 2, boost: 4, pri: 5 },
   { key: "과학고", name: "과학고", tag: "단단한 개념과 꾸준한 심층 학습", w: { concept: .3, deep: .25, efficacy: .2, analysis: .15, calm: .1 }, pen: 3, boost: 0, pri: 3 },
   { key: "영재고", name: "영재고", tag: "깊이·분석·도전과 강한 개념을 모두 요구하는 최상위", w: { deep: .28, concept: .22, challenge: .18, analysis: .17, efficacy: .15 }, pen: 4, boost: 0, pri: 2 },
-  { key: "물리대회", name: "중학생 물리대회", tag: "정량·추상·논리를 겨루는 또 하나의 무대 (사고 방식 기반 추정)", w: { analysis: .28, challenge: .24, depthLens: .22, deep: .14, inquiry: .12 }, pen: 2, boost: 2, pri: 4 },
   { key: "의대", name: "의대 (장기 트랙)", tag: "긴 호흡의 숙달·정확성·정서 안정", w: { mastery: .25, metacog: .2, calm: .2, value: .15, concept: .1, lowSurf: .1 }, pen: 2, boost: 0, pri: 1 },
   { key: "전국자사고", name: "전국 자사고", tag: "균형 잡힌 성실함과 가치 인식", w: { value: .25, mastery: .2, concept: .2, calm: .15, metacog: .1, efficacy: .1 }, pen: 1, boost: 0, pri: 1 }
 ];
@@ -890,8 +960,7 @@ function trackScores2(r) {
   }); return _o.sort(function (a, b) { return (b.fit - a.fit) || ((b.pri || 0) - (a.pri || 0)); });
 }
 var TRACK_WHAT = {
-  "화학대회": "중등 화학 경시·탐구 대회입니다. 개념의 깊이, 까다로운 문제에 대한 도전, 근거를 따지는 분석력을 함께 봅니다. 지금 이 또래의 주무대이자, 어느 진학으로 가든 공통 토대가 됩니다.",
-  "물리대회": "중등 물리 경시·탐구 대회입니다. 정량적 계산과 추상적 원리, 논리적 분석을 강하게 요구합니다. (이 적합도는 화학 진단에서 드러난 ‘사고 방식’으로 추정한 참고값이라, 실제 물리 흥미·경험과 함께 보셔야 합니다.)",
+  "올림피아드": "중등 화학·물리 경시·탐구 대회를 아우르는 트랙입니다. 개념의 깊이, 까다로운 문제에 대한 도전, 근거를 따지는 분석력, 그리고 추상적 원리를 다루는 사고를 함께 봅니다. 지금 이 또래의 주무대이자, 어느 진학으로 가든 공통 토대가 됩니다. (물리 영역 적합도는 화학 진단에서 드러난 ‘사고 방식’으로 추정한 참고값이라, 실제 물리 흥미·경험과 함께 보세요.)",
   "과학고": "과학 중점 고교입니다. 단단한 개념과 꾸준한 심층 학습, 안정적인 자신감을 중시합니다.",
   "영재고": "최상위 영재 고교입니다. 깊이·분석·도전·강한 개념을 모두 높은 수준으로 요구합니다. 한 영역만으로는 부족하고 전 영역이 함께 높아야 합니다.",
   "의대": "긴 호흡의 장기 트랙입니다. 반복을 통한 정확성과 숙달, 정서 안정, 스스로 점검하는 메타인지가 핵심입니다.",
@@ -978,7 +1047,7 @@ function parentFAQHTML(r) {
   function qa(q, a) { return '<div style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:9px 0;background:var(--paper-2)"><div style="font-size:13px;font-weight:600;color:var(--cobalt)"><span style="opacity:.55">학부모 </span>' + esc(q) + '</div><div style="font-size:12.8px;color:var(--ink-2);line-height:1.74;margin-top:6px"><span style="color:var(--teal-d);font-weight:600">상담 </span>' + a + '</div></div>'; }
   var items = [];
   items.push(qa("우리 아이, 어떤 진학을 목표로 잡아야 할까요? 영재고를 노려야 하나요?",
-    (nm ? esc(nm) + josa(nm, "은", "는") + " " : "지금 ") + "신호로 보면 <b>" + esc(T.name || r.type.code) + "</b> 유형이고, 가장 잘 맞는 방향은 <b>" + esc(shortTrack(top.name)) + "</b>(적합도 " + top.fit + "·" + top.level + ")입니다. 무엇보다 이 또래는 <b>중학생 화학대회</b>가 지금의 주무대이고, 그 준비가 과학고·영재고·의대 어디로 가든 공통 토대가 됩니다. " + (yjMsg ? (esc(yjMsg) + ". ") : "") + "한 학교로 못박기보다, 대회를 발판 삼아 여러 길을 함께 열어 두는 편이 이 시기엔 더 유리합니다."));
+    (nm ? esc(nm) + josa(nm, "은", "는") + " " : "지금 ") + "신호로 보면 <b>" + esc(T.name || r.type.code) + "</b> 유형이고, 가장 잘 맞는 방향은 <b>" + esc(shortTrack(top.name)) + "</b>(적합도 " + top.fit + "·" + top.level + ")입니다. 무엇보다 이 또래는 <b>중등 올림피아드(중학생 화학·물리대회)</b>가 지금의 주무대이고, 그 준비가 과학고·영재고·의대 어디로 가든 공통 토대가 됩니다. " + (yjMsg ? (esc(yjMsg) + ". ") : "") + "한 학교로 못박기보다, 대회를 발판 삼아 여러 길을 함께 열어 두는 편이 이 시기엔 더 유리합니다."));
   items.push(qa("적합도 점수가 생각보다 낮은데, 너무 늦은 걸까요?",
     "이 적합도는 등수나 성적표가 아니라 <b>지금 신호 기준의 방향</b>입니다. 중2는 성향과 개념이 한창 자라는 시기라, 지금 숫자보다 ‘어디를 채우면 어디가 열리는가’가 훨씬 중요합니다. " + (top.gapLab ? ("당장은 <b>" + esc(top.gapLab) + "</b>" + josa(top.gapLab, "을", "를") + " 보완하면 적합도가 함께 올라갑니다.") : "지금은 강점을 한 단계 위로 밀어 줄 시점입니다.")));
   var homeTip = ent.length ? ("우선 ‘" + esc(ent[0].label) + "’ 개념을 실험·반례로 한 번 바로잡아 주세요(아래 ‘개념 직관·오개념’ 칸에 방법이 정리돼 있습니다).") : ("개념 토대는 안정적이니, 문제를 풀고 나면 ‘왜 그렇게 되는지’ 한 줄 더 적게 하는 심층 습관을 붙여 주세요.");
@@ -991,7 +1060,7 @@ function parentFAQHTML(r) {
     items.push(qa("개념은 괜찮은 편인가요?",
       "네, 굳어진 오개념 없이 개념 직관이 안정적입니다. 지금은 기초를 지키면서 한 단계 위 개념·문제로 <b>심화</b>해 갈 시점입니다."));
   }
-  items.push(qa("중학생 화학대회 준비가 진학에도 도움이 되나요?",
+  items.push(qa("중등 올림피아드(화학·물리대회) 준비가 진학에도 도움이 되나요?",
     "그렇습니다. 대회 준비는 ‘개념 깊이 + 도전 + 분석’을 동시에 키우는데, 이 셋은 과학고·영재고 평가의 핵심이자 의대 장기 트랙에서 요구되는 정확성·끈기의 바탕이기도 합니다. 즉 대회는 특정 진학의 곁가지가 아니라 <b>여러 길로 갈라지는 공통 줄기</b>입니다."));
   return '<p style="font-size:12.5px;color:var(--muted);margin:0 0 8px">상담에서 학부모님이 가장 자주 여쭤보시는 질문과, 그에 대한 설명을 대화 그대로 옮겼습니다. 천천히 읽어 보시면 결과를 스스로 이해하시는 데 도움이 됩니다.</p>' + items.join("");
 }
