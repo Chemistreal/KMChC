@@ -311,10 +311,50 @@ body{ background:
 @media (prefers-reduced-motion:reduce){ .tcode{ animation:none !important; background-position:0 center !important; } }
 @media print{ .card::before,.snap::after{ display:none !important; } .tcode{ animation:none !important; } }
 </style>
+<style id="premiumOrnaments">
+/* 원자 궤도 오브 (분석화면) */
+.az-atom .nuc{position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#EBD89B,#7A5E1C 85%);
+  box-shadow:0 0 13px rgba(160,126,43,.75),0 0 5px rgba(201,162,75,.9);z-index:2}
+.az-atom .ring{position:absolute;inset:5px;border:1.4px solid rgba(160,126,43,.5);border-radius:50%}
+.az-atom .r1{animation:azRingA 2.6s linear infinite}
+.az-atom .r2{animation:azRingB 2.6s linear infinite}
+.az-atom .r3{animation:azRingC 3.4s linear infinite}
+.az-atom .ring b{position:absolute;right:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;
+  background:#0E7A6E;box-shadow:0 0 8px rgba(14,122,110,.85);transform:scaleY(2.78)}
+.az-atom .r2 b{background:#C9A24B;box-shadow:0 0 8px rgba(201,162,75,.9)}
+@keyframes azRingA{from{transform:rotate(0deg) scaleY(.36)}to{transform:rotate(360deg) scaleY(.36)}}
+@keyframes azRingB{from{transform:rotate(60deg) scaleY(.36)}to{transform:rotate(420deg) scaleY(.36)}}
+@keyframes azRingC{from{transform:rotate(120deg) scaleY(.36)}to{transform:rotate(480deg) scaleY(.36)}}
+/* 완료 월계관 */
+.az-done{display:none;text-align:center}
+.az-complete .az-orb,.az-complete .az-bar,.az-complete .az-steps,.az-complete .az-sub,.az-complete .az-title{display:none}
+.az-complete .az-done{display:block;animation:fadeUp .55s var(--ease)}
+.az-done .laurel{width:130px;height:98px;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:center}
+.az-done .laurel>svg{width:100%;height:100%}
+.az-done .chk{position:absolute;width:46px;height:46px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#FBF7EE,#F1E2A6);
+  box-shadow:0 6px 18px -6px rgba(160,126,43,.7),inset 0 0 0 2px rgba(160,126,43,.5);
+  display:flex;align-items:center;justify-content:center}
+.az-done .chk svg{width:24px;height:24px}
+.az-done .dt{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--teal-d);margin-top:12px}
+.az-done .ds{font-size:12px;color:var(--muted);margin-top:3px}
+/* 브랜드 엠블럼 (앱 인트로) */
+.brand-emblem{width:42px;height:46px;margin:2px auto 4px}
+.brand-emblem svg{width:100%;height:100%;display:block}
+/* 표지 분자 모티프 */
+.dossier{position:relative}
+.dossier .mol{position:absolute;width:52px;opacity:.5;pointer-events:none}
+.dossier .mol-l{left:7%;top:34px}
+.dossier .mol-r{right:7%;top:26px;transform:scaleX(-1)}
+@media (max-width:680px){.dossier .mol{display:none}}
+@media (prefers-reduced-motion:reduce){.az-atom .ring{animation:none!important}}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2052%22%3E%3Cpolygon%20points%3D%2224%2C3%2042%2C13.5%2042%2C38.5%2024%2C49%206%2C38.5%206%2C13.5%22%20fill%3D%22%23FBF8F1%22%20stroke%3D%22%23A07E2B%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2226%22%20r%3D%222.6%22%20fill%3D%22%23A07E2B%22%2F%3E%3Cg%20stroke%3D%22%230E7A6E%22%20stroke-width%3D%221.4%22%20fill%3D%22none%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2211%22%20ry%3D%224.3%22%2F%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2211%22%20ry%3D%224.3%22%20transform%3D%22rotate%2860%2024%2026%29%22%2F%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2211%22%20ry%3D%224.3%22%20transform%3D%22rotate%28120%2024%2026%29%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
 </head>
 <body>
-<div class="masthead dossier" style="text-align:center;padding:30px 16px 6px">
-  <div class="emblem"><svg viewBox="0 0 40 44" fill="none" stroke="#A07E2B" stroke-width="1.6" aria-hidden="true"><polygon points="20,3 35,11.5 35,32.5 20,41 5,32.5 5,11.5" stroke-linejoin="round"/><circle cx="20" cy="22" r="7.4"/></svg></div>
+<div class="masthead dossier" style="text-align:center;padding:30px 16px 6px"><svg class="mol mol-l" viewBox="0 0 60 50" fill="none" aria-hidden="true"><line x1="14" y1="30" x2="30" y2="13" stroke="#A07E2B" stroke-width="1"/><line x1="30" y1="13" x2="46" y2="25" stroke="#A07E2B" stroke-width="1"/><line x1="30" y1="13" x2="27" y2="39" stroke="#A07E2B" stroke-width="1"/><circle cx="14" cy="30" r="4.5" fill="#0E7A6E"/><circle cx="30" cy="13" r="5" fill="#C9A24B"/><circle cx="46" cy="25" r="4" fill="#B23A6B"/><circle cx="27" cy="39" r="3.5" fill="#2A5470"/></svg><svg class="mol mol-r" viewBox="0 0 60 50" fill="none" aria-hidden="true"><line x1="14" y1="30" x2="30" y2="13" stroke="#A07E2B" stroke-width="1"/><line x1="30" y1="13" x2="46" y2="25" stroke="#A07E2B" stroke-width="1"/><line x1="30" y1="13" x2="27" y2="39" stroke="#A07E2B" stroke-width="1"/><circle cx="14" cy="30" r="4.5" fill="#0E7A6E"/><circle cx="30" cy="13" r="5" fill="#C9A24B"/><circle cx="46" cy="25" r="4" fill="#B23A6B"/><circle cx="27" cy="39" r="3.5" fill="#2A5470"/></svg>
+  <div class="emblem"><svg viewBox="0 0 48 52" fill="none" aria-hidden="true"><polygon points="24,3 42,13.5 42,38.5 24,49 6,38.5 6,13.5" stroke="#A07E2B" stroke-width="1.6" stroke-linejoin="round"/><circle cx="24" cy="26" r="2.4" fill="#A07E2B"/><g stroke="#0E7A6E" stroke-width="1.2"><ellipse cx="24" cy="26" rx="11" ry="4.3"/><ellipse cx="24" cy="26" rx="11" ry="4.3" transform="rotate(60 24 26)"/><ellipse cx="24" cy="26" rx="11" ry="4.3" transform="rotate(120 24 26)"/></g></svg></div>
   <div class="kicker">CHEMISTRY APTITUDE DOSSIER</div>
   <h1 class="cover-title">화학 학습 진단 리포트</h1>
   <div class="cover-rule"></div>
@@ -661,11 +701,16 @@ function ladderRow(name, stage) {
     var on = stage >= t;
     seg += '<div style="flex:1;height:10px;border-radius:3px;background:' + (on ? "var(--teal)" : "var(--line)") + '"></div>';
   }
-  var word = ["바닥 미만", "1단 기초", "2단 잔상", "3단 자발", "4단 몰입"][stage] || "";
-  return '<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><b>' + name + '</b><span style="color:var(--teal-d);font-weight:600">' + f(stage) + '단 · ' + word + '</span></div><div style="display:flex;gap:5px">' + seg + '</div></div>';
+  var word = ["아직 준비 단계", "기초", "익히는 중", "자발", "몰입"][stage] || "";
+  var label = stage <= 0 ? word : (f(stage) + '단 · ' + word);
+  return '<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><b>' + name + '</b><span style="color:var(--teal-d);font-weight:600">' + label + '</span></div><div style="display:flex;gap:5px">' + seg + '</div></div>';
 }
 function ladderHTML(r) {
-  return ladderRow("흥미", r.interest.stage) + ladderRow("효능감", r.efficacy.stage) + ladderRow("메타인지", r.metacog.stage);
+  var rows = ladderRow("흥미", r.interest.stage) + ladderRow("자신감", r.efficacy.stage) + ladderRow("메타인지 (스스로 점검하는 힘)", r.metacog.stage);
+  var lowest = Math.min(r.interest.stage, r.efficacy.stage, r.metacog.stage);
+  var intro = '<p style="font-size:12px;color:var(--muted);margin:0 0 10px">각 항목이 \u2018좋아한다\u00b7안다\u2019를 넘어 <b>스스로 하는 단계</b>까지 얼마나 올라왔는지를 봅니다. 낮은 항목은 부족이 아니라 <b>앞으로 키울 영역</b>입니다.</p>';
+  var buf = lowest <= 1 ? '<p style="font-size:11.5px;color:var(--muted);margin:10px 0 0;padding-top:8px;border-top:1px dashed var(--line)">\u203b 낮게 나온 항목(특히 메타인지)은 이 또래에 매우 흔하며, 습관을 들이면 충분히 끌어올릴 수 있습니다.</p>' : '';
+  return intro + rows + buf;
 }
 
 /* ── 접근 우선순위 + 심층–표층 lean ── */
@@ -675,11 +720,13 @@ function approachHTML(r) {
     var v = a.norm[c];
     return '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px"><span style="width:18px;color:var(--muted)">' + (i + 1) + '</span><span style="width:120px">' + (APPR_LAB[c] || c) + '</span><div style="flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.09)"><div style="width:' + v + '%;height:100%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,.08)),var(--cobalt)"></div></div><span style="width:36px;text-align:right;color:var(--muted)">' + v + '</span></div>';
   }).join("");
-  var lean = a.lean, leanTxt = lean == null ? "—" : (lean > 0 ? "심층 우세 +" + lean : lean < 0 ? "표층 우세 " + lean : "균형");
+  var lean = a.lean, _mag = lean == null ? 0 : Math.abs(lean), _str = _mag >= 50 ? "뚜렷이 " : _mag >= 20 ? "" : "약간 ";
+  var leanTxt = lean == null ? "\u2014" : (lean > 0 ? _str + "심층(이해) 우세" : lean < 0 ? _str + "표층(암기\u00b7문제량) 우세" : "심층\u00b7표층 균형");
   var pos = lean == null ? 50 : Math.max(0, Math.min(100, 50 + lean / 2));
-  var leanBar = '<div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)"><span>표층</span><span style="color:var(--teal-d);font-weight:600">' + leanTxt + '</span><span>심층</span></div>' +
+  var leanBar = '<div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)"><span>표층(암기)</span><span style="color:var(--teal-d);font-weight:600">' + leanTxt + '</span><span>심층(이해)</span></div>' +
     '<div style="position:relative;height:8px;background:linear-gradient(90deg,rgba(189,122,18,.28),var(--line) 50%,rgba(14,122,110,.32));border-radius:99px;margin-top:4px;box-shadow:inset 0 1px 2px rgba(28,24,18,.08)"><div style="position:absolute;left:' + pos + '%;top:-4px;width:4px;height:16px;background:var(--ink);border-radius:99px;transform:translateX(-50%);box-shadow:0 1px 5px rgba(28,24,18,.45)"></div></div></div>';
-  return '<p style="font-size:12.5px;color:var(--muted);margin:0 0 8px">강제선택이라 위계가 없어 위조 불가 — 점수가 아니라 <b>성향의 순서</b>입니다.</p>' + rows + leanBar;
+  var leanNote = (lean != null && lean < 0) ? '<p style="font-size:11.5px;color:var(--muted);margin:10px 0 0;padding-top:8px;border-top:1px dashed var(--line)">\u203b 표층 우세는 \u2018나쁨\u2019이 아니라 지금의 공부 결입니다. 여기에 \u2018왜 그런가\u2019 한 줄을 더하는 습관을 얹으면 심층(이해)으로 자연스럽게 넓어집니다.</p>' : '';
+  return '<p style="font-size:12.5px;color:var(--muted);margin:0 0 8px">강제선택이라 위계가 없어 위조 불가 — 점수가 아니라 <b>성향의 순서</b>입니다.</p>' + rows + leanBar + leanNote;
 }
 
 /* ── 대처 패턴 ── */
@@ -698,8 +745,8 @@ function validityBadge(r) {
   var v = r.validity || {}, tag = v.tag || "—";
   var col = tag === "고신뢰" ? "var(--emerald)" : tag === "주의" ? "var(--amber)" : "var(--rose)";
   var detail = "SD " + f(v.sd) + " · 과대주장 " + f(v.overclaim) + " · 불일치 " + f(v.inconsistency) + (v.attentionFail ? " · 주의력 실패" : "") + (v.straightLine ? " · 직선응답" : "") + (v.tooFast ? " · 과속(" + f(v.secPerItem) + "초/문항)" : "");
-  var note = tag === "상한 해석" ? "점수는 상한으로 읽고 강제선택·시나리오와 교차 확인하세요." : tag === "주의" ? "약한 과대 신호 — 해석에 가벼운 주의." : "응답 일관·집중 양호.";
-  return '<div style="display:flex;align-items:center;gap:10px"><span class="vbadge" style="background:' + col + ';color:#fff;font-weight:700;padding:5px 12px;border-radius:999px;font-size:13px">' + tag + '</span><span style="font-size:12.5px;color:var(--muted)">' + detail + '</span></div><p style="font-size:12.5px;color:var(--ink-2);margin:8px 0 0">' + note + '</p>';
+  var note = tag === "상한 해석" ? "자기보고 수치가 다소 부풀려졌을 수 있습니다. 흥미\u00b7자신감 같은 점수는 보수적으로 보시고, 위조가 어려운 유형\u00b7개념\u00b7시나리오 결과를 중심으로 읽으시면 됩니다." : tag === "주의" ? "아이가 자신을 조금 좋게 보고한 경향이 살짝 있습니다(거짓이 아니라 이 또래에 흔한 일입니다). 흥미\u00b7자신감 같은 <b>자기보고 수치만 한 톤 낮춰</b> 보시고, 유형\u00b7개념\u00b7사고 패턴 결과는 <b>그대로 믿으셔도</b> 됩니다." : "응답이 일관되고 집중도 좋아, 모든 결과를 그대로 신뢰하셔도 됩니다.";
+  return '<div style="display:flex;align-items:center;gap:10px"><span class="vbadge" style="background:' + col + ';color:#fff;font-weight:700;padding:5px 12px;border-radius:999px;font-size:13px">' + tag + '</span><span style="font-size:11.5px;color:var(--muted)">정밀 지표 \u00b7 ' + detail + '</span></div><p style="font-size:12.5px;color:var(--ink-2);margin:8px 0 0">' + note + '</p>';
 }
 
 /* ── 16유형(요약) ── */
@@ -800,7 +847,7 @@ function typeIdentityHTML(r) {
     '<p style="font-size:13.5px;color:var(--ink-2);margin:12px 0;line-height:1.6">' + esc(I.desc || "") + '</p>' +
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">' +
     '<div><div style="font-size:12px;font-weight:600;color:var(--emerald);margin-bottom:4px">강점</div><ul style="margin:0;padding-left:14px">' + li(I.str, "var(--emerald)") + '</ul></div>' +
-    '<div><div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:4px">보완점</div><ul style="margin:0;padding-left:14px">' + li(I.cau, "var(--amber)") + '</ul></div></div>' +
+    '<div><div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:4px">보완점</div><ul style="margin:0;padding-left:14px">' + li(I.cau, "var(--amber)") + '</ul></div></div><p style="font-size:11px;color:var(--muted);margin:6px 0 0">\u203b 보완점은 결함이 아니라 \u2018더 좋아질 여지\u2019입니다.</p>' +
     (I.rx ? '<div style="margin-top:12px;padding:11px 13px;background:rgba(14,122,110,.07);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2)"><b style="color:var(--teal-d)">지도 제안 </b>' + esc(I.rx) + '</div>' : '');
 }
 
@@ -848,8 +895,9 @@ function trackScores2(r) {
     var fit = 0, sw = 0, k; for (k in t.w) { fit += t.w[k] * (S[k] || 0); sw += t.w[k]; }
     fit = Math.round(Math.max(0, Math.min(100, fit / sw - ent * t.pen + (t.boost || 0))));
     var strong = null, gap = null, k2; for (k2 in t.w) { var ss = t.w[k2] * (S[k2] || 0); if (strong === null || ss > strong.s) strong = { k: k2, s: ss }; var gs = t.w[k2] * (75 - (S[k2] || 0)); if (gap === null || gs > gap.s) gap = { k: k2, s: gs }; }
+    var dem = null, k3; for (k3 in t.w) { if (dem === null || t.w[k3] > dem.w) dem = { k: k3, w: t.w[k3] }; }
     var L = fit >= 72 ? ["강한 적합", "var(--emerald)"] : fit >= 58 ? ["유망", "var(--teal)"] : fit >= 44 ? ["준비 단계", "var(--cobalt)"] : ["탐색 단계", "var(--muted)"];
-    return { key: t.key, name: t.name, tag: t.tag, fit: fit, pri: t.pri || 0, level: L[0], color: L[1], strong: SIG_LAB[strong.k], gapKey: gap.k, gapLab: gap.s > 0 ? SIG_LAB[gap.k] : null };
+    return { key: t.key, name: t.name, tag: t.tag, fit: fit, pri: t.pri || 0, level: L[0], color: L[1], strong: SIG_LAB[strong.k], gapKey: gap.k, gapLab: gap.s > 0 ? SIG_LAB[gap.k] : null, demandKey: dem.k, demandLab: SIG_LAB[dem.k], demandVal: S[dem.k] || 0 };
   }); return _o.sort(function (a, b) { return (b.fit - a.fit) || ((b.pri || 0) - (a.pri || 0)); });
 }
 var TRACK_WHAT = {
@@ -861,7 +909,8 @@ var TRACK_WHAT = {
 };
 function trackExplainHTML(t, r) {
   var what = TRACK_WHAT[t.key] || esc(t.tag);
-  var why = '<b>지금 이 학생은</b> ' + esc(t.strong) + josa(t.strong, "이", "가") + ' 이 길을 받쳐 줍니다.' + (t.gapLab ? (' 더 끌어올리려면 <b>' + esc(t.gapLab) + '</b>' + josa(t.gapLab, "을", "를") + ' 보완하면 적합도가 함께 올라갑니다.') : ' 신호가 비교적 고르게 받쳐 주고 있습니다.');
+  var meet = t.demandVal >= 70 ? "이미 잘 갖춰져 있습니다" : t.demandVal >= 50 ? "어느 정도 갖춰져 있어, 조금 더 올리면 좋습니다" : "지금은 더 키워야 할 부분입니다";
+  var why = '이 길이 가장 크게 보는 건 <b>' + esc(t.demandLab) + '</b>인데, 이 학생은 그 점이 ' + meet + '.' + ((t.gapLab && t.gapKey !== t.demandKey) ? (' 여기에 <b>' + esc(t.gapLab) + '</b>' + josa(t.gapLab, "을", "를") + ' 보완하면 적합도가 더 오릅니다.') : '');
   return '<div style="font-size:12.5px;color:var(--ink-2);line-height:1.72">' + what + '</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.72;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)">' + why + '</div>';
 }
 function trackFitHTML(r) {
@@ -1066,11 +1115,29 @@ function methodologyHTML(r) {
     '<p style="font-size:11.5px;color:var(--muted);font-style:italic;margin:10px 0 0">요약: 이 도구는 ‘검증 가능한 상태’로 설계되어 있고, 데이터가 쌓이면 규준·타당도가 ‘확정’으로 전환됩니다. 과대 해석을 피하고 신뢰도 태그·유형 경합 표시를 함께 보세요.</p>';
 }
 
+function homeAction(r){
+  var ms=(r.metacog&&r.metacog.stage)||0, ord=(r.approach&&r.approach.order)||[];
+  var ent=(typeof topEntrenched==="function")?topEntrenched(r):[];
+  if(ms<=1||ord[0]==="surface") return "문제를 풀고 나면 \u2018왜 그렇게 되는지\u2019 한 줄씩 적게 해 주세요.";
+  if(ent&&ent.length) return "\u2018"+ent[0].label+"\u2019 개념을 일상 예나 간단한 실험으로 다시 짚어 주세요.";
+  return "잘하고 있을 때 무엇을 잘했는지 구체적으로 짚어 인정해 주세요.";
+}
+function summaryHTML(r){
+  var T=(typeof TYPES!=="undefined"&&TYPES[r.type.code])||{}, top=trackScores2(r)[0];
+  var row=function(lab,val,last){return '<div style="display:flex;gap:10px;padding:7px 0'+(last?'':';border-bottom:1px solid var(--line)')+'"><span style="flex:0 0 90px;font-size:11.5px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em">'+lab+'</span><span style="font-size:13px;color:var(--ink-2);line-height:1.62">'+val+'</span></div>';};
+  return '<div style="background:linear-gradient(180deg,rgba(201,162,75,.06),transparent);border:1px solid var(--gold-hair);border-radius:12px;padding:4px 16px 12px;margin-bottom:6px">'
+    + '<div style="font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);padding:11px 0 3px">한눈에 요약</div>'
+    + row("유형", esc(T.name||r.type.code)+' <span style="font-size:11px;color:var(--muted)">('+esc(r.type.code)+')</span>')
+    + row("잘 맞는 방향", '<b>'+esc(shortTrack(top.name))+'</b> <span style="font-size:11.5px;color:var(--muted)">(적합도 '+top.fit+' \u00b7 '+top.level+')</span>')
+    + row("집에서 한 가지", esc(homeAction(r)), true)
+    + '</div>';
+}
 function renderReportV2(r) {
   var H = "";
   H += snapshotHTML(r);
+  H += summaryHTML(r);
   H += narrativeHTML(r);
-  H += sec("01", "종합 프로필", "6개 핵심 차원 한눈에", hexRadarSVG(r) + '<p style="font-size:12px;color:var(--muted);text-align:center;margin-top:2px">흥미·자신감·정서안정·가치·학습깊이·개념직관 (0~100)</p>');
+  H += sec("01", "종합 프로필", "6개 핵심 차원 한눈에", hexRadarSVG(r) + '<p style="font-size:12px;color:var(--muted);text-align:center;margin-top:2px">흥미\u00b7자신감\u00b7정서안정\u00b7가치\u00b7학습깊이\u00b7개념직관 \u00b7 0~100, 높을수록 좋음</p>');
   H += sec("02", "맥락 지도", "맥락별 흥미·불안·오개념", contextBarsHTML(r));
   H += sec("03", "성장 사다리", "‘좋아한다’가 아니라 도달 단계", ladderHTML(r));
   H += sec("04", "학습 접근 우선순위", "동등바람직 강제선택", approachHTML(r));
