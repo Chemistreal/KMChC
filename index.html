@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#F4EFE6"><title>화학 학습 진단 v2</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#F4EFE6"><title>화학 학습 진단 v2</title><meta property="og:type" content="website"><meta property="og:url" content="https://chemistreal.github.io/KMChC/"><meta property="og:title" content="화학 학습 진단"><meta property="og:description" content="학습 성향·사고 유형·개념 직관을 한 번에 진단하는 화학 학습 진단입니다."><meta property="og:image" content="https://chemistreal.github.io/KMChC/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="화학 학습 진단"><meta property="og:site_name" content="화학 학습 진단"><meta property="og:locale" content="ko_KR"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="화학 학습 진단"><meta name="twitter:description" content="학습 성향·사고 유형·개념 직관을 한 번에 진단하는 화학 학습 진단입니다."><meta name="twitter:image" content="https://chemistreal.github.io/KMChC/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
 :root{
  --paper:#F4EFE6;--paper-2:#FBF8F1;--paper-3:#EFE7D6;
  --ink:#1C1812;--ink-2:#403A30;--ink-soft:#2A241B;--muted:#857B6B;--grey:#9A917F;
@@ -557,7 +557,7 @@ function computeV2(ans, meta, ITEMS) {
       if (status === "misc") {
         var conf = (typeof a === "object") ? num(a.conf) : null;
         var label = t2m || opt.m || "오개념";
-        if (it.conf && conf != null && conf >= 3) entrenched.push({ cluster: cls, label: label });
+        if (it.conf && conf != null && conf >= 3) entrenched.push({ cluster: cls, label: label, pick: (opt && opt.t) || "", conf: conf, correctPick: !!(opt && opt.key), viaReason: !!t2m, reasonPick: (t2m && it.t2 && a && a.t2 != null && it.t2[a.t2]) ? (it.t2[a.t2].t || "") : "" });
       }
       if (status === "unsure") gaps.push(cls);
     });
@@ -901,11 +901,25 @@ var TRACK_WHAT = {
   "의대": "긴 호흡의 장기 트랙입니다. 반복을 통한 정확성과 숙달, 정서 안정, 스스로 점검하는 메타인지가 핵심입니다.",
   "전국자사고": "전국 단위 자율형 사립고입니다. 균형 잡힌 성실함과 ‘왜 배우는가’에 대한 인식을 봅니다."
 };
+var TRACK_BENEFIT = {
+  "올림피아드": "여기서 기르는 개념 깊이·도전·분석력은 과학고·영재고 면접과 심화 내신, 나아가 이과 전 과목의 사고력으로 그대로 이어집니다. 가장 확장성이 큰 토대라 진로가 바뀌어도 손해가 없습니다.",
+  "과학고": "탄탄한 개념과 심층 학습 습관은 고교 내신·R&E(연구 활동)·대학 이공계 학습의 기본기가 됩니다.",
+  "영재고": "전 영역이 고르게 높은 최상위 역량은 영재고뿐 아니라 어떤 최상위 트랙으로도 문을 열어 주는 만능 토대입니다.",
+  "의대": "반복을 통한 정확성·숙달과 정서 안정은 방대한 분량을 오래 끌고 가는 의약학 계열 학습의 핵심 근력입니다.",
+  "전국자사고": "균형 잡힌 성실함과 ‘왜 배우는가’에 대한 인식은 자기주도학습 전형과 고교 전 과목 내신에 두루 유리합니다."
+};
 function trackExplainHTML(t, r) {
   var what = TRACK_WHAT[t.key] || esc(t.tag);
+  var benefit = TRACK_BENEFIT[t.key] || "";
   var meet = t.demandVal >= 70 ? "이미 잘 갖춰져 있습니다" : t.demandVal >= 50 ? "어느 정도 갖춰져 있어, 조금 더 올리면 좋습니다" : "지금은 더 키워야 할 부분입니다";
   var why = '이 길이 가장 크게 보는 건 <b>' + esc(t.demandLab) + '</b>인데, 이 학생은 그 점이 ' + meet + '.' + ((t.gapLab && t.gapKey !== t.demandKey) ? (' 여기에 <b>' + esc(t.gapLab) + '</b>' + josa(t.gapLab, "을", "를") + ' 보완하면 적합도가 더 오릅니다.') : '');
-  return '<div style="font-size:13px;color:var(--ink-2);line-height:1.72">' + what + '</div><div style="font-size:13px;color:var(--ink-2);line-height:1.72;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)">' + why + '</div>';
+  var actKey = t.gapLab ? t.gapKey : t.demandKey;
+  var act = SIGNEXT[actKey] || null;
+  var block = function (lab, txt, col) { return '<div style="font-size:13px;color:var(--ink-2);line-height:1.72;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)"><b style="color:' + col + '">' + lab + ' </b>' + txt + '</div>'; };
+  return '<div style="font-size:13px;color:var(--ink-2);line-height:1.72">' + what + '</div>'
+    + (benefit ? block("이 길의 효용", benefit, "var(--teal-d)") : '')
+    + block("지금 이 학생", why, "var(--cobalt)")
+    + (act ? block("그래서, 지금 할 일", esc(act), "var(--amber)") : '');
 }
 function trackFitHTML(r) {
   var arr = trackScores2(r);
@@ -968,11 +982,17 @@ function misconceptionDetailHTML(r) {
   }
   return '<div style="margin-top:14px"><div style="font-size:12px;font-weight:600;color:var(--rose);margin-bottom:2px">먼저 바로잡을 오개념</div>' + ent.map(function (e) {
     var C = CLUSTERS[e.cluster] || {}; if (!C.nm) return "";
+    var resp = "";
+    if (e.pick && !e.correctPick) { resp = '「' + esc(e.pick) + '」 쪽이 맞다고 응답했습니다' + (e.conf >= 4 ? ' — 그것도 꽤 확신하며.' : '.'); }
+    else if (e.correctPick && e.viaReason && e.reasonPick) { resp = '답 자체는 맞게 골랐지만, 그 <b>이유로</b> 「' + esc(e.reasonPick) + '」를 선택해 원리 이해가 어긋나 있습니다.'; }
+    else if (e.pick) { resp = '「' + esc(e.pick) + '」 쪽으로 응답했습니다.'; }
+    var respDiv = resp ? ('<div style="font-size:13px;color:var(--ink-2);margin-top:6px;background:rgba(178,58,107,.06);border-radius:7px;padding:7px 9px"><b style="color:var(--rose)">학생 응답 </b>' + resp + '</div>') : '';
     return '<div style="border:1px solid var(--line);border-left:3px solid var(--rose);border-radius:0 9px 9px 0;padding:11px 13px;margin:8px 0;background:var(--paper-2)">' +
       '<div style="font-family:var(--serif);font-size:14px;color:var(--ink)">' + esc(C.nm) + '</div>' +
-      '<div style="font-size:12px;color:var(--muted);margin-top:5px"><b style="color:var(--ink-2)">왜 생기나 </b>' + esc(C.why) + '</div>' +
+      respDiv +
+      '<div style="font-size:12px;color:var(--muted);margin-top:6px"><b style="color:var(--ink-2)">왜 이런 오개념이 생기나 </b>' + esc(C.why) + '</div>' +
       '<div style="font-size:13px;color:var(--ink-2);margin-top:5px"><b style="color:var(--emerald)">바른 개념 </b>' + esc(C.corr) + '</div>' +
-      '<div style="font-size:13px;color:var(--ink-2);margin-top:5px"><b style="color:var(--teal-d)">교정 활동 </b>' + esc(C.cls) + '</div></div>';
+      '<div style="font-size:13px;color:var(--ink-2);margin-top:5px"><b style="color:var(--teal-d)">이렇게 고쳐요 </b>' + esc(C.cls) + '</div></div>';
   }).join("") + '</div>';
 }
 function parentFAQHTML(r) {
