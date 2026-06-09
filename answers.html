@@ -311,6 +311,57 @@ body{ background:
 @media (prefers-reduced-motion:reduce){ .tcode{ animation:none !important; background-position:0 center !important; } }
 @media print{ .card::before,.snap::after{ display:none !important; } .tcode{ animation:none !important; } }
 </style>
+<style id="premiumOrnaments">
+/* 원자 궤도 오브 (분석화면) */
+.az-atom .nuc{position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#EBD89B,#7A5E1C 85%);
+  box-shadow:0 0 13px rgba(160,126,43,.75),0 0 5px rgba(201,162,75,.9);z-index:2}
+.az-atom .ring{position:absolute;inset:5px;border:1.4px solid rgba(160,126,43,.5);border-radius:50%}
+.az-atom .r1{animation:azRingA 2.6s linear infinite}
+.az-atom .r2{animation:azRingB 2.6s linear infinite}
+.az-atom .r3{animation:azRingC 3.4s linear infinite}
+.az-atom .ring b{position:absolute;right:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;
+  background:#0E7A6E;box-shadow:0 0 8px rgba(14,122,110,.85);transform:scaleY(2.78)}
+.az-atom .r2 b{background:#C9A24B;box-shadow:0 0 8px rgba(201,162,75,.9)}
+@keyframes azRingA{from{transform:rotate(0deg) scaleY(.36)}to{transform:rotate(360deg) scaleY(.36)}}
+@keyframes azRingB{from{transform:rotate(60deg) scaleY(.36)}to{transform:rotate(420deg) scaleY(.36)}}
+@keyframes azRingC{from{transform:rotate(120deg) scaleY(.36)}to{transform:rotate(480deg) scaleY(.36)}}
+/* 완료 월계관 */
+.az-done{display:none;text-align:center}
+.az-complete .az-orb,.az-complete .az-bar,.az-complete .az-steps,.az-complete .az-sub,.az-complete .az-title{display:none}
+.az-complete .az-done{display:block;animation:fadeUp .55s var(--ease)}
+.az-done .laurel{width:130px;height:98px;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:center}
+.az-done .laurel>svg{width:100%;height:100%}
+.az-done .chk{position:absolute;width:46px;height:46px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#FBF7EE,#F1E2A6);
+  box-shadow:0 6px 18px -6px rgba(160,126,43,.7),inset 0 0 0 2px rgba(160,126,43,.5);
+  display:flex;align-items:center;justify-content:center}
+.az-done .chk svg{width:24px;height:24px}
+.az-done .dt{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--teal-d);margin-top:12px}
+.az-done .ds{font-size:12px;color:var(--muted);margin-top:3px}
+/* 브랜드 엠블럼 (앱 인트로) */
+.brand-emblem{width:42px;height:46px;margin:2px auto 4px}
+.brand-emblem svg{width:100%;height:100%;display:block}
+/* 표지 분자 모티프 */
+.dossier{position:relative}
+.dossier .mol{position:absolute;width:52px;opacity:.5;pointer-events:none}
+.dossier .mol-l{left:7%;top:34px}
+.dossier .mol-r{right:7%;top:26px;transform:scaleX(-1)}
+@media (max-width:680px){.dossier .mol{display:none}}
+@media (prefers-reduced-motion:reduce){.az-atom .ring{animation:none!important}}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2052%22%3E%3Cpolygon%20points%3D%2224%2C3%2042%2C13.5%2042%2C38.5%2024%2C49%206%2C38.5%206%2C13.5%22%20fill%3D%22%23FBF8F1%22%20stroke%3D%22%23A07E2B%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2226%22%20r%3D%222.6%22%20fill%3D%22%23A07E2B%22%2F%3E%3Cg%20stroke%3D%22%230E7A6E%22%20stroke-width%3D%221.4%22%20fill%3D%22none%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2211%22%20ry%3D%224.3%22%2F%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2211%22%20ry%3D%224.3%22%20transform%3D%22rotate%2860%2024%2026%29%22%2F%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2211%22%20ry%3D%224.3%22%20transform%3D%22rotate%28120%2024%2026%29%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<style id="readabilityPass">
+/* === 가독성 위계 (강조포인트 기준) === */
+:root{ --muted:#6E6556; }                 /* 보조 텍스트 약간 진하게 — 작은 글자 대비 개선 */
+#report{ font-size:13px; line-height:1.7; color:var(--ink-2);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+#report p{ line-height:1.72; }
+#report b, #report strong{ font-weight:700; color:var(--ink); }   /* 강조어는 더 진하고 또렷하게 */
+#report .sub{ font-weight:500; }
+#report a{ color:var(--teal-d); }
+#report li{ line-height:1.66; }
+</style>
 </head>
 
 <body>
