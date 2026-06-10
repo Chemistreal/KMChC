@@ -393,6 +393,7 @@ body{ background:
   <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
     <button id="go" class="btn" type="button">채점 &amp; 저장</button>
     <button id="sample" class="btn ghost" type="button">샘플 채우기(테스트)</button>
+    <button id="demoRun" class="btn ghost" type="button">데모 채점·전송</button>
   </div>
   <div id="status"></div>
 </section>
@@ -1019,7 +1020,7 @@ function trackScores2(r) {
   }); return _o.sort(function (a, b) { return (b.fit - a.fit) || ((b.pri || 0) - (a.pri || 0)); });
 }
 var TRACK_WHAT = {
-  "올림피아드": "중등 화학·물리 경시·탐구 대회를 아우르는 트랙입니다. 개념의 깊이, 까다로운 문제에 대한 도전, 근거를 따지는 분석력, 그리고 추상적 원리를 다루는 사고를 함께 봅니다. 지금 이 또래의 주무대이자, 어느 진학으로 가든 공통 토대가 됩니다. (물리 영역 적합도는 화학 진단에서 드러난 ‘사고 방식’으로 추정한 참고값이라, 실제 물리 흥미·경험과 함께 보세요.)",
+  "올림피아드": "중등 화학·물리 경시·탐구 대회를 아우르는 트랙입니다. 개념의 깊이, 까다로운 문제에 대한 도전, 근거를 따지는 분석력, 그리고 추상적 원리를 다루는 사고를 함께 봅니다. 지금 이 또래의 주무대입니다. (물리 영역 적합도는 화학 진단에서 드러난 ‘사고 방식’으로 추정한 참고값이라, 실제 물리 흥미·경험과 함께 보세요.)",
   "과학고": "과학 중점 고교입니다. 단단한 개념과 꾸준한 심층 학습, 안정적인 자신감을 중시합니다.",
   "영재고": "최상위 영재 고교입니다. 깊이·분석·도전·강한 개념을 모두 높은 수준으로 요구합니다. 한 영역만으로는 부족하고 전 영역이 함께 높아야 합니다.",
   "의대": "긴 호흡의 장기 트랙입니다. 반복을 통한 정확성과 숙달, 정서 안정, 스스로 점검하는 메타인지가 핵심입니다.",
@@ -1281,7 +1282,7 @@ function renderReportV2(r) {
   H += sec("04", "학습 접근 우선순위", "동등바람직 강제선택", approachHTML(r));
   H += sec("05", "대처 패턴", "행동 시나리오", copingHTML(r));
   H += sec("06", "사고 성향(16유형)", "강제선택 · 위조 불가", typeIdentityHTML(r) + '<div style="height:1px;background:var(--line);margin:14px 0"></div>' + typeMiniHTML(r) + axisLogicHTML(r));
-  H += sec("07", "진학 트랙 적합도", "여러 갈래 · 지금의 방향", trackFitHTML(r));
+  H += sec("07", "진학 트랙 적합도", "여러 갈래 · 점수보다 순위와 구간 중심", trackFitHTML(r));
   H += sec("08", "다년 성장 로드맵", "점수가 아니라 궤적", roadmapHTML2(r));
   H += sec("09", "개념 직관·오개념", "보존 / 입자 / 변화", conceptMiniHTML(r) + misconceptionDetailHTML(r));
   H += sec("10", "응답 신뢰도", "과대응답·부주의 탐지", validityBadge(r));
@@ -1328,7 +1329,77 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
     st("채점 완료 · 결과를 구글 시트로 전송했습니다 ("+(mode==="연습"?"연습/데모":"실제")+"). 아래에서 리포트를 확인하세요.","ok");
     try{ rep.scrollIntoView({behavior:"smooth"}); }catch(e){}
   }
-  $("#go").addEventListener("click",run);
+  $("#go").addEventListener("click",run);;(function(){
+  if(!document.getElementById("demoRun"))return;
+  function demoAnswers(){
+    var arr=SPEC.cells.map(function(c){var mx=c.max||5;return String(1+Math.floor(Math.random()*mx));});
+    SPEC.cells.forEach(function(c,i){
+      if(c.role==="most"){
+        var le=-1,j;for(j=i+1;j<SPEC.cells.length;j++){if(SPEC.cells[j].id===c.id&&SPEC.cells[j].role==="least"){le=j;break;}}
+        if(le>=0&&arr[i]===arr[le]){var mx=SPEC.cells[le].max||3,t,cand;for(t=1;t<=mx;t++){cand=String(((parseInt(arr[le],10)-1+t)%mx)+1);if(cand!==arr[i]){arr[le]=cand;break;}}}
+      }
+    });
+    return OMRCodec.decode(arr.join(""),SPEC);
+  }
+  document.getElementById("demoRun").addEventListener("click",function(){
+    var name=($("#an").value||"").trim()||"데모";
+    var grade=$("#ag").value;
+    var ans=demoAnswers();
+    var M2={name:name,grade:grade,demo:1,elapsed:99*9};
+    try{
+      var r=computeV2(ans,M2,ITEMS);
+      var rep=$("#report");rep.innerHTML=renderReportV2(r);rep.className="rv-parent";
+      $("#reportWrap").style.display="block";
+      window.__share={b64:serialize(ans),name:name,grade:grade};
+      send(r,ans,M2);
+      st("데모 채점 완료 \u00b7 결과를 구글 시트로 전송했습니다 (구분: 데모/demo=1). 아래에서 리포트를 확인하세요.","ok");
+      try{rep.scrollIntoView({behavior:"smooth"});}catch(e){}
+    }catch(e){st("데모 채점 오류: "+(e&&e.message||e),"err");}
+  });
+})();;(function(){
+ var BL=OMRCodec.BLOCK_ORDER;
+ function gid(x){return document.getElementById(x);}
+ function tv(b){var t=gid("blk_"+b);return t?(t.value||"").replace(/\D/g,""):"";}
+ var lastTa=gid("blk_"+BL[BL.length-1]);
+ var live=document.createElement("div");live.id="liveIssues";
+ if(lastTa&&lastTa.parentNode)lastTa.parentNode.insertBefore(live,lastTa.nextSibling);
+ var dcells=SPEC.cells.filter(function(c){return c.block==="D";});
+ var ml={};dcells.forEach(function(c,i){if(c.role==="most"||c.role==="least"){var o=ml[c.id]=ml[c.id]||{id:c.id,item:SPEC.byId(c.id)};o[c.role]=i;}});
+ var dta=gid("blk_D");var box=document.createElement("div");box.id="mlAssist";
+ if(dta&&dta.parentNode)dta.parentNode.insertBefore(box,dta.nextSibling);
+ function liveCheck(){var full="",miss=[];BL.forEach(function(b){var v=tv(b);full+=v;var n=blen(b);if(v.length!==n)miss.push(b+" "+v.length+"/"+n);});
+  if(miss.length){live.innerHTML='<span class="lv-wait">입력 진행 — '+miss.join(" · ")+'</span>';return;}
+  var errs=OMRCodec.validate(full,SPEC);
+  live.innerHTML=errs.length?errs.slice(0,8).map(function(e){return '<div class="lv-err">• '+e+'</div>';}).join(""):'<div class="lv-ok">형식 점검 통과 — 채점 실행 가능합니다 ✓</div>';}
+ function renderML(){var d=tv("D"),ks=Object.keys(ml);if(!ks.length){box.innerHTML="";return;}
+  box.innerHTML='<div class="mlhead">최다–최소 보조 입력 · 버튼을 누르면 D 숫자열의 해당 자리가 바뀝니다 (같은 보기는 자동 차단)</div>'+ks.map(function(id){
+   var m=ml[id],it=m.item||{},set=it.set||[];var stem=((it.stem||id)+"").split("—")[0].trim();
+   var mv=d.charAt(m.most)||"",lv=d.charAt(m.least)||"";var coll=mv&&lv&&mv===lv;
+   function row(lab,pos,cur,oth){return '<div class="mlrow"><span class="mlrole">'+lab+'</span>'+set.map(function(txt,k){var v=String(k+1),on=cur===v,dis=oth===v;var sh=txt.length>12?txt.slice(0,12)+"…":txt;return '<button type="button" data-pos="'+pos+'" data-v="'+v+'" class="mlb'+(on?" on":"")+(dis?" dis":"")+'"'+(dis?" disabled":"")+' title="'+txt.replace(/"/g,"&quot;")+'">'+v+" "+sh+"</button>";}).join("")+"</div>";}
+   return '<div class="mlitem'+(coll?" coll":"")+'"><div class="mlstem">'+id+" · "+stem+(coll?' <b class="mlwarn">⚠ 같은 보기 — 한쪽을 다른 번호로</b>':"")+"</div>"+row("가장 나",m.most,mv,lv)+row("가장 아님",m.least,lv,mv)+"</div>";}).join("");}
+ var _t=null;function fire(){clearTimeout(_t);_t=setTimeout(function(){liveCheck();renderML();},140);}
+ BL.forEach(function(b){var ta=gid("blk_"+b);if(ta)ta.addEventListener("input",fire);});
+ box.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("button[data-pos]"):null;if(!b||b.disabled)return;
+  var pos=parseInt(b.getAttribute("data-pos"),10),v=b.getAttribute("data-v"),ta=gid("blk_D"),d=tv("D");
+  if(d.length<=pos){live.innerHTML='<div class="lv-err">• D 블록 숫자열을 먼저 '+(pos+1)+'자리 이상 입력하세요</div>';return;}
+  ta.value=d.substring(0,pos)+v+d.substring(pos+1);liveCheck();renderML();});
+ var rs=document.createElement("div");rs.id="restoreCard";
+ rs.innerHTML='<div class="rs-h">백업 코드로 복원</div><div class="rs-cap">학생 완료 화면의 \u2018응답 백업 코드\u2019를 붙여 넣으면 숫자열 없이 즉시 채점\u00b7전송\u00b7링크 생성이 됩니다. 이름\u00b7학년\u00b7모드는 위 입력값을 그대로 씁니다.</div><textarea id="rsCode" rows="3" spellcheck="false" placeholder="백업 코드(긴 문자열)를 그대로 붙여 넣으세요"></textarea><div class="rs-row"><button type="button" id="rsGo">코드로 채점\u00b7전송</button></div>';
+ if(live.parentNode)live.parentNode.insertBefore(rs,live.nextSibling);
+ function dec(b){b=(b||"").replace(/\s+/g,"");if(!b)return null;try{return JSON.parse(decodeURIComponent(escape(atob(b))));}catch(e){try{return JSON.parse(atob(b));}catch(e2){return null;}}}
+ gid("rsGo").addEventListener("click",function(){
+  var name=($("#an").value||"").trim();if(!name){st("학생 이름을 입력하세요.","err");return;}
+  var ans=dec(gid("rsCode").value);
+  if(!ans||typeof ans!=="object"){st("백업 코드를 해석하지 못했습니다. 코드 전체를 정확히 붙여 넣었는지 확인해 주세요.","err");return;}
+  var grade=$("#ag").value,mode=$("#amode").value;
+  var M2={name:name,grade:grade,demo:(mode==="연습"?1:0),elapsed:99*9};
+  try{var r=computeV2(ans,M2,ITEMS);var rep=$("#report");rep.innerHTML=renderReportV2(r);rep.className="rv-parent";
+   $("#reportWrap").style.display="block";window.__share={b64:serialize(ans),name:name,grade:grade};send(r,ans,M2);
+   st("백업 코드 복원 완료 \u00b7 결과를 구글 시트로 전송했습니다 ("+(mode==="연습"?"연습/데모":"실제")+"). 아래에서 리포트를 확인하세요.","ok");
+   try{rep.scrollIntoView({behavior:"smooth"});}catch(e){}}
+  catch(e){st("복원 중 오류: "+(e&&e.message||e),"err");}});
+ liveCheck();renderML();
+})();
   $("#sample").addEventListener("click",function(){ if(!$("#an").value)$("#an").value="샘플학생"; OMRCodec.BLOCK_ORDER.forEach(function(b){ var ta=$("#blk_"+b); ta.value=SAMPLE[b]; ta.dispatchEvent(new Event("input")); }); st("샘플(임의 답안)을 채웠습니다. '채점 & 저장'으로 동작을 확인하세요.",""); });
   window.setRV=function(btn){ var R=document.getElementById("report"); if(!R)return; R.className="rv-"+btn.getAttribute("data-rv"); var k=btn.parentNode.children; for(var i=0;i<k.length;i++)k[i].className="vbtn"; btn.className="vbtn on"; };
 })();</script><script>(function(){
@@ -1406,4 +1477,4 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
   var op=document.getElementById("shareOpen");
   if(op) op.addEventListener("click",function(){ var u=build(); if(u) window.open(u,"_blank"); });
 })();</script>
-</body></html>
+<style id="adminAssistCSS">#liveIssues{margin:10px 0 0;font-size:12px;line-height:1.6}#liveIssues .lv-wait{color:var(--muted)}#liveIssues .lv-ok{color:var(--emerald);font-weight:600}#liveIssues .lv-err{color:var(--rose)}#mlAssist{margin:10px 0 2px;border:1px solid var(--line);border-radius:10px;background:var(--paper-2);padding:10px 12px}#mlAssist .mlhead{font-size:11.5px;color:var(--muted);margin-bottom:6px}#mlAssist .mlitem{padding:7px 0;border-top:1px dashed var(--line)}#mlAssist .mlhead+.mlitem{border-top:0}#mlAssist .mlitem.coll{background:rgba(178,58,107,.05);border-radius:8px;padding:7px 8px}#mlAssist .mlstem{font-size:12.5px;color:var(--ink);font-weight:600;margin-bottom:4px}#mlAssist .mlwarn{color:var(--rose);font-weight:700}#mlAssist .mlrow{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:3px 0}#mlAssist .mlrole{font-size:11px;color:var(--muted);min-width:52px}#mlAssist .mlb{font-family:var(--sans);font-size:11px;padding:3px 8px;border:1px solid var(--line-2);border-radius:7px;background:#fff;color:var(--ink-2);cursor:pointer}#mlAssist .mlb.on{background:var(--teal-d);border-color:var(--teal-d);color:#fff;font-weight:600}#mlAssist .mlb.dis{opacity:.35;text-decoration:line-through;cursor:not-allowed}#restoreCard{margin:14px 0 0;border:1px solid var(--line-2);border-radius:10px;background:var(--paper-2);padding:11px 13px}#restoreCard .rs-h{font-size:13px;font-weight:700;color:var(--ink)}#restoreCard .rs-cap{font-size:11.5px;color:var(--muted);margin:4px 0 7px;line-height:1.55}#restoreCard textarea{width:100%;font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-radius:7px;padding:7px;background:#fff;resize:vertical}#restoreCard .rs-row{margin-top:7px}#restoreCard button{font-family:var(--sans);font-size:12px;padding:6px 14px;border:1px solid rgba(160,126,43,.4);border-radius:8px;background:#fff;color:var(--ink-2);cursor:pointer;font-weight:600}</style></body></html>
