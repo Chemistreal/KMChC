@@ -1319,7 +1319,8 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
   OMRCodec.BLOCK_ORDER.forEach(function(b){ var n=blen(b); var ta=$("#blk_"+b);
     ta.addEventListener("input",function(){ var v=ta.value.replace(/\D/g,""); $("#cnt_"+b).textContent=v.length+" / "+n; $("#wrap_"+b).className="blk"+(v.length===n?" ok":""); });
   });
-  function flatten(r,answers,META){ var ax=r.anxiety.ctx||{}; return { ts:new Date().toISOString(), name:META.name||"", grade:META.grade||"", demo:META.demo?1:0, interest_stage:r.interest.stage, efficacy_stage:r.efficacy.stage, metacog_stage:r.metacog.stage, value_intern:r.value.internalize, lean:(r.approach&&r.approach.lean!=null?r.approach.lean:""), approach_top:(r.approach&&r.approach.order&&r.approach.order[0])||"", type:r.type.code, concept:r.concept, intu_cons:r.intu.conservation, intu_part:r.intu.particle, intu_chg:r.intu.change, ax_phenom:ax.phenom, ax_symbol:ax.symbol, ax_quant:ax.quant, ax_lab:ax.lab, ax_general:r.anxiety.general, validity_tag:r.validity.tag, sd:r.validity.sd, overclaim:r.validity.overclaim, inconsistency:r.validity.inconsistency, attentionFail:r.validity.attentionFail?1:0, straightLine:r.validity.straightLine?1:0, tooFast:r.validity.tooFast?1:0, elapsed:r.elapsed, answers:serialize(answers) }; }
+  function makeRid(){return "r"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+  function flatten(r,answers,META){ var ax=r.anxiety.ctx||{}; return { id:META.id||"", ts:new Date().toISOString(), name:META.name||"", grade:META.grade||"", demo:META.demo?1:0, interest_stage:r.interest.stage, efficacy_stage:r.efficacy.stage, metacog_stage:r.metacog.stage, value_intern:r.value.internalize, lean:(r.approach&&r.approach.lean!=null?r.approach.lean:""), approach_top:(r.approach&&r.approach.order&&r.approach.order[0])||"", type:r.type.code, concept:r.concept, intu_cons:r.intu.conservation, intu_part:r.intu.particle, intu_chg:r.intu.change, ax_phenom:ax.phenom, ax_symbol:ax.symbol, ax_quant:ax.quant, ax_lab:ax.lab, ax_general:r.anxiety.general, validity_tag:r.validity.tag, sd:r.validity.sd, overclaim:r.validity.overclaim, inconsistency:r.validity.inconsistency, attentionFail:r.validity.attentionFail?1:0, straightLine:r.validity.straightLine?1:0, tooFast:r.validity.tooFast?1:0, elapsed:r.elapsed, answers:serialize(answers) }; }
   function send(r,answers,META){ if(!APPS_SCRIPT_URL)return; try{ fetch(APPS_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(flatten(r,answers,META))}).catch(function(){}); }catch(e){} }
   function st(m,c){ var s=$("#status"); s.textContent=m; s.className=c||""; }
   function run(){
@@ -1331,11 +1332,11 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
     var errs=OMRCodec.validate(full,SPEC);
     if(errs.length){ st("입력값 오류:\n"+errs.slice(0,10).join("\n"),"err"); return; }
     var answers=OMRCodec.decode(full,SPEC);
-    var META={name:name,grade:grade,demo:(mode==="연습"?1:0),elapsed:99*9};
+    var META={name:name,grade:grade,demo:(mode==="연습"?1:0),elapsed:99*9,id:makeRid()};
     var r=computeV2(answers,META,ITEMS);
     var rep=$("#report"); rep.innerHTML=renderReportV2(r); rep.className="rv-parent";
     $("#reportWrap").style.display="block";
-    window.__share={b64:serialize(answers),name:name,grade:grade}; send(r,answers,META);
+    window.__share={id:META.id,b64:serialize(answers),name:name,grade:grade}; send(r,answers,META);
     st("채점 완료 · 결과를 구글 시트로 전송했습니다 ("+(mode==="연습"?"연습/데모":"실제")+"). 아래에서 리포트를 확인하세요.","ok");
     try{ rep.scrollIntoView({behavior:"smooth"}); }catch(e){}
   }
@@ -1402,9 +1403,9 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
   var ans=dec(gid("rsCode").value);
   if(!ans||typeof ans!=="object"){st("백업 코드를 해석하지 못했습니다. 코드 전체를 정확히 붙여 넣었는지 확인해 주세요.","err");return;}
   var grade=$("#ag").value,mode=$("#amode").value;
-  var M2={name:name,grade:grade,demo:(mode==="연습"?1:0),elapsed:99*9};
+  var M2={name:name,grade:grade,demo:(mode==="연습"?1:0),elapsed:99*9,id:makeRid()};
   try{var r=computeV2(ans,M2,ITEMS);var rep=$("#report");rep.innerHTML=renderReportV2(r);rep.className="rv-parent";
-   $("#reportWrap").style.display="block";window.__share={b64:serialize(ans),name:name,grade:grade};send(r,ans,M2);
+   $("#reportWrap").style.display="block";window.__share={id:M2.id,b64:serialize(ans),name:name,grade:grade};send(r,ans,M2);
    st("백업 코드 복원 완료 \u00b7 결과를 구글 시트로 전송했습니다 ("+(mode==="연습"?"연습/데모":"실제")+"). 아래에서 리포트를 확인하세요.","ok");
    try{rep.scrollIntoView({behavior:"smooth"});}catch(e){}}
   catch(e){st("복원 중 오류: "+(e&&e.message||e),"err");}});
@@ -1474,7 +1475,7 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
 
 <script id="shareLinkJS">(function(){
   function folder(){ return location.href.replace(/[#?].*$/,"").replace(/[^/]*$/,""); }
-  function build(){ var s=window.__share; if(!s||!s.b64) return ""; return folder()+"report.html?d="+encodeURIComponent(s.b64)+(s.name?("&n="+encodeURIComponent(s.name)):"")+(s.grade?("&g="+encodeURIComponent(s.grade)):""); }
+  function build(){ var s=window.__share; if(!s) return ""; if(s.id) return folder()+"report.html?id="+encodeURIComponent(s.id); if(!s.b64) return ""; return folder()+"report.html?d="+encodeURIComponent(s.b64)+(s.name?("&n="+encodeURIComponent(s.name)):"")+(s.grade?("&g="+encodeURIComponent(s.grade)):""); }
   function show(){ var box=document.getElementById("shareBox"); if(!box) return; var u=build(); if(!u){ box.style.display="none"; return; } box.style.display="block"; var inp=document.getElementById("shareUrl"); if(inp) inp.value=u; }
   var rep=document.getElementById("report");
   if(rep){ new MutationObserver(function(){ if(rep.children.length) show(); }).observe(rep,{childList:true}); if(rep.children.length) show(); }
