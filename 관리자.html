@@ -769,15 +769,15 @@ var COMBOS = {BM:"분석과 숙달이 함께 강해 정확하지만 속도가 �
 
 var CTXLAB = { phenom: "현상", symbol: "입자·기호", quant: "정량", lab: "실험" };
 var CTX_ORDER = ["phenom", "symbol", "quant", "lab"];
-var AXLAB = { lens: ["겉보기", "속원리"], think: ["직관", "분석"], drive: ["탐구", "성취"], approach: ["도전", "숙달"] };
-var AXNAME = { lens: "관점", think: "사고", drive: "동기", approach: "접근" };
+var AXLAB = { lens: ["현상", "원리"], think: ["직관", "분석"], drive: ["탐구", "정리"], approach: ["도전", "숙달"] };
+var AXNAME = { lens: "관점", think: "사고", drive: "동력", approach: "방식" };
 var APPR_LAB = { deep: "이해(심층)", surface: "암기·문제량(표층)", accuracy: "정확", procedural: "절차", metacog: "점검" };
 var COPE_LAB = {
   persist: "원리 다시 읽고 재시도", lookup: "해설·답지 먼저", detour: "쉬운 문제로 우회", pause: "잠시 두고 나중에",
   analyze: "실수 패턴을 분석", note: "다음엔 조심", drill: "비슷한 문제 반복", external: "운 탓",
   seek_now: "즉시 찾아봄", seek_later: "표시해 뒀다 찾음", ask: "선생님·친구에게 질문", skip: "넘기고 진도"
 };
-var COPE_STEM = { "D-SC1": "막힘 대처", "D-SC2": "실수 귀인", "D-SC3": "미지어 대처" };
+var COPE_STEM = { "D-SC1": "막혔을 때", "D-SC2": "실수했을 때", "D-SC3": "모르는 용어를 만나면" };
 var ADAPT = { persist: 1, analyze: 1, seek_now: 1, seek_later: 1, ask: 1, pause: 1 };
 
 function f(v, suf) { return (v == null) ? "—" : (v + (suf || "")); }
@@ -837,7 +837,7 @@ function approachHTML(r) {
   var a = r.approach || {}, order = (a.order || []).filter(function (c) { return a.norm && a.norm[c] != null; });
   var rows = order.slice(0, 5).map(function (c, i) {
     var v = a.norm[c];
-    return '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px"><span style="width:18px;color:var(--muted)">' + (i + 1) + '</span><span style="width:120px">' + (APPR_LAB[c] || c) + '</span><div style="flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.09)"><div style="width:' + v + '%;height:100%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,.08)),var(--cobalt)"></div></div><span style="width:36px;text-align:right;color:var(--muted)">' + v + '</span></div>';
+    return '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px"><span style="width:18px;color:var(--muted)">' + (i + 1) + '</span><span style="width:120px">' + (APPR_LAB[c] || c) + '</span><div style="flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.09)"><div style="width:' + (12 + v * 0.88) + '%;height:100%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,.08)),var(--cobalt)"></div></div></div>';
   }).join("");
   var lean = a.lean, _mag = lean == null ? 0 : Math.abs(lean), _str = _mag >= 50 ? "뚜렷이 " : _mag >= 20 ? "" : "약간 ";
   var leanTxt = lean == null ? "\u2014" : (lean > 0 ? _str + "심층(이해) 우세" : lean < 0 ? _str + "표층(암기\u00b7문제량) 우세" : "심층\u00b7표층 균형");
@@ -845,7 +845,7 @@ function approachHTML(r) {
   var leanBar = '<div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted)"><span>표층(암기)</span><span style="color:var(--teal-d);font-weight:600">' + leanTxt + '</span><span>심층(이해)</span></div>' +
     '<div style="position:relative;height:8px;background:linear-gradient(90deg,rgba(189,122,18,.28),var(--line) 50%,rgba(14,122,110,.32));border-radius:99px;margin-top:4px;box-shadow:inset 0 1px 2px rgba(28,24,18,.08)"><div style="position:absolute;left:' + pos + '%;top:-4px;width:4px;height:16px;background:var(--ink);border-radius:99px;transform:translateX(-50%);box-shadow:0 1px 5px rgba(28,24,18,.45)"></div></div></div>';
   var leanNote = (lean != null && lean < 0) ? '<p style="font-size:12px;color:var(--muted);margin:10px 0 0;padding-top:8px;border-top:1px dashed var(--line)">\u203b 표층 우세는 \u2018나쁨\u2019이 아니라 지금의 공부 결입니다. 여기에 \u2018왜 그런가\u2019 한 줄을 더하는 습관을 얹으면 심층(이해)으로 자연스럽게 넓어집니다.</p>' : '';
-  return '<p style="font-size:13px;color:var(--muted);margin:0 0 8px">강제선택이라 위계가 없어 위조 불가 — 점수가 아니라 <b>성향의 순서</b>입니다.</p>' + rows + leanBar + leanNote;
+  return '<p style="font-size:13px;color:var(--muted);margin:0 0 8px">두 보기 모두 그럴듯한 것 중 하나를 고르게 해 ‘좋아 보이는 답’을 고를 수 없는 방식입니다. 그래서 점수가 아니라 <b>무엇을 먼저 쓰는가의 순서</b>로 읽습니다.</p>' + rows + '<p style="font-size:11.5px;color:var(--muted);margin:6px 0 0">막대는 ‘더 자주, 더 먼저 쓰는 정도’의 상대 차이일 뿐, 짧다고 0점이거나 부족하다는 뜻이 아닙니다.</p>' + leanBar + leanNote;
 }
 
 /* ── 대처 패턴 ── */
@@ -856,15 +856,15 @@ function copingHTML(r) {
     var adapt = ADAPT[code];
     return '<div style="display:flex;justify-content:space-between;margin:5px 0;font-size:13px"><span style="color:var(--ink-2)">' + COPE_STEM[id] + '</span><span style="font-weight:600;color:' + (adapt ? "var(--emerald)" : "var(--amber)") + '">' + (COPE_LAB[code] || code) + '</span></div>';
   }).join("");
-  return rows + '<p style="font-size:12px;color:var(--muted);margin-top:8px">적응적 선택 ' + f(c.adaptive) + '/' + f(c.total) + ' · 모두 정상 대처라 ‘좋고 나쁨’이 아닌 <b>패턴</b>으로 읽습니다.</p>';
+  return rows + '<p style="font-size:12px;color:var(--muted);margin-top:8px">도움이 되는 방향의 선택 ' + f(c.adaptive) + '/' + f(c.total) + ' · 모두 정상 대처라 ‘좋고 나쁨’이 아닌 <b>패턴</b>으로 읽습니다.</p>';
 }
 
 /* ── 신뢰도 배지 ── */
 function validityBadge(r) {
   var v = r.validity || {}, tag = v.tag || "—";
   var col = tag === "고신뢰" ? "var(--emerald)" : tag === "주의" ? "var(--amber)" : "var(--rose)";
-  var detail = "SD " + f(v.sd) + " · 과대주장 " + f(v.overclaim) + " · 불일치 " + f(v.inconsistency) + (v.attentionFail ? " · 주의력 실패" : "") + (v.straightLine ? " · 직선응답" : "") + (v.tooFast ? " · 과속(" + f(v.secPerItem) + "초/문항)" : "");
-  var note = tag === "상한 해석" ? "자기보고 수치가 다소 부풀려졌을 수 있습니다. 흥미\u00b7자신감 같은 점수는 보수적으로 보시고, 위조가 어려운 유형\u00b7개념\u00b7시나리오 결과를 중심으로 읽으시면 됩니다." : tag === "주의" ? "아이가 자신을 조금 좋게 보고한 경향이 살짝 있습니다(거짓이 아니라 이 또래에 흔한 일입니다). 흥미\u00b7자신감 같은 <b>자기보고 수치만 한 톤 낮춰</b> 보시고, 유형\u00b7개념\u00b7사고 패턴 결과는 <b>그대로 믿으셔도</b> 됩니다." : "응답이 일관되고 집중도 좋아, 모든 결과를 그대로 신뢰하셔도 됩니다.";
+  var detail = "좋게 보이려는 경향(SD) " + f(v.sd) + " · 과대주장 " + f(v.overclaim) + " · 불일치 " + f(v.inconsistency) + (v.attentionFail ? " · 주의력 실패" : "") + (v.straightLine ? " · 직선응답" : "") + (v.tooFast ? " · 과속(" + f(v.secPerItem) + "초/문항)" : "");
+  var note = tag === "상한 해석" ? "자기보고 수치가 다소 부풀려졌을 수 있습니다. 흥미\u00b7자신감 같은 점수는 보수적으로 보시고, 꾸미기 어려운 유형\u00b7개념\u00b7시나리오 결과를 중심으로 읽으시면 됩니다." : tag === "주의" ? "아이가 자신을 조금 좋게 보고한 경향이 살짝 있습니다(거짓이 아니라 이 또래에 흔한 일입니다). 흥미\u00b7자신감 같은 <b>자기보고 수치만 한 톤 낮춰</b> 보시고, 유형\u00b7개념\u00b7사고 패턴 결과는 <b>그대로 믿으셔도</b> 됩니다." : "응답이 일관되고 집중도 좋아, 모든 결과를 그대로 신뢰하셔도 됩니다.";
   return '<div style="display:flex;align-items:center;gap:10px"><span class="vbadge" style="background:' + col + ';color:#fff;font-weight:700;padding:5px 12px;border-radius:999px;font-size:13px">' + tag + '</span><span style="font-size:12px;color:var(--muted)">정밀 지표 \u00b7 ' + detail + '</span></div><p style="font-size:13px;color:var(--ink-2);margin:8px 0 0">' + note + '</p>';
 }
 
@@ -891,7 +891,7 @@ function conceptMiniHTML(r) {
   }).join("");
   return '<div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--serif);font-size:30px;color:var(--teal-d)">' + f(r.concept) + '</span><span style="color:var(--muted);font-size:13px">/100 개념 직관</span></div>' +
     '<div style="margin-top:8px">' + chips + '</div>' +
-    '<p style="font-size:13px;color:var(--ink-2);margin-top:8px">고착(우선 교정) <b>' + (r.entrenched ? r.entrenched.length : 0) + '</b>건 · 지식 공백 <b>' + (r.gaps ? r.gaps.length : 0) + '</b>건</p>';
+    '<p style="font-size:13px;color:var(--ink-2);margin-top:8px">고착(우선 교정) <b>' + (r.entrenched ? r.entrenched.length : 0) + '</b>건 · 지식 공백(아직 비어 있는 개념) <b>' + (r.gaps ? r.gaps.length : 0) + '</b>건</p>';
 }
 
 /* ── 교차 해석(맥락) ── */
@@ -950,7 +950,7 @@ function contextBarsHTML(r) {
   return '<div style="text-align:center;margin-bottom:8px">' + legendDot("var(--teal)", "흥미 (높을수록 좋음)") + legendDot("var(--rose)", "불안 (낮을수록 좋음)") + legendDot("var(--amber)", "오개념 (낮을수록 좋음)") + '</div>' +
     rows +
     '<ul style="margin:12px 0 0;padding-left:18px">' + crossReadHTML(r) + '</ul>' +
-    '<p style="font-size:12px;color:var(--muted);margin-top:6px">※ 오개념은 실험 맥락 미측정(태도 문항만).</p>';
+    '<p style="font-size:12px;color:var(--muted);margin-top:6px">※ 실험 영역은 흥미·불안만 묻기 때문에 오개념 표시가 없습니다.</p>';
 }
 
 
@@ -961,8 +961,8 @@ function typeIdentityHTML(r) {
   return '<div style="text-align:center;margin-bottom:6px"><div class="tcode">' + esc(code) + '</div>' +
     '<div style="font-family:var(--serif);font-size:20px;color:var(--teal-d);margin-top:2px">' + esc(T.name || "") + '</div>' +
     '<div style="font-size:13px;color:var(--muted);margin-top:4px">' + esc(I.tag || "") + '</div></div>' +
-    '<div style="text-align:center;margin-top:7px"><span style="font-size:11px;padding:2px 11px;border-radius:999px;color:#fff;background:' + (typeStability(r).conf==="뚜렷"?"var(--emerald)":typeStability(r).conf==="대체로 뚜렷"?"var(--teal)":typeStability(r).conf==="유동적"?"var(--amber)":"var(--rose)") + '">유형 신뢰도 · ' + typeStability(r).conf + '</span></div>' +
-    (typeStability(r).weak.length ? '<p style="font-size:12px;color:var(--muted);text-align:center;margin:6px 0 0">' + typeStability(r).weak.map(function(w){return esc(w.nm);}).join("·") + ' 축이 경합 — 인접 가능성 ' + typeStability(r).adjacents.map(function(a){return esc(a);}).join(", ") + '</p>' : '') +
+    '<div style="text-align:center;margin-top:7px"><span style="font-size:11px;padding:2px 11px;border-radius:999px;color:#fff;background:' + (typeStability(r).conf==="뚜렷함"?"var(--emerald)":typeStability(r).conf==="대체로 뚜렷"?"var(--teal)":typeStability(r).conf==="두 성향 혼합"?"var(--amber)":"var(--rose)") + '">유형 뚜렷함 · ' + typeStability(r).conf + '</span></div>' +
+    (typeStability(r).weak.length ? '<p style="font-size:12px;color:var(--muted);text-align:center;margin:6px 0 0">' + typeStability(r).weak.map(function(w){return esc(w.nm);}).join("·") + '에서 양쪽 성향이 박빙 — 상황에 따라 <b>' + typeStability(r).weak.map(function(w){return esc(w.pair || w.nm);}).join(", ") + '</b> 사이를 오갑니다</p>' : '') +
     '<p style="font-size:13px;color:var(--ink-2);margin:12px 0;line-height:1.6">' + esc(I.desc || "") + '</p>' +
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">' +
     '<div><div style="font-size:12px;font-weight:600;color:var(--emerald);margin-bottom:4px">강점</div><ul style="margin:0;padding-left:14px">' + li(I.str, "var(--emerald)") + '</ul></div>' +
@@ -977,7 +977,7 @@ function axisLogicHTML(r) {
   var rows = ["lens", "think", "drive", "approach"].map(function (k) {
     var po = AXP[k], a = (ax[k] && ax[k][po[0]]) || 0, b = (ax[k] && ax[k][po[1]]) || 0, tot = a + b || 5;
     var dom = a >= b ? po[0] : po[1], n = Math.max(a, b); doms.push(dom);
-    var mg = Math.abs(a - b); var strength = mg >= 5 ? "뚜렷" : mg >= 3 ? "우세" : "경합";
+    var mg = Math.abs(a - b); var strength = mg >= 5 ? "뚜렷" : mg >= 3 ? "우세" : "박빙";
     return '<div style="margin:7px 0"><div style="font-size:13px"><b>' + AXN[k] + '</b> · ' + (POLEFULL[dom] || dom) + ' <span style="color:var(--muted)">(' + n + '/' + tot + ' · ' + strength + ')</span></div><div style="font-size:12px;color:var(--muted)">' + (POLEMEAN[dom] || "") + '</div></div>';
   }).join("");
   var seen = {}, combos = [];
@@ -1008,6 +1008,7 @@ function sigVals2(r) {
   var surf = Math.round((t.surface || 0) / tot * 100);
   return { interest: Math.round((r.interest.stage || 0) / 4 * 100), efficacy: Math.round((r.efficacy.stage || 0) / 4 * 100), value: r.value.internalize || 0, calm: Math.round(100 - anxAll), concept: r.concept || 0, deep: Math.round((t.deep || 0) / tot * 100), metacog: Math.round((r.metacog.stage || 0) / 4 * 100), lowSurf: 100 - surf, challenge: ps("approach", "D"), analysis: ps("think", "B"), depthLens: ps("lens", "S"), inquiry: ps("drive", "T"), mastery: ps("approach", "M") };
 }
+function fitBand(f){ return f>=90?["탁월","var(--emerald)"]:f>=80?["매우 적합","var(--emerald)"]:f>=70?["적합","var(--teal)"]:f>=60?["적합 근접","var(--teal)"]:f>=50?["발전 중","var(--cobalt)"]:f>=40?["기초 다지는 중","var(--cobalt)"]:f>=30?["토대 형성 중","var(--amber)"]:f>=20?["출발 단계","var(--amber)"]:f>=10?["준비 단계","var(--grey)"]:["탐색 단계","var(--grey)"]; }
 function trackScores2(r) {
   var S = sigVals2(r), ent = (r.entrenched || []).length;
   var _o = TRACKS_V2.map(function (t) {
@@ -1015,7 +1016,7 @@ function trackScores2(r) {
     fit = Math.round(Math.max(0, Math.min(100, fit / sw - ent * t.pen + (t.boost || 0))));
     var strong = null, gap = null, k2; for (k2 in t.w) { var ss = t.w[k2] * (S[k2] || 0); if (strong === null || ss > strong.s) strong = { k: k2, s: ss }; var gs = t.w[k2] * (75 - (S[k2] || 0)); if (gap === null || gs > gap.s) gap = { k: k2, s: gs }; }
     var dem = null, k3; for (k3 in t.w) { if (dem === null || t.w[k3] > dem.w) dem = { k: k3, w: t.w[k3] }; }
-    var L = fit >= 72 ? ["강한 적합", "var(--emerald)"] : fit >= 58 ? ["유망", "var(--teal)"] : fit >= 44 ? ["준비 단계", "var(--cobalt)"] : ["탐색 단계", "var(--muted)"];
+    var L = fitBand(fit);
     return { key: t.key, name: t.name, tag: t.tag, fit: fit, pri: t.pri || 0, level: L[0], color: L[1], strong: SIG_LAB[strong.k], gapKey: gap.k, gapLab: gap.s > 0 ? SIG_LAB[gap.k] : null, demandKey: dem.k, demandLab: SIG_LAB[dem.k], demandVal: S[dem.k] || 0 };
   }); return _o.sort(function (a, b) { return (b.fit - a.fit) || ((b.pri || 0) - (a.pri || 0)); });
 }
@@ -1048,16 +1049,19 @@ function trackExplainHTML(t, r) {
 }
 function trackFitHTML(r) {
   var arr = trackScores2(r);
+  var hasFit = arr[0] && arr[0].fit >= 70;
+  var note = hasFit ? '' : '<div style="border:1px solid var(--line-2);background:var(--paper-2);border-radius:11px;padding:11px 14px;margin:0 0 10px;font-size:12.5px;color:var(--ink-2);line-height:1.74"><b style="color:var(--cobalt)">‘적합’ 구간(70점 이상)을 향해 다져 가는 단계입니다.</b> 아직 어느 한 길이 뚜렷이 가깝다고 보기는 이른 단계입니다. 아래 순위는 합격 가능성이 아니라 지금 신호가 조금 더 닿아 있는 순서일 뿐이니, 목표가 무엇이든 그 바탕이 되는 기초 역량(개념·자신감·심층 습관)을 함께 키우면 점수는 자연스럽게 따라 올라갑니다.</div>';
   var rows = arr.map(function (t, i) {
-    var top = (i === 0 && t.fit >= 58);
-    var head = '<summary class="trk"><div style="display:flex;align-items:center;gap:8px"><span class="trk-cv" style="font-size:11px;color:var(--muted)">▸</span><b style="font-size:14px">' + esc(t.name) + '</b>' + (top ? '<span style="font-size:10.5px;background:var(--emerald);color:#fff;padding:1px 7px;border-radius:999px">우선</span>' : '') + '<span style="margin-left:auto;font-size:11px;background:' + t.color + ';color:#fff;padding:1px 9px;border-radius:999px">' + t.level + '</span><span style="font-family:var(--serif);font-size:18px;color:' + t.color + '">' + t.fit + '</span></div><div style="height:7px;background:var(--line);border-radius:99px;margin:8px 0 6px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.08)"><i style="display:block;height:100%;width:' + t.fit + '%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(0,0,0,.08)),' + t.color + '"></i></div><div style="font-size:11px;color:var(--teal-d);font-weight:600">▾ 이름을 눌러 해설 보기</div></summary>';
-    return '<details' + (top ? ' open' : '') + ' style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:9px 0;background:' + (top ? 'rgba(46,125,91,.05)' : 'var(--paper-2)') + ';box-shadow:0 1px 2px rgba(28,24,18,.05),0 10px 26px -20px rgba(28,24,18,.4)">' + head + '<div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)">' + trackExplainHTML(t, r) + '</div></details>';
+    var isFirst = (i === 0);
+    var top = isFirst && hasFit;
+    var head = '<summary class="trk"><div style="display:flex;align-items:center;gap:8px"><span class="trk-cv" style="font-size:11px;color:var(--muted)">▸</span><b style="font-size:14px">' + esc(t.name) + '</b>' + (top ? '<span style="font-size:10.5px;background:var(--emerald);color:#fff;padding:1px 7px;border-radius:999px">우선</span>' : (isFirst ? '<span style="font-size:10.5px;background:var(--grey);color:#fff;padding:1px 7px;border-radius:999px">신호 1순위</span>' : '')) + '<span style="margin-left:auto;font-size:11px;background:' + t.color + ';color:#fff;padding:1px 9px;border-radius:999px">' + t.level + '</span><span style="font-family:var(--serif);font-size:18px;color:' + t.color + '">' + t.fit + '</span></div><div style="height:7px;background:var(--line);border-radius:99px;margin:8px 0 6px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(28,24,18,.08)"><i style="display:block;height:100%;width:' + t.fit + '%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(0,0,0,.08)),' + t.color + '"></i></div><div style="font-size:11px;color:var(--teal-d);font-weight:600">▾ 이름을 눌러 해설 보기</div></summary>';
+    return '<details' + (isFirst ? ' open' : '') + ' style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:9px 0;background:' + (top ? 'rgba(46,125,91,.05)' : 'var(--paper-2)') + ';box-shadow:0 1px 2px rgba(28,24,18,.05),0 10px 26px -20px rgba(28,24,18,.4)">' + head + '<div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)">' + trackExplainHTML(t, r) + '</div></details>';
   }).join("");
-  return '<style>details>summary.trk{list-style:none;cursor:pointer;outline:none}details>summary.trk::-webkit-details-marker{display:none}details>summary.trk .trk-cv{display:inline-block;transition:transform .2s}details[open]>summary.trk .trk-cv{transform:rotate(90deg)}details[open]>summary.trk>div:last-child{display:none}details>summary.trk:hover{filter:brightness(.99)}</style><p style="font-size:13px;color:var(--muted);margin:0 0 6px"><b>점수가 아니라 지금 신호 기준의 방향</b>입니다. 트랙 이름을 누르면 해설이 바로 펼쳐집니다.</p>' + rows + '<p style="font-size:11px;color:var(--muted);font-style:italic;margin:8px 0 0">가중치는 전문가 사전값으로, 누적 데이터로 보정될 예정입니다.</p>';
+  return '<style>details>summary.trk{list-style:none;cursor:pointer;outline:none}details>summary.trk::-webkit-details-marker{display:none}details>summary.trk .trk-cv{display:inline-block;transition:transform .2s}details[open]>summary.trk .trk-cv{transform:rotate(90deg)}details[open]>summary.trk>div:last-child{display:none}details>summary.trk:hover{filter:brightness(.99)}</style><p style="font-size:13px;color:var(--muted);margin:0 0 6px"><b>점수가 아니라 지금 신호 기준의 방향</b>입니다. 트랙 이름을 누르면 해설이 바로 펼쳐집니다.</p>' + note + rows + '<p style="font-size:11px;color:var(--muted);font-style:italic;margin:8px 0 0">가중치는 전문가 사전값으로, 누적 데이터로 보정될 예정입니다.</p>';
 }
 
 function roadmapHTML2(r) {
-  var top = trackScores2(r)[0], tn = (top.name || "").split("(")[0].trim().replace("전국 ", "");
+  var _ra = trackScores2(r), top = _ra[0], _hasFit = top && top.fit >= 70, tn = _hasFit ? (top.name || "").split("(")[0].trim().replace("전국 ", "") : "목표 진로";
   var S = sigVals2(r);
   var entrySig = ["deep", "interest", "efficacy", "analysis", "challenge", "inquiry", "metacog", "mastery"].reduce(function (b, k) { return (S[k] > (S[b] == null ? -1 : S[b])) ? k : b; }, "interest");
   var att = [["흥미", S.interest], ["자신감", S.efficacy], ["정서 안정", S.calm], ["가치 인식", S.value]].sort(function (a, b) { return a[1] - b[1]; })[0];
@@ -1067,7 +1071,7 @@ function roadmapHTML2(r) {
   var P = [
     { t: "지금", g: "토대 점검 · 강점으로 출발", it: [conceptLine, esc(SIG_LAB[entrySig]) + josa(SIG_LAB[entrySig], "을", "를") + ' 학습의 입구로 삼아 몰입 유지', att[1] < 45 ? (esc(att[0]) + josa(att[0], "이", "가") + ' 낮음 — 작은 성공부터 쌓기') : '주 단위 점검 루틴 자리잡기'] },
     { t: "3개월", g: "학습 방식 전환 · 습관화", it: [apprLine, '오개념 점검 리스트를 만들어 매주 1개씩 확인', '쉬운 문제로 정확도 → 한 단계 위로 확장'] },
-    { t: "6개월", g: esc(tn) + ' 방향 역량 키우기', it: [esc(SIGNEXT[top.gapKey] || '보완 신호를 집중 훈련'), esc(tn) + ' 유형의 문제·활동에 정기적으로 노출', '한 주제를 끝까지 파고드는 미니 탐구 월 1회'] },
+    { t: "6개월", g: esc(tn) + ' 방향 역량 키우기', it: [esc(SIGNEXT[top.gapKey] || '보완 신호를 집중 훈련'), (_hasFit ? (esc(tn) + ' 유형의 문제·활동에 정기적으로 노출') : '관심 분야(대회·심화)의 문제·활동에 정기적으로 노출'), '한 주제를 끝까지 파고드는 미니 탐구 월 1회'] },
     { t: "1년", g: esc(tn) + josa(tn, "으로", "로") + ' 가는 길 다지기', it: ['누적 복습으로 개념 인출을 자동화', '모의 평가로 실전 감각·시간 관리 점검', '강점·보완 신호를 재진단해 경로 재조정'] }
   ];
   var rows = P.map(function (ph, i) {
@@ -1122,15 +1126,17 @@ function misconceptionDetailHTML(r) {
 }
 function parentFAQHTML(r) {
   var arr = trackScores2(r), top = arr[0], T = TYPES[r.type.code] || {};
-  var nm = r.name || "", ent = topEntrenched(r), S = sigVals2(r);
+  var nm = r.name || "", ent = topEntrenched(r), S = sigVals2(r), hasFit = top && top.fit >= 70;
   var yj = null; arr.forEach(function (x) { if (x.key === "영재고") yj = x; });
-  var yjMsg = yj ? (yj.fit >= 72 ? "영재고도 충분히 도전권에 있습니다" : yj.fit >= 58 ? "영재고는 ‘유망’ 단계로, 깊이·도전 신호를 더 쌓으면 충분히 열립니다" : "영재고는 아직 ‘준비 단계’라, 기초 개념과 자신감부터 다지는 편이 빠릅니다") : "";
+  var yjMsg = yj ? (yj.fit >= 70 ? "영재고도 적합 구간에 들어, 충분히 도전권입니다" : yj.fit >= 50 ? "영재고는 적합 구간을 향해 가는 중이라, 깊이·도전 신호를 더 쌓으면 열립니다" : "영재고는 기초 개념과 자신감부터 다지는 편이 빠릅니다") : "";
   function qa(q, a) { return '<div style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:9px 0;background:var(--paper-2)"><div style="font-size:13px;font-weight:600;color:var(--cobalt)"><span style="opacity:.55">학부모 </span>' + esc(q) + '</div><div style="font-size:13px;color:var(--ink-2);line-height:1.74;margin-top:6px"><span style="color:var(--teal-d);font-weight:600">상담 </span>' + a + '</div></div>'; }
   var items = [];
-  items.push(qa("우리 아이, 어떤 진학을 목표로 잡아야 할까요? 영재고를 노려야 하나요?",
-    (nm ? esc(nm) + josa(nm, "은", "는") + " " : "지금 ") + "신호로 보면 <b>" + esc(T.name || r.type.code) + "</b> 유형이고, 가장 잘 맞는 방향은 <b>" + esc(shortTrack(top.name)) + "</b>(적합도 " + top.fit + "·" + top.level + ")입니다. 무엇보다 이 또래는 <b>중등 올림피아드(중학생 화학·물리대회)</b>가 지금의 주무대이고, 그 준비가 과학고·영재고·의대 어디로 가든 공통 토대가 됩니다. " + (yjMsg ? (esc(yjMsg) + ". ") : "") + "한 학교로 못박기보다, 대회를 발판 삼아 여러 길을 함께 열어 두는 편이 이 시기엔 더 유리합니다."));
+  var _a1 = (nm ? esc(nm) + josa(nm, "은", "는") + " " : "지금 ") + "신호로 보면 <b>" + esc(T.name || r.type.code) + "</b> 유형입니다. ";
+  if (hasFit) { _a1 += "가장 잘 맞는 방향은 <b>" + esc(shortTrack(top.name)) + "</b>(적합도 " + top.fit + "·" + top.level + ")입니다. 무엇보다 이 또래는 <b>중등 올림피아드(중학생 화학·물리대회)</b>가 지금의 주무대이고, 그 준비가 과학고·영재고·의대 어디로 가든 공통 토대가 됩니다. " + (yjMsg ? (esc(yjMsg) + ". ") : "") + "한 학교로 못박기보다, 대회를 발판 삼아 여러 길을 함께 열어 두는 편이 이 시기엔 더 유리합니다."; }
+  else { _a1 += "지금은 어느 진학이든 <b>‘적합’ 구간을 향해 다져 가는 단계</b>입니다. 적합도로는 <b>" + esc(shortTrack(top.name)) + "</b>" + josa(shortTrack(top.name), "이", "가") + " 신호가 조금 더 닿아 있지만(적합도 " + top.fit + "·" + top.level + "), 아직 ‘여기가 길이다’라고 할 만큼 또렷하진 않습니다. 그래서 지금은 한 학교를 정하기보다, 목표가 무엇이든 그 바탕이 되는 <b>기초 역량(개념·자신감·심층 습관)</b>을 함께 키우는 것이 우선입니다. 이 또래의 <b>중등 올림피아드(중학생 화학·물리대회)</b> 준비가 바로 그 공통 토대가 되어 줍니다."; }
+  items.push(qa("우리 아이, 어떤 진학을 목표로 잡아야 할까요? 영재고를 노려야 하나요?", _a1));
   items.push(qa("적합도 점수가 생각보다 낮은데, 너무 늦은 걸까요?",
-    "이 적합도는 등수나 성적표가 아니라 <b>지금 신호 기준의 방향</b>입니다. 중2는 성향과 개념이 한창 자라는 시기라, 지금 숫자보다 ‘어디를 채우면 어디가 열리는가’가 훨씬 중요합니다. " + (top.gapLab ? ("당장은 <b>" + esc(top.gapLab) + "</b>" + josa(top.gapLab, "을", "를") + " 보완하면 적합도가 함께 올라갑니다.") : "지금은 강점을 한 단계 위로 밀어 줄 시점입니다.")));
+    "이 적합도는 등수나 성적표가 아니라 <b>지금 신호 기준의 방향</b>입니다. 이 시기는 성향과 개념이 한창 자라는 때라, 지금 숫자보다 ‘어디를 채우면 어디가 열리는가’가 훨씬 중요합니다. " + (hasFit ? "" : "지금은 전반적으로 ‘적합’ 구간을 향해 올라가는 중이라, 한 진학을 정해 두기보다 기초부터 차근차근 쌓는 시기입니다. 늦은 게 전혀 아니라, 지금이 토대를 다질 적기입니다. ") + (top.gapLab ? ("당장은 <b>" + esc(top.gapLab) + "</b>" + josa(top.gapLab, "을", "를") + " 보완하면 적합도가 함께 올라갑니다.") : "지금은 강점을 한 단계 위로 밀어 줄 시점입니다.")));
   var homeTip = ent.length ? ("우선 ‘" + esc(ent[0].label) + "’ 개념을 실험·반례로 한 번 바로잡아 주세요(아래 ‘개념 직관·오개념’ 칸에 방법이 정리돼 있습니다).") : ("개념 토대는 안정적이니, 문제를 풀고 나면 ‘왜 그렇게 되는지’ 한 줄 더 적게 하는 심층 습관을 붙여 주세요.");
   items.push(qa("집에서는 무엇을 도와주면 좋을까요?",
     homeTip + " 그리고 " + (S.efficacy < 45 ? "작은 성공 경험을 자주 만들어 ‘하면 된다’는 자신감을 먼저 채워 주세요" : S.interest < 45 ? "흥미가 켜지는 현상·실험부터 노출해 몰입 시간을 늘려 주세요" : "잘하고 있을 때 구체적으로 인정해 주는 것만으로도 큰 동력이 됩니다") + ".") );
@@ -1149,12 +1155,12 @@ function parentFAQHTML(r) {
 function snapshotHTML(r) {
   var top = trackScores2(r)[0], T = TYPES[r.type.code] || {};
   var cell = function (lab, val, col) { return '<div style="text-align:center;flex:1;min-width:60px"><div style="font-size:10.5px;color:rgba(255,255,255,.55);letter-spacing:.5px">' + lab + '</div><div style="font-family:var(--serif);font-size:16px;color:' + (col || '#fff') + ';margin-top:2px">' + val + '</div></div>'; };
-  var stg = function (s) { return (s == null ? '\u2014' : s + '단계'); };
+  var stg = function (s) { return (s == null ? '\u2014' : (s === 0 ? '준비' : s + '단계')); };
   var vtag = (r.validity && r.validity.tag) || '\u2014';
   var vcol = vtag === '고신뢰' ? '#7FD8C8' : vtag === '주의' ? '#E5C07B' : '#E58A9E';
   return '<div class="snap" style="background:linear-gradient(135deg,#1C1812 0%,#2E2719 100%);color:#fff;border-radius:14px;padding:17px 19px;margin-bottom:18px">' +
-    '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><div><div style="font-size:11px;opacity:.6;letter-spacing:1px">화학 두뇌 유형</div><div style="font-family:var(--serif);font-size:20px">' + esc(T.name || r.type.code) + ' <span style="font-size:13px;opacity:.55">' + esc(r.type.code) + '</span><div style="font-size:10.5px;opacity:.6;letter-spacing:.5px;margin-top:1px">유형 신뢰도 ' + typeStability(r).conf + '</div></div></div>' +
-    '<div class="snap-track" style="text-align:right"><div style="font-size:11px;opacity:.6">추천 방향</div><div style="font-family:var(--serif);font-size:16px">' + esc(shortTrack(top.name)) + ' <span style="font-size:12px;opacity:.7">' + top.fit + '\u00b7' + top.level + '</span></div></div></div>' +
+    '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><div><div style="font-size:11px;opacity:.6;letter-spacing:1px">화학 두뇌 유형</div><div style="font-family:var(--serif);font-size:20px">' + esc(T.name || r.type.code) + ' <span style="font-size:13px;opacity:.55">' + esc(r.type.code) + '</span><div style="font-size:10.5px;opacity:.6;letter-spacing:.5px;margin-top:1px">유형 뚜렷함 ' + typeStability(r).conf + '</div></div></div>' +
+    '<div class="snap-track" style="text-align:right"><div style="font-size:11px;opacity:.6">' + (top.fit >= 70 ? '추천 방향' : '지금 키울 힘') + '</div><div style="font-family:var(--serif);font-size:16px">' + (top.fit >= 70 ? (esc(shortTrack(top.name)) + ' <span style="font-size:12px;opacity:.7">' + top.fit + '\u00b7' + top.level + '</span>') : esc(snapGrowKey(r))) + '</div></div></div>' +
     '<div style="display:flex;gap:6px;margin-top:15px;padding-top:13px;border-top:1px solid rgba(255,255,255,.15)">' +
     cell("흥미", stg(r.interest.stage), '#7FD8C8') + cell("자신감", stg(r.efficacy.stage), '#7FD8C8') + cell("메타인지", stg(r.metacog.stage), '#7FD8C8') + cell("개념직관", (r.concept != null ? r.concept : '\u2014'), '#E5C07B') + cell("신뢰도", vtag, vcol) +
     '</div>' +
@@ -1184,7 +1190,7 @@ function narrativeHTML(r) {
   var stab = typeStability(r);
   var _dStrong = (appS.pole === "D" && appS.band === "strong"); var _useInt = (!_dStrong && topInt && topInt.v >= 60);
   var intCtx = (topInt && topInt.v >= 55 && !_useInt) ? (' 특히 ' + esc(topInt.nm) + ' 영역에서 그 불꽃이 가장 또렷합니다.') : '';
-  var mixNote = (stab.weak.length >= 2) ? (' 다만 여러 성향이 비등하게 섞여 있어, 한 유형으로 못박기보다 ' + (stab.adjacents.length ? ('‘' + esc(stab.adjacents[0]) + '’ 같은 인접 유형과의 ') : '') + '혼합형으로 읽는 것이 더 정확합니다.') : (stab.weak.length === 1 ? (' ' + esc(stab.weak[0].nm) + ' 축은 박빙이라 상황에 따라 달리 나타날 수 있습니다.') : '');
+  var mixNote = (stab.weak.length >= 2) ? (' 다만 <b>' + stab.weak.map(function (w) { return esc(w.pair || w.nm); }).join(', ') + '</b> 성향은 양쪽이 비슷하게 나타나, 한 유형으로 못박기보다 상황에 따라 양쪽을 오가는 혼합형으로 읽는 것이 더 정확합니다.') : (stab.weak.length === 1 ? (' <b>' + esc(stab.weak[0].pair || stab.weak[0].nm) + '</b> 성향은 박빙이라, 상황에 따라 양쪽 모습이 다 나타날 수 있습니다.') : '');
   var p1 = '<b>' + esc(nm) + '</b>' + josa(nm, "은", "는") + ' ' + gradAx(LENS, lensS, 0) + ' <b>' + esc(T.name || code) + '</b> 유형입니다' + (I.tag ? (' — ' + esc(I.tag) + '.') : '.') + ' ' + P(1, INT[iStage]) + ' ' + gradAx(DRV, drvS, 13) + ' 성향이 학습의 동력이 됩니다.' + intCtx + ' ' + P(2, EFF[eStage]) + mixNote;
   var dn = (r.approach.norm && r.approach.norm.deep) || 0, sn = (r.approach.norm && r.approach.norm.surface) || 0;
   var leanLine = dn >= 65 ? P(3, ["문제를 풀 때 답보다 ‘왜 그런가’를 먼저 따지는 심층적 태도가 분명합니다.", "정답에 그치지 않고 원리까지 파고드는 깊이가 또렷합니다."]) : dn >= 52 ? P(3, ["정답에 더해 이유를 한 번 더 짚어 보려는 결이 보입니다.", "‘왜’를 한 줄 더 적어 보려는 심층의 싹이 보입니다."]) : sn >= 65 ? P(3, ["지금은 암기와 빠른 답에 크게 기대고 있어, ‘왜’로 내려가는 습관이 절실합니다.", "외우고 빨리 맞히는 데 무게가 쏠려 있어, 원리로 다시 세우는 연습이 필요합니다."]) : sn >= 52 ? P(3, ["아직은 정답을 빠르게 맞히는 데 무게가 실려, 이유를 파고드는 깊이는 더 키울 수 있습니다.", "빠른 답 쪽으로 약간 기울어, 한 번 더 ‘왜’를 묻는 습관을 더하면 좋습니다."]) : P(3, ["깊이와 효율 사이에서 균형을 잡고 접근합니다."]);
@@ -1207,7 +1213,7 @@ function narrativeHTML(r) {
   var apprAdvice = (dn >= 52) ? P(9, ["지금의 심층적 태도를 유지하는 것이 가장 큰 자산입니다", "파고드는 깊이를 잃지 않도록 받쳐 주는 것이 좋습니다"]) : P(9, ["암기에 기대기보다 원리로 다시 세우는 연습을 곁들이면 좋습니다", "‘왜’를 한 줄씩 보태는 습관으로 깊이를 키우면 좋습니다"]);
   var metaSt = Math.max(0, Math.min(4, r.metacog.stage || 0));
   var metaLine = metaSt <= 1 ? P(10, [" 풀이 뒤 ‘무엇을 어떻게 알았는지’ 돌아보는 습관을 더하면 성장에 가속이 붙습니다.", " 답을 맞힌 뒤 ‘어떻게 알았나’를 한 번 되짚는 루틴을 더하면 좋습니다."]) : metaSt >= 3 ? P(10, [" 스스로 점검하는 메타인지가 잘 작동해, 그 힘을 더 어려운 과제에 활용하면 좋습니다.", ""]) : '';
-  var p5 = P(11, ["종합하면, ", "정리하면, ", "요약하면, "]) + '지금 신호는 <b>' + esc(shortTrack(top.name)) + '</b> 방향과 가장 잘 맞습니다(적합도 ' + top.fit + '). ' + esc(top.strong) + josa(top.strong, "이", "가") + ' 그 길을 받쳐 주고' + (top.gapLab ? (', ' + esc(top.gapLab) + josa(top.gapLab, "을", "를") + ' 채우는 것이 다음 과제입니다') : '입니다') + '.' + appNote + ' 당장의 한 걸음은 <b>' + esc(firstStepText(r)) + '</b>이며, ' + apprAdvice + '.' + metaLine;
+  var p5 = P(11, ["종합하면, ", "정리하면, ", "요약하면, "]) + (top.fit >= 70 ? ('지금 신호는 <b>' + esc(shortTrack(top.name)) + '</b> 방향과 가장 잘 맞습니다(적합도 ' + top.fit + '). ') : ('아직 어느 한 길이 뚜렷이 가깝다고 할 단계는 아니고, 지금은 <b>' + esc(snapGrowKey(r)) + '</b>처럼 바탕이 되는 힘을 키워 갈 때입니다(가장 높은 신호도 적합도 ' + top.fit + '). ')) + (top.fit >= 70 ? (esc(top.strong) + josa(top.strong, "이", "가") + ' 그 길을 받쳐 주고') : (esc(top.strong) + josa(top.strong, "이", "가") + ' 든든한 출발점이 되고')) + (top.gapLab ? (', ' + esc(top.gapLab) + josa(top.gapLab, "을", "를") + ' 채우는 것이 다음 과제입니다') : '입니다') + '.' + appNote + ' 당장의 한 걸음은 <b>' + esc(firstStepText(r)) + '</b>이며, ' + apprAdvice + '.' + metaLine;
   var SC_LENS = { S: { strong: ["겉으로 드러난 결과보다 ‘속에서 무슨 일이 일어났을까’를 먼저 떠올리며, 머릿속으로 알갱이의 움직임을 그려 봅니다.", "현상을 보면 그 이면의 원리부터 상상하느라, 답을 내기까지 잠시 뜸을 들이기도 합니다."], mild: ["눈에 보이는 변화를 보면서도 ‘왜 그렇게 됐을까’를 한 번 더 짚으려 합니다."] }, G: { strong: ["새로운 현상을 보면 ‘저게 왜 저렇게 변하지?’ 하며 눈으로 좇고, 색이 바뀌거나 거품이 이는 순간을 놓치지 않습니다.", "눈앞의 변화와 결과에 즉각 반응하며, 구체적으로 보이는 것에서 가장 빠르게 배웁니다."], mild: ["주로 눈에 보이는 변화에 먼저 반응하고, 거기서 실마리를 찾아 나갑니다."] }, balanced: ["보이는 변화와 보이지 않는 원리를 함께 살피며 균형 있게 받아들입니다."] };
   var SC_THK = { B: { strong: ["답을 서두르기보다 근거를 하나씩 따져 확인한 뒤 비로소 손을 들고, 어설픈 답을 내놓는 것을 스스로 못 견뎌 합니다.", "‘왜 그런지’가 납득되지 않으면 좀처럼 다음으로 넘어가지 않습니다."], mild: ["대체로 근거를 따지되, 감이 오면 빠르게 잡기도 합니다."] }, J: { strong: ["문제를 만나면 ‘답이 이거다’ 하는 감이 먼저 오고 그 직관이 자주 들어맞지만, ‘왜 그런지’를 물으면 잠시 머뭇거리기도 합니다.", "전체 그림을 단번에 잡는 데 능해, 설명보다 결론이 먼저 튀어나오곤 합니다."], mild: ["직관으로 먼저 잡고, 필요하면 근거를 되짚어 확인합니다."] }, balanced: ["감으로 빠르게 잡되 필요할 때 근거를 따져 확인합니다."] };
   var SC_APP = { D: { strong: ["쉬운 문제만 이어지면 금세 흥미를 잃고, 한 단계 어려운 문제 앞에서 오히려 눈빛이 살아납니다.", "‘이건 어렵다’는 말에 물러서기보다 ‘해 볼 만하다’며 달려드는 편입니다."], mild: ["적당히 도전적인 과제에서 가장 즐거워합니다."] }, M: { strong: ["익숙해질 때까지 반복하는 시간을 답답해하지 않고, 정확해질수록 안정감을 느낍니다.", "충분히 다졌다는 확신이 설 때 비로소 마음 편히 다음으로 넘어갑니다."], mild: ["충분히 익힌 뒤 넘어갈 때 마음이 편합니다."] }, balanced: ["도전과 반복 사이를 상황에 맞게 오갑니다."] };
@@ -1230,28 +1236,31 @@ function narrativeHTML(r) {
   var pInner = "마음의 결을 들여다보면, " + bn[0] + " " + bn[1] + effTie + " " + bn[2] + anxTie + valScene;
   var pClose = P(50, ["지금은 가능성이 한창 자라나는 시기입니다. ", "지금의 모습은 완성형이 아니라 자라나는 중간 과정입니다. "]) + P(51, ["맞는 자극과 인정이 더해지면, 지금 보이는 것보다 훨씬 멀리 갈 수 있는 아이입니다.", "방향을 잘 잡아 주면, 지금의 강점이 몇 배의 결과로 돌아올 잠재력을 지녔습니다.", "조급해하지 않고 이 아이의 속도를 믿어 줄 때, 가장 크게 자랍니다."]) + " " + P(52, ["오늘의 리포트는 점수표가 아니라, 이 아이를 더 깊이 이해하기 위한 지도입니다.", "이 결과는 등수를 매기려는 것이 아니라, 아이에게 맞는 길을 함께 찾기 위한 출발점입니다."]);
   function para(x) { return '<p style="margin:0 0 11px;font-size:13px;line-height:1.78;color:var(--ink-2)">' + x + '</p>'; }
-  return '<section class="card"><div class="bh"><span class="ix" style="background:var(--cobalt)">✦</span><h3>맞춤 종합 해설</h3><span class="sub">이 학생만의 종합 읽기</span></div>' + para(p1) + para(pPortrait) + para(pShine) + para(p2) + para(p3) + para(pInner) + para(p4) + para(p5) + para(pClose) + '<p style="margin:6px 0 0;font-size:11px;color:var(--muted);font-style:italic">측정모델(위계 사다리·동등바람직 강제선택·맥락 층화·타당도 척도)이 산출한 프로필을 바탕으로 구성한 종합 해설입니다.</p></section>';
+  return '<section class="card"><div class="bh"><span class="ix" style="background:var(--cobalt)">✦</span><h3>맞춤 종합 해설</h3><span class="sub">이 학생만의 종합 읽기</span></div>' + para(p1) + para(pPortrait) + para(pShine) + para(p2) + para(p3) + para(pInner) + para(p4) + para(p5) + para(pClose) + '<p style="margin:6px 0 0;font-size:11px;color:var(--muted);font-style:italic">99문항의 응답 패턴을 여러 각도에서 교차 분석해 구성한 종합 해설입니다.</p></section>';
 }
 
 
 
+function snapGrowKey(r){ var t=trackScores2(r), g=(t[0]&&t[0].gapLab)||''; var L={'심층 학습':'심층 사고','메타인지':'스스로 점검','개념':'개념 다지기','숙달':'반복 숙달','정서 안정':'마음 안정','가치 인식':'배움의 이유','분석력':'근거 분석','도전':'도전 경험','흥미':'흥미 키우기','자신감':'자신감'}; return (L[g]||g||'기초 역량')+' 키우기'; }
 function typeStability(r) {
   var ax = r.type.axes || {}, AXP = { lens: ["G", "S"], think: ["J", "B"], drive: ["T", "R"], approach: ["D", "M"] }, AXN = { lens: "관찰 관점", think: "사고 방식", drive: "학습 동력", approach: "학습 방식" };
   var order = ["lens", "think", "drive", "approach"], code = r.type.code || "", letters = code.split(""), margin = {}, weak = [];
-  order.forEach(function (k, idx) { var po = AXP[k], a = (ax[k] && ax[k][po[0]]) || 0, b = (ax[k] && ax[k][po[1]]) || 0; margin[k] = Math.abs(a - b); if (margin[k] <= 1) weak.push({ k: k, nm: AXN[k], cur: letters[idx], alt: (letters[idx] === po[0] ? po[1] : po[0]) }); });
-  var conf = weak.length === 0 ? "뚜렷" : weak.length === 1 ? "대체로 뚜렷" : weak.length === 2 ? "유동적" : "혼합형";
+  order.forEach(function (k, idx) { var po = AXP[k], a = (ax[k] && ax[k][po[0]]) || 0, b = (ax[k] && ax[k][po[1]]) || 0; margin[k] = Math.abs(a - b); if (margin[k] <= 1) weak.push({ k: k, nm: AXN[k], cur: letters[idx], alt: (letters[idx] === po[0] ? po[1] : po[0]), pair: ((typeof AXLAB !== "undefined" && AXLAB[k]) ? AXLAB[k].join("↔") : AXN[k]) }); });
+  var conf = weak.length === 0 ? "뚜렷함" : weak.length === 1 ? "대체로 뚜렷" : weak.length === 2 ? "두 성향 혼합" : "여러 성향 혼합";
   var adjacents = weak.map(function (w) { var arr = letters.slice(), idx = order.indexOf(w.k); arr[idx] = w.alt; return arr.join(""); });
-  return { margin: margin, weak: weak, conf: conf, adjacents: adjacents };
+  var adjNames = adjacents.map(function (c) { var t = (typeof TYPES !== "undefined" && TYPES[c]) || {}; return t.name || c; });
+  var adjFull = adjacents.map(function (c) { var t = (typeof TYPES !== "undefined" && TYPES[c]) || {}; return t.name ? (t.name + "(" + c + ")") : c; });
+  return { margin: margin, weak: weak, conf: conf, adjacents: adjacents, adjNames: adjNames, adjFull: adjFull };
 }
 function methodologyHTML(r) {
   function row(h, b) { return '<div style="margin:9px 0"><div style="font-size:13px;font-weight:600;color:var(--ink)">' + h + '</div><div style="font-size:12px;color:var(--ink-2);margin-top:2px;line-height:1.6">' + b + '</div></div>'; }
   return '<p style="font-size:12px;color:var(--muted);margin:0 0 8px">이 리포트의 산출 근거와, 지금 ‘확정’인 것과 ‘가정’인 것을 구분합니다.</p>' +
-    row("측정 방식", "위계 사다리(Guttman) · 동등바람직 강제선택(ipsative) · 맥락 층화 측정 · 타당도 척도(SD·과대주장·일관성·주의력)로 산출하는 결정적 모델입니다.") +
-    row("확정 vs 가정", "구인·예측 타당도와 규준은 <b>아직 확정 전</b>입니다(누적 데이터 필요). 사다리 단조성·맥락 분리·문항 변별은 ‘설계 가설’이며, 학생 100명 이상이 모이면 분석 도구로 확정/기각합니다.") +
-    row("유형 신뢰도", "각 축은 5문항으로 판정합니다. 3:2처럼 박빙인 축은 ‘경합’으로 표시하고 인접 유형을 함께 적어, 한 유형으로 단정하지 않습니다.") +
-    row("진학 트랙", "적합도 가중치는 전문가 사전값(prior)입니다. 합격생의 실제 프로필이 쌓이면 경험적으로 보정됩니다. 지금은 ‘점수’가 아니라 ‘방향’으로 읽어야 합니다.") +
-    row("개념 직관", "밴드(양호/흔들림/교정필요)는 휴리스틱 컷오프이며, 데이터로 재보정합니다.") +
-    '<p style="font-size:12px;color:var(--muted);font-style:italic;margin:10px 0 0">요약: 이 도구는 ‘검증 가능한 상태’로 설계되어 있고, 데이터가 쌓이면 규준·타당도가 ‘확정’으로 전환됩니다. 과대 해석을 피하고 신뢰도 태그·유형 경합 표시를 함께 보세요.</p>';
+    row("측정 방식", "위계 사다리(Guttman: 단계를 차례로 오르는지 확인) · 강제선택(ipsative: 좋아 보이는 답을 고를 수 없는 양자택일) · 맥락별 분리 측정 · 응답 신뢰도 점검(좋게 보이려는 경향·과대주장·일관성·주의력)을 함께 써서, 정해진 규칙으로 산출합니다.") +
+    row("확정 vs 가정", "이 검사가 실제 실력·결과를 얼마나 정확히 맞히는지(타당도)와 또래 대비 위치 기준(규준)은 <b>아직 확정 전</b>입니다(데이터 누적 필요). 문항 설계의 세부 가정들은 ‘설계 가설’ 단계이며, 학생 100명 이상이 모이면 통계 분석으로 확정하거나 수정합니다.") +
+    row("유형 뚜렷함", "네 가지 축을 각각 7문항으로 판정합니다. 4:3처럼 박빙인 축은 ‘박빙’으로 표시하고 양쪽 성향(예: 직관↔분석)을 함께 적어, 한 유형으로 단정하지 않습니다.") +
+    row("진학 트랙", "적합도 가중치는 전문가가 먼저 정해 둔 초기 기준(전문가 사전값)입니다. 합격생의 실제 프로필이 쌓이면 경험적으로 보정됩니다. 지금은 ‘점수’가 아니라 ‘방향’으로 읽어야 합니다.") +
+    row("개념 직관", "밴드(양호/흔들림/교정필요)의 기준선은 경험에 기반한 초기값이며, 데이터가 쌓이면 재보정합니다.") +
+    '<p style="font-size:12px;color:var(--muted);font-style:italic;margin:10px 0 0">요약: 이 도구는 ‘검증 가능한 상태’로 설계되어 있고, 데이터가 쌓이면 규준·타당도가 ‘확정’으로 전환됩니다. 과대 해석을 피하고, 응답 신뢰도 표시와 유형 박빙 표시를 함께 보세요.</p>';
 }
 
 function homeAction(r){
@@ -1267,7 +1276,7 @@ function summaryHTML(r){
   return '<div style="background:linear-gradient(180deg,rgba(201,162,75,.06),transparent);border:1px solid var(--gold-hair);border-radius:12px;padding:4px 16px 12px;margin-bottom:6px">'
     + '<div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);padding:11px 0 3px">한눈에 요약</div>'
     + row("유형", esc(T.name||r.type.code)+' <span style="font-size:11px;color:var(--muted)">('+esc(r.type.code)+')</span>')
-    + row("잘 맞는 방향", '<b>'+esc(shortTrack(top.name))+'</b> <span style="font-size:12px;color:var(--muted)">(적합도 '+top.fit+' \u00b7 '+top.level+')</span>')
+    + (top.fit >= 70 ? row("잘 맞는 방향", '<b>'+esc(shortTrack(top.name))+'</b> <span style="font-size:12px;color:var(--muted)">(적합도 '+top.fit+' \u00b7 '+top.level+')</span>') : row("지금 할 일", '뚜렷이 가까운 길이 잡히기 전이라, <b>'+esc(snapGrowKey(r))+'</b>로 토대를 다질 때입니다'))
     + row("집에서 한 가지", esc(homeAction(r)), true)
     + '</div>';
 }
@@ -1279,15 +1288,16 @@ function renderReportV2(r) {
   H += sec("01", "종합 프로필", "6개 핵심 차원 한눈에", hexRadarSVG(r) + '<p style="font-size:12px;color:var(--muted);text-align:center;margin-top:2px">흥미\u00b7자신감\u00b7정서안정\u00b7가치\u00b7학습깊이\u00b7개념직관 \u00b7 0~100, 높을수록 좋음</p>');
   H += sec("02", "맥락 지도", "맥락별 흥미·불안·오개념", contextBarsHTML(r));
   H += sec("03", "성장 사다리", "‘좋아한다’가 아니라 도달 단계", ladderHTML(r));
-  H += sec("04", "학습 접근 우선순위", "동등바람직 강제선택", approachHTML(r));
+  H += sec("04", "학습 접근 우선순위", "무엇을 먼저 쓰는가 · 순서로 보기", approachHTML(r));
   H += sec("05", "대처 패턴", "행동 시나리오", copingHTML(r));
-  H += sec("06", "사고 성향(16유형)", "강제선택 · 위조 불가", typeIdentityHTML(r) + '<div style="height:1px;background:var(--line);margin:14px 0"></div>' + typeMiniHTML(r) + axisLogicHTML(r));
+  H += sec("06", "사고 성향(16유형)", "양자택일 응답 · 꾸미기 어려움", typeIdentityHTML(r) + '<div style="height:1px;background:var(--line);margin:14px 0"></div>' + typeMiniHTML(r) + axisLogicHTML(r));
   H += sec("07", "진학 트랙 적합도", "여러 갈래 · 점수보다 순위와 구간 중심", trackFitHTML(r));
   H += sec("08", "다년 성장 로드맵", "점수가 아니라 궤적", roadmapHTML2(r));
   H += sec("09", "개념 직관·오개념", "보존 / 입자 / 변화", conceptMiniHTML(r) + misconceptionDetailHTML(r));
   H += sec("10", "응답 신뢰도", "과대응답·부주의 탐지", validityBadge(r));
   H += sec("11", "학부모 상담 문답", "자주 묻는 질문 · 자가학습 대본", parentFAQHTML(r));
   H += sec("12", "방법론·한계", "측정 모델과 현재 한계", methodologyHTML(r));
+  H += '<div style="text-align:center;font-size:11.5px;color:var(--grey);margin:22px 0 4px;letter-spacing:.05em;font-family:var(--serif)">화학 학습 진단 \u00b7 분석\u00b7설계 <b style="color:var(--gold-deep);font-weight:600">by 조준모</b></div>';
   return H;
 }
 
