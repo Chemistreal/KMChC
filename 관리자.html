@@ -1356,12 +1356,12 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
     var name=($("#an").value||"").trim()||"데모";
     var grade=$("#ag").value;
     var ans=demoAnswers();
-    var M2={name:name,grade:grade,demo:1,elapsed:99*9};
+    var M2={name:name,grade:grade,demo:1,elapsed:99*9,id:makeRid()};
     try{
       var r=computeV2(ans,M2,ITEMS);
       var rep=$("#report");rep.innerHTML=renderReportV2(r);rep.className="rv-parent";
       $("#reportWrap").style.display="block";
-      window.__share={b64:serialize(ans),name:name,grade:grade};
+      window.__share={id:M2.id,b64:serialize(ans),name:name,grade:grade};
       send(r,ans,M2);
       st("데모 채점 완료 \u00b7 결과를 구글 시트로 전송했습니다 (구분: 데모/demo=1). 아래에서 리포트를 확인하세요.","ok");
       try{rep.scrollIntoView({behavior:"smooth"});}catch(e){}
