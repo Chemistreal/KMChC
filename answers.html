@@ -499,6 +499,7 @@ function renderAnswersV2(ans, ITEMS){
 </script>
 <script>(function(){
  var APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxdD_pKlNZaHyce2mUsDcmTspMW4uh--wOr3MggvDABEDs7n64re6DLYEVOlh8ANE9-/exec";
+ var DATA_DIR="report-data";
  var p=new URLSearchParams(location.search);
  var id=p.get("id")||"", d=p.get("d")||"", nm=p.get("n")||"", gr=p.get("g")||"";
  try{ nm=decodeURIComponent(nm); }catch(e){}
@@ -521,18 +522,39 @@ function renderAnswersV2(ans, ITEMS){
   try{ rep.innerHTML=renderAnswersV2(ans, ITEMS); }
   catch(e){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px">응답을 여는 중 문제가 생겼습니다. ('+(e&&e.message||e)+')</div>'; }
  }
+ function loadStaticJson(rid){
+  if(!window.fetch) return Promise.reject(new Error("fetch_not_supported"));
+  var url=DATA_DIR+"/"+encodeURIComponent(rid)+".json";
+  return fetch(url,{cache:"no-store"}).then(function(res){
+   if(!res.ok) throw new Error("static_not_found_"+res.status);
+   return res.json();
+  }).then(function(res){
+   if(!res||!res.answers) throw new Error("static_empty_answers");
+   id=res.id||rid;
+   return res;
+  });
+ }
+ function loadByAppsScript(rid){
+  return new Promise(function(resolve,reject){
+   var cb="__kmchcAnswersCb_"+Date.now()+"_"+Math.random().toString(36).slice(2);
+   var done=false;
+   var timer=setTimeout(function(){ if(done)return; done=true; cleanup(); reject(new Error("apps_script_timeout")); },18000);
+   function cleanup(){ try{ delete window[cb]; }catch(e){ window[cb]=null; } if(sc&&sc.parentNode) sc.parentNode.removeChild(sc); clearTimeout(timer); }
+   window[cb]=function(res){ if(done)return; done=true; cleanup(); if(!res||!res.ok) reject(new Error((res&&res.error)||"apps_script_not_found")); else resolve(res); };
+   var sc=document.createElement("script");
+   sc.src=APPS_SCRIPT_URL+"?action=get&id="+encodeURIComponent(rid)+"&callback="+encodeURIComponent(cb)+"&v="+Date.now();
+   sc.onerror=function(){ if(done)return; done=true; cleanup(); reject(new Error("apps_script_load_error")); };
+   document.body.appendChild(sc);
+  });
+ }
  function loadById(rid){
   rep.innerHTML='<div style="text-align:center;color:var(--muted);padding:44px 16px;font-size:14px;line-height:1.7">저장된 응답을 불러오는 중입니다...</div>';
-  var cb="__kmchcAnswersCb_"+Date.now()+"_"+Math.random().toString(36).slice(2);
-  window[cb]=function(res){
-   try{ delete window[cb]; }catch(e){ window[cb]=null; }
-   if(!res||!res.ok){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px;line-height:1.7">저장된 응답을 찾지 못했습니다.<br>시트 저장 직후라면 2~3초 뒤 다시 열어 주세요.</div>'; return; }
-   id=res.id||rid; render(decodeAnswer(res.answers||""),res.name||"",res.grade||"");
-  };
-  var sc=document.createElement("script");
-  sc.src=APPS_SCRIPT_URL+"?action=get&id="+encodeURIComponent(rid)+"&callback="+encodeURIComponent(cb)+"&v="+Date.now();
-  sc.onerror=function(){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px;line-height:1.7">응답 데이터를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>'; };
-  document.body.appendChild(sc);
+  loadStaticJson(rid).catch(function(){ return loadByAppsScript(rid); }).then(function(res){
+   id=res.id||rid;
+   render(decodeAnswer(res.answers||""),res.name||"",res.grade||"");
+  }).catch(function(){
+   rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px;line-height:1.7">저장된 응답을 찾지 못했습니다.<br>저장 직후라면 5초 뒤 다시 열어 주세요.</div>';
+  });
  }
  if(id){ loadById(id); return; }
  if(d){ render(decodeAnswer(d),nm,gr); return; }
