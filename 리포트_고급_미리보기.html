@@ -1232,66 +1232,19 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
 })();</script>
 
 <script>(function(){
- var APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxdD_pKlNZaHyce2mUsDcmTspMW4uh--wOr3MggvDABEDs7n64re6DLYEVOlh8ANE9-/exec";
- var DATA_DIR="report-data";
  var p=new URLSearchParams(location.search);
- var id=p.get("id")||"", d=p.get("d")||"", nm=p.get("n")||"", gr=p.get("g")||"";
+ var d=p.get("d"), nm=p.get("n")||"", gr=p.get("g")||"";
  try{ nm=decodeURIComponent(nm); }catch(e){}
  try{ gr=decodeURIComponent(gr); }catch(e){}
  var rep=document.getElementById("report"), hn=document.getElementById("repName");
- try{var _h=document.querySelector(".masthead h1");if(_h)_h.classList.add("fx-grad-text");}catch(e){}
- function decodeAnswer(b64){
-  b64=(b64||"").replace(/\s+/g,""); if(!b64)return null;
-  try{ return JSON.parse(decodeURIComponent(escape(atob(b64)))); }
-  catch(e){ try{ return JSON.parse(atob(b64)); }catch(e2){ return null; } }
- }
- function setLinks(name,grade){
-  if(name&&hn) hn.textContent=name+" 학생";
-  if(name) document.title=name+" 학생 · 화학 학습 진단 리포트 · 다원교육 영재관";
-  try{var _ta=document.getElementById("toAnswers"); if(_ta)_ta.href=id?("answers.html?id="+encodeURIComponent(id)):("answers.html"+location.search);}catch(e){}
- }
- function render(ans,name,grade){
-  setLinks(name||nm,grade||gr);
-  if(!ans||typeof ans!=="object"){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px;line-height:1.7">링크가 손상된 것 같습니다.<br>선생님께 링크를 다시 요청해 주세요.</div>'; return; }
-  try{ var r=computeV2(ans,{name:(name||nm)||"학생",grade:(grade||gr)||"",demo:0,elapsed:99*9},ITEMS); rep.innerHTML=renderReportV2(r); }
-  catch(e){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px">리포트를 여는 중 문제가 생겼습니다. ('+(e&&e.message||e)+')</div>'; }
- }
- function loadStaticJson(rid){
-  if(!window.fetch) return Promise.reject(new Error("fetch_not_supported"));
-  var url=DATA_DIR+"/"+encodeURIComponent(rid)+".json";
-  return fetch(url,{cache:"no-store"}).then(function(res){
-   if(!res.ok) throw new Error("static_not_found_"+res.status);
-   return res.json();
-  }).then(function(res){
-   if(!res||!res.answers) throw new Error("static_empty_answers");
-   id=res.id||rid;
-   return res;
-  });
- }
- function loadByAppsScript(rid){
-  return new Promise(function(resolve,reject){
-   var cb="__kmchcReportCb_"+Date.now()+"_"+Math.random().toString(36).slice(2);
-   var done=false;
-   var timer=setTimeout(function(){ if(done)return; done=true; cleanup(); reject(new Error("apps_script_timeout")); },18000);
-   function cleanup(){ try{ delete window[cb]; }catch(e){ window[cb]=null; } if(sc&&sc.parentNode) sc.parentNode.removeChild(sc); clearTimeout(timer); }
-   window[cb]=function(res){ if(done)return; done=true; cleanup(); if(!res||!res.ok) reject(new Error((res&&res.error)||"apps_script_not_found")); else resolve(res); };
-   var sc=document.createElement("script");
-   sc.src=APPS_SCRIPT_URL+"?action=get&id="+encodeURIComponent(rid)+"&callback="+encodeURIComponent(cb)+"&v="+Date.now();
-   sc.onerror=function(){ if(done)return; done=true; cleanup(); reject(new Error("apps_script_load_error")); };
-   document.body.appendChild(sc);
-  });
- }
- function loadById(rid){
-  rep.innerHTML='<div style="text-align:center;color:var(--muted);padding:44px 16px;font-size:14px;line-height:1.7">저장된 리포트를 불러오는 중입니다...</div>';
-  loadStaticJson(rid).catch(function(){ return loadByAppsScript(rid); }).then(function(res){
-   id=res.id||rid;
-   render(decodeAnswer(res.answers||""),res.name||"",res.grade||"");
-  }).catch(function(){
-   rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px;line-height:1.7">저장된 리포트를 찾지 못했습니다.<br>저장 직후라면 5초 뒤 다시 열어 주세요.</div>';
-  });
- }
- if(id){ loadById(id); return; }
- if(d){ render(decodeAnswer(d),nm,gr); return; }
- rep.innerHTML='<div style="text-align:center;color:var(--muted);padding:44px 16px;font-size:14px;line-height:1.7">리포트 데이터가 없습니다.<br>선생님께 받은 링크로 다시 열어 주세요.</div>';
+ if(nm&&hn){ hn.textContent=nm+" 학생"; }
+ if(nm){ document.title=nm+" 학생 · 화학 학습 진단 리포트 · 다원교육 영재관"; } try{var _h=document.querySelector(".masthead h1");if(_h)_h.classList.add("fx-grad-text");}catch(e){} try{var _ta=document.getElementById("toAnswers"); if(_ta)_ta.href="answers.html"+location.search;}catch(e){}
+ if(!d){ rep.innerHTML='<div style="text-align:center;color:var(--muted);padding:44px 16px;font-size:14px;line-height:1.7">리포트 데이터가 없습니다.<br>선생님께 받은 링크로 다시 열어 주세요.</div>'; return; }
+ var ans=null;
+ try{ ans=JSON.parse(decodeURIComponent(escape(atob(d.replace(/\s+/g,""))))); }
+ catch(e){ try{ ans=JSON.parse(atob(d.replace(/\s+/g,""))); }catch(e2){ ans=null; } }
+ if(!ans||typeof ans!=="object"){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px;line-height:1.7">링크가 손상된 것 같습니다.<br>선생님께 링크를 다시 요청해 주세요.</div>'; return; }
+ try{ var r=computeV2(ans,{name:nm||"학생",grade:gr||"",demo:0,elapsed:99*9},ITEMS); rep.innerHTML=renderReportV2(r); }
+ catch(e){ rep.innerHTML='<div style="color:#9a2828;padding:32px 16px;font-size:14px">리포트를 여는 중 문제가 생겼습니다. ('+(e&&e.message||e)+')</div>'; }
 })();</script>
-<div class="privacy-foot" style="max-width:760px;margin:30px auto 14px;padding:12px 16px 0;border-top:1px solid var(--line);text-align:center;font-size:11px;color:var(--muted);line-height:1.6"><div style="margin-bottom:9px"><span style="font-size:11.5px;color:var(--ink-2);letter-spacing:.06em">다원교육 영재관 · 조준모T</span></div>이 페이지 링크에는 학생의 진단 응답 정보가 담겨 있습니다. 가족 외 외부 공유는 삼가 주세요.</div></body></html>
+<div class="privacy-foot" style="max-width:760px;margin:30px auto 14px;padding:12px 16px 0;border-top:1px solid var(--line);text-align:center;font-size:11px;color:var(--muted);line-height:1.6"><div style="margin-bottom:9px"><span style="font-size:11.5px;color:var(--ink-2);letter-spacing:.06em">다원교육 영재관 · 조준모T</span></div>이 페이지 링크에는 학생의 진단 응답 정보가 담겨 있습니다. 가족 외 외부 공유는 삼가 주세요.</div><script>(function(){var rep=document.getElementById("report");if(rep&&!rep.querySelector(".card")){try{var ans=JSON.parse(decodeURIComponent(escape(atob("eyJWLU9DIjpbMCwxLDIsMyw1XSwiQS1JTjEiOjQsIkEtSU4yIjo0LCJBLUlOMyI6NCwiQS1JTjQiOjMsIkEtSU4tUEgiOjUsIkEtSU4tU1kiOjEsIkEtSU4tUVQiOjEsIkEtSU4tTEIiOjUsIkEtRUYxIjo1LCJBLUVGMiI6NCwiVi1TRDEiOjUsIkEtRUYzIjo0LCJBLUVGNCI6MywiQS1BWC1QSCI6NCwiQS1BWC1TWSI6NCwiQS1BWC1RVCI6MywiQS1BWC1MQiI6NSwiQS1BWC1HTiI6NCwiQS1WQTEiOjUsIkEtVkEyIjoyLCJBLVZBMyI6NCwiVi1TRDIiOjIsIkIyMSI6MCwiQjIyIjoxLCJCMjMiOjAsIkIyNCI6MCwiQjI1IjowLCJCMjYiOjAsIkIyNyI6MSwiQjI4IjoxLCJCMSI6MSwiQjIiOjAsIkIzIjoxLCJCNCI6MCwiQjUiOjAsIkI2IjowLCJCNyI6MSwiQjkiOjAsIkI4IjowLCJCMTAiOjEsIkIxMSI6MCwiQjEyIjoxLCJWLUNTMWEiOjQsIkIxMyI6MSwiQjE0IjowLCJCMTUiOjEsIkIxNiI6MCwiQjE3IjoxLCJCMTgiOjEsIkIxOSI6MCwiQjIwIjowLCJDMSI6eyJ0MSI6MCwidDIiOjEsImNvbmYiOjN9LCJDMiI6eyJ0MSI6MCwidDIiOjF9LCJWLUNTMWIiOjIsIkMzIjp7InQxIjoxfSwiQzQiOnsidDEiOjF9LCJDMTEiOnsidDEiOjF9LCJDMTIiOnsidDEiOjF9LCJDMTMiOnsidDEiOjF9LCJDMTQiOnsidDEiOjMsImNvbmYiOjIsInQyIjoyfSwiQzE1Ijp7InQxIjoxfSwiQzE2Ijp7InQxIjoxLCJ0MiI6MSwiY29uZiI6M30sIkMxNyI6eyJ0MSI6MX0sIkMxOCI6eyJ0MSI6MX0sIlYtQ1MyYSI6MywiQzUiOnsidDEiOjIsInQyIjoxLCJjb25mIjoyfSwiQzE5Ijp7InQxIjoxfSwiQzIwIjp7InQxIjoxfSwiQzYiOnsidDEiOjF9LCJDMjQiOnsidDEiOjF9LCJDNyI6eyJ0MSI6MX0sIkMyNSI6eyJ0MSI6MX0sIkMyMSI6eyJ0MSI6MX0sIkMyMiI6eyJ0MSI6MX0sIlYtQ1MyYiI6NCwiQzIzIjp7InQxIjoxfSwiQzgiOnsidDEiOjJ9LCJDMjYiOnsidDEiOjF9LCJDOSI6eyJ0MSI6Mn0sIkMyNyI6eyJ0MSI6MX0sIkMyOCI6eyJ0MSI6MSwidDIiOjEsImNvbmYiOjN9LCJDMTAiOnsidDEiOjF9LCJDMjkiOnsidDEiOjF9LCJDMzAiOnsidDEiOjEsInQyIjoxLCJjb25mIjozfSwiQzMxIjp7InQxIjoxfSwiQzMyIjp7InQxIjoxfSwiVi1BVCI6MywiRC1NTDEiOnsibW9zdCI6MSwibGVhc3QiOjJ9LCJELU1MMiI6eyJtb3N0IjoxLCJsZWFzdCI6Mn0sIkQtTUwzIjp7Im1vc3QiOjEsImxlYXN0IjoyfSwiRC1NTDQiOnsibW9zdCI6MiwibGVhc3QiOjF9LCJELU1DMSI6MywiRC1NQzIiOjMsIkQtTUMzIjozLCJELU1DNCI6MywiRC1TQzEiOjIsIkQtU0MyIjoyLCJELVNDMyI6Mn0="))));var nm=document.getElementById("repName");if(nm)nm.textContent="김민결 학생 · 중2";document.title="미리보기 · 중학 화학대회 정밀 학습진단";rep.innerHTML=renderReportV2(computeV2(ans,{name:"김민결",grade:"중2",elapsed:706},ITEMS));}catch(e){rep.innerHTML="preview error: "+(e&&e.message||e);}}})();</script></body></html>
