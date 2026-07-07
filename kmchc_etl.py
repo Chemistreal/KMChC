@@ -20,15 +20,21 @@ BLOCK_ORDER = ["A", "B", "C", "D", "V"]
 LIKERT = ["ladder","context","general","relative","internalize","sd","consistency","attention"]
 
 # ---------- 문항 메타 ----------
+def sort_block_order(items):
+    """JS OMRCodec.buildSpec과 동일: BLOCK_ORDER(A,B,C,D,V) 우선, 블록 내 원순서 유지(안정 정렬).
+    items.json이 설계순(A·D·V·B·C)이든 ABCDV순이든 결과가 같아진다 — OMR 자릿수 정합의 전제."""
+    return [it for _, it in sorted(enumerate(items),
+            key=lambda p: (BLOCK_ORDER.index(p[1]["block"]), p[0]))]
+
 def load_items(path):
-    items = json.load(open(path, encoding="utf-8"))
+    items = sort_block_order(json.load(open(path, encoding="utf-8")))
     return items, {it["id"]: it for it in items}
 
 def kind_of(it):
     return it.get("kind") or ("forced16" if it["block"]=="B" else ("misconception" if it["block"]=="C" else "?"))
 
 def q_index(items):
-    return {it["id"]: i+1 for i, it in enumerate(items)}  # BLOCK_ORDER 정렬 가정(items.json이 그 순서)
+    return {it["id"]: i+1 for i, it in enumerate(items)}  # load_items가 BLOCK_ORDER로 정렬해 주므로 q_no=OMR 순번
 
 # ---------- OMR 셀 사양 (buildSpec 재현) ----------
 def build_spec(items):

@@ -1,0 +1,845 @@
+{
+  "version": "v2-draft",
+  "note": "전면 재설계. 위계(측정 대상)는 유지하고 '바람직함의 방향'만 구조로 숨긴다. 그 구조가 곧 새 해석 산출물이 된다. 현재 index.html(v1)은 건드리지 않는다.",
+  "scale": {
+    "likert5": [
+      "전혀 아니다",
+      "아니다",
+      "보통",
+      "그렇다",
+      "매우 그렇다"
+    ]
+  },
+  "architectures": {
+    "ladder": "한 구인을 문턱이 다른 4단계 문장으로. 점수 = '그렇다(≥4)'로 응답한 가장 높은 단계. 단조성(상위 단계 응답자는 하위도 동의) 데이터 검증 대상.",
+    "context": "같은 구인을 맥락(현상 phenom / 입자·기호 symbol / 정량 quant / 실험 lab)별로 측정 → 맥락 지도.",
+    "mostleast": "동등바람직 3진술에서 '가장 나'/'가장 아님' → 성향 우선순위(위계 없어 위조 불가).",
+    "scenario": "상황 stem + 행동 선택지 → 대처 패턴 코딩(비판단적).",
+    "validity": "사회적 바람직성·과대주장·역문항 일관성·주의력 → 신뢰도 태그(고신뢰/주의/상한 해석)."
+  },
+  "constructs": {
+    "interest": {
+      "arch": [
+        "ladder",
+        "context"
+      ],
+      "yield": "내적 흥미 수준(1~4단) + 맥락별 흥미"
+    },
+    "efficacy": {
+      "arch": [
+        "ladder"
+      ],
+      "yield": "자기효능 수준(1~4단)"
+    },
+    "anxiety": {
+      "arch": [
+        "context",
+        "general"
+      ],
+      "yield": "맥락별 불안 지도(현상/기호/정량/실험)"
+    },
+    "value": {
+      "arch": [
+        "relative",
+        "internalize"
+      ],
+      "yield": "분야 동일시 + 가치 내면화"
+    },
+    "approach": {
+      "arch": [
+        "mostleast"
+      ],
+      "yield": "접근 우선순위(이해>점검>정확>암기/속도) + 심층-표층 경향"
+    },
+    "metacog": {
+      "arch": [
+        "ladder",
+        "mostleast"
+      ],
+      "yield": "메타인지 수준(1~4단) + 점검 우선순위"
+    },
+    "coping": {
+      "arch": [
+        "scenario"
+      ],
+      "yield": "막힘·실수·미지어 대처 패턴(비판단적 인용)"
+    },
+    "thinking16": {
+      "arch": [
+        "forced16"
+      ],
+      "yield": "4축 16유형(기존). 동등바람직 강제선택이라 위조 불가 — 내용 유지"
+    },
+    "misconception": {
+      "arch": [
+        "misconception"
+      ],
+      "yield": "군집·직관(보존/입자/변화) + 맥락 투사로 오개념 맥락 분포"
+    },
+    "validity": {
+      "arch": [
+        "validity"
+      ],
+      "yield": "응답 신뢰도 태그 + 과대응답·부주의 플래그"
+    }
+  },
+  "interpretation_outputs": [
+    "흥미·효능감 사다리 단계(눈금 해석: '내적 흥미 4단 중 3단')",
+    "맥락 지도: 현상/기호/정량/정량/실험 축에 흥미·불안 동시 표시 → '현상엔 호기심, 기호에서 불안 급등' 식 처방",
+    "상호작용(기존 교차 강화): 흥미↑ × 효능감↓ = '하고 싶지만 자신 없음'",
+    "신뢰도 태그(고신뢰/상한 해석) — G4",
+    "접근 우선순위(예: 이해>점검>정확>속도) — 강제선택, 위조 불가",
+    "대처 패턴 시나리오(원리재독/우회/정보추구 등) — 리포트에 상황째 인용",
+    "오개념×맥락 교차: 예) ‘입자·기호 맥락 불안↑ & 입자 오개념↑’ → 입자 모형을 시각·조작 활동으로 먼저",
+    "신뢰도 태그(고신뢰/주의/상한 해석) — 과대응답·부주의 프로필을 리포트에 명시"
+  ],
+  "items": [
+    {
+      "id": "A-IN1",
+      "block": "A",
+      "con": "interest",
+      "kind": "ladder",
+      "tier": 1,
+      "ctx": null,
+      "rev": false,
+      "text": "화학이 특별히 싫지는 않다.",
+      "note": "낮은 문턱·정상화(누구나 동의 가능 → 바닥 단계)"
+    },
+    {
+      "id": "A-IN2",
+      "block": "A",
+      "con": "interest",
+      "kind": "ladder",
+      "tier": 2,
+      "ctx": null,
+      "rev": false,
+      "text": "수업에서 본 화학 현상이 시간이 지나 문득 다시 떠오른 적이 있다.",
+      "note": "수동적 잔상 — 2단"
+    },
+    {
+      "id": "A-IN3",
+      "block": "A",
+      "con": "interest",
+      "kind": "ladder",
+      "tier": 3,
+      "ctx": null,
+      "rev": false,
+      "text": "시키지 않았는데도 화학과 관련된 영상·글을 찾아본 적이 있다.",
+      "note": "자발적 탐색 — 3단"
+    },
+    {
+      "id": "A-IN4",
+      "block": "A",
+      "con": "interest",
+      "kind": "ladder",
+      "tier": 4,
+      "ctx": null,
+      "rev": false,
+      "text": "하고 싶은 다른 일을 미루면서까지 화학을 더 파고든 적이 있다.",
+      "note": "비용 내장(우선순위 희생) → 정점, 가벼운 과대응답 차단 — 4단"
+    },
+    {
+      "id": "A-IN-PH",
+      "block": "A",
+      "con": "interest",
+      "kind": "context",
+      "tier": null,
+      "ctx": "phenom",
+      "rev": false,
+      "text": "물질이 녹고 타고 색이 변하는 현상을 보면 더 들여다보고 싶다.",
+      "note": "현상 맥락 흥미"
+    },
+    {
+      "id": "A-IN-SY",
+      "block": "A",
+      "con": "interest",
+      "kind": "context",
+      "tier": null,
+      "ctx": "symbol",
+      "rev": true,
+      "text": "화학 기호나 식을 다룰 때는 흥미가 식는 편이다.",
+      "note": "기호 맥락(역 → 동의=기호 흥미 낮음)"
+    },
+    {
+      "id": "A-IN-QT",
+      "block": "A",
+      "con": "interest",
+      "kind": "context",
+      "tier": null,
+      "ctx": "quant",
+      "rev": true,
+      "text": "숫자·비율을 계산하는 화학 문제는 풀어볼 마음이 잘 안 생긴다.",
+      "note": "정량 맥락(역)"
+    },
+    {
+      "id": "A-IN-LB",
+      "block": "A",
+      "con": "interest",
+      "kind": "context",
+      "tier": null,
+      "ctx": "lab",
+      "rev": false,
+      "text": "직접 실험하거나 만들어 보는 활동은 해보고 싶다.",
+      "note": "실험 맥락 흥미"
+    },
+    {
+      "id": "A-EF1",
+      "block": "A",
+      "con": "efficacy",
+      "kind": "ladder",
+      "tier": 1,
+      "ctx": null,
+      "rev": false,
+      "text": "쉬운 화학 문제는 혼자서 풀 수 있다.",
+      "note": "기본 수행 — 1단"
+    },
+    {
+      "id": "A-EF2",
+      "block": "A",
+      "con": "efficacy",
+      "kind": "ladder",
+      "tier": 2,
+      "ctx": null,
+      "rev": false,
+      "text": "한 번에 이해 못 한 개념도 다시 보면 결국 내 것으로 만든다.",
+      "note": "회복형 효능 — 2단"
+    },
+    {
+      "id": "A-EF3",
+      "block": "A",
+      "con": "efficacy",
+      "kind": "ladder",
+      "tier": 3,
+      "ctx": null,
+      "rev": false,
+      "text": "처음 보는 유형도 풀이를 보기 전에 일단 혼자 시작해 본다.",
+      "note": "행동 위장(자기칭찬 아님) — 3단"
+    },
+    {
+      "id": "A-EF4",
+      "block": "A",
+      "con": "efficacy",
+      "kind": "ladder",
+      "tier": 4,
+      "ctx": null,
+      "rev": false,
+      "text": "어려운 화학 문제를 며칠에 걸쳐 붙잡아 끝내 해결한 적이 있다.",
+      "note": "지속·비용(고문턱) — 4단"
+    },
+    {
+      "id": "A-AX-PH",
+      "block": "A",
+      "con": "anxiety",
+      "kind": "context",
+      "tier": null,
+      "ctx": "phenom",
+      "rev": true,
+      "text": "현상이나 실험을 관찰할 때는 마음이 비교적 편하다.",
+      "note": "현상 맥락(역 → 동의=현상 불안 낮음)"
+    },
+    {
+      "id": "A-AX-SY",
+      "block": "A",
+      "con": "anxiety",
+      "kind": "context",
+      "tier": null,
+      "ctx": "symbol",
+      "rev": false,
+      "text": "복잡한 기호나 식이 나오면 머릿속이 복잡해진다.",
+      "note": "기호 맥락 불안(핵심 분리 지점)"
+    },
+    {
+      "id": "A-AX-QT",
+      "block": "A",
+      "con": "anxiety",
+      "kind": "context",
+      "tier": null,
+      "ctx": "quant",
+      "rev": false,
+      "text": "비율·농도 같은 계산이 섞이면 평소보다 긴장된다.",
+      "note": "정량 맥락 불안"
+    },
+    {
+      "id": "A-AX-LB",
+      "block": "A",
+      "con": "anxiety",
+      "kind": "context",
+      "tier": null,
+      "ctx": "lab",
+      "rev": true,
+      "text": "직접 실험할 때는 오히려 긴장이 풀리는 편이다.",
+      "note": "실험 맥락(역)"
+    },
+    {
+      "id": "A-AX-GN",
+      "block": "A",
+      "con": "anxiety",
+      "kind": "general",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "text": "화학 시험 전엔 남들처럼 나도 어느 정도 긴장한다.",
+      "note": "정상화 → 불안 과소보고 방지(일반 불안 기저선)"
+    },
+    {
+      "id": "A-VA1",
+      "block": "A",
+      "con": "value",
+      "kind": "relative",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "text": "과학 중에서 굳이 고른다면, 생물·지구과학보다 화학 쪽이 내 관심에 더 가깝다.",
+      "note": "동등바람직 상대비교 → 분야 동일시"
+    },
+    {
+      "id": "A-VA2",
+      "block": "A",
+      "con": "value",
+      "kind": "internalize",
+      "tier": null,
+      "ctx": null,
+      "rev": true,
+      "text": "화학이 쓸모 있다는 말은 들어도, 나와 직접 상관있다고 느끼진 않는다.",
+      "note": "정상화·역(동의=낮은 내면화) → 외적 가치/내적 가치 분리"
+    },
+    {
+      "id": "A-VA3",
+      "block": "A",
+      "con": "value",
+      "kind": "internalize",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "text": "내가 앞으로 하고 싶은 일에 화학이 들어올 자리가 있다고 생각한다.",
+      "note": "미래 정체성 결합(진로 키워드 직접 노출 줄임)"
+    },
+    {
+      "id": "D-ML1",
+      "block": "D",
+      "con": "approach",
+      "kind": "mostleast",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "화학 문제를 틀렸을 때 — 가장 나에 가까운 것 / 가장 먼 것",
+      "set": [
+        "왜 틀렸는지 원리를 다시 따져 본다",
+        "비슷한 문제를 여러 개 더 풀어 본다",
+        "정답을 정확히 익혀 다음엔 안 틀리게 한다"
+      ],
+      "setcon": [
+        "deep",
+        "surface",
+        "accuracy"
+      ],
+      "text": "(강제선택) 오답 대처",
+      "note": "셋 다 성실 → 표층 학생도 죄책감 없이 선택, 위계는 살아있음"
+    },
+    {
+      "id": "D-ML2",
+      "block": "D",
+      "con": "approach",
+      "kind": "mostleast",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "새 개념을 배울 때 — 가장 나에 가까운 것 / 가장 먼 것",
+      "set": [
+        "이미 아는 것과 어떻게 연결되는지 생각한다",
+        "정의와 공식을 정확히 먼저 외운다",
+        "예제 푸는 순서부터 익힌다"
+      ],
+      "setcon": [
+        "deep",
+        "surface",
+        "procedural"
+      ],
+      "text": "(강제선택) 새 개념 접근",
+      "note": "심층/암기/절차 — 동등바람직"
+    },
+    {
+      "id": "D-ML3",
+      "block": "D",
+      "con": "approach",
+      "kind": "mostleast",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "시험이 얼마 안 남았을 때 — 가장 나에 가까운 것 / 가장 먼 것",
+      "set": [
+        "핵심 원리를 한 번 더 이해하려 한다",
+        "기출·유형 문제를 최대한 많이 푼다",
+        "내가 자주 틀리는 부분을 점검한다"
+      ],
+      "setcon": [
+        "deep",
+        "surface",
+        "metacog"
+      ],
+      "text": "(강제선택) 시험 임박 전략",
+      "note": "심층/문제량/점검 — '문제 많이'가 성실해 보여 표층 위장"
+    },
+    {
+      "id": "D-ML4",
+      "block": "D",
+      "con": "approach",
+      "kind": "mostleast",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "공부가 잘 됐다고 느끼는 순간 — 가장 나에 가까운 것 / 가장 먼 것",
+      "set": [
+        "‘왜 그런지’ 비로소 이해됐을 때",
+        "계획한 분량을 끝까지 해냈을 때",
+        "문제를 빠르고 정확히 풀었을 때"
+      ],
+      "setcon": [
+        "deep",
+        "metacog",
+        "surface"
+      ],
+      "text": "(강제선택) 학습 만족원",
+      "note": "이해/완수/속도-정확 — 동기 성향"
+    },
+    {
+      "id": "D-MC1",
+      "block": "D",
+      "con": "metacog",
+      "kind": "ladder",
+      "tier": 1,
+      "ctx": null,
+      "rev": false,
+      "text": "공부를 시작하기 전에 무엇부터 할지 잠깐 정한다.",
+      "note": "계획 1단(낮은 문턱)"
+    },
+    {
+      "id": "D-MC2",
+      "block": "D",
+      "con": "metacog",
+      "kind": "ladder",
+      "tier": 2,
+      "ctx": null,
+      "rev": false,
+      "text": "공부 중간에 ‘이걸 진짜 이해했나’ 스스로 멈춰 확인할 때가 있다.",
+      "note": "모니터링 2단"
+    },
+    {
+      "id": "D-MC3",
+      "block": "D",
+      "con": "metacog",
+      "kind": "ladder",
+      "tier": 3,
+      "ctx": null,
+      "rev": false,
+      "text": "한 방법으로 안 풀리면, 스스로 다른 방법으로 바꿔 시도한다.",
+      "note": "전략 조절 3단"
+    },
+    {
+      "id": "D-MC4",
+      "block": "D",
+      "con": "metacog",
+      "kind": "ladder",
+      "tier": 4,
+      "ctx": null,
+      "rev": false,
+      "text": "공부가 끝나면, 무엇을 알고 무엇을 모르는지 따로 적어 정리해 두는 편이다.",
+      "note": "사후 점검 4단(대부분 안 함 → 고문턱·고변별)"
+    },
+    {
+      "id": "D-SC1",
+      "block": "D",
+      "con": "coping",
+      "kind": "scenario",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "화학 문제에서 10분째 막혔다. 나는 보통…",
+      "opts": [
+        "해설·답지를 먼저 본다",
+        "더 쉬운 문제로 돌아간다",
+        "원리를 다시 읽고 다시 시도한다",
+        "잠시 두었다가 나중에 다시 본다"
+      ],
+      "optcode": [
+        "lookup",
+        "detour",
+        "persist",
+        "pause"
+      ],
+      "text": "(시나리오) 막힘 대처",
+      "note": "모두 정상 대처 → 위조 불가, 패턴만 읽음"
+    },
+    {
+      "id": "D-SC2",
+      "block": "D",
+      "con": "coping",
+      "kind": "scenario",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "아는 문제인데 실수로 틀렸다. 나는…",
+      "opts": [
+        "다음엔 더 조심하자고 넘어간다",
+        "왜 실수했는지 패턴을 찾아본다",
+        "비슷한 문제로 다시 연습한다",
+        "운이 없었다고 생각한다"
+      ],
+      "optcode": [
+        "note",
+        "analyze",
+        "drill",
+        "external"
+      ],
+      "text": "(시나리오) 실수 귀인",
+      "note": "analyze=메타, external=외적귀인"
+    },
+    {
+      "id": "D-SC3",
+      "block": "D",
+      "con": "coping",
+      "kind": "scenario",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "수업에서 모르는 화학 용어가 나왔다. 나는…",
+      "opts": [
+        "일단 넘기고 진도를 따라간다",
+        "그 자리에서 바로 찾아본다",
+        "표시해 뒀다가 나중에 찾는다",
+        "선생님이나 친구에게 묻는다"
+      ],
+      "optcode": [
+        "skip",
+        "seek_now",
+        "seek_later",
+        "ask"
+      ],
+      "text": "(시나리오) 미지어 대처",
+      "note": "정보 추구 전략 패턴"
+    },
+    {
+      "id": "V-SD1",
+      "block": "V",
+      "con": "validity",
+      "kind": "sd",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "text": "나는 모르는 화학 내용을 아는 척해 본 적이 한 번도 없다.",
+      "note": "사회적 바람직성 — '한 번도'에 강한 동의=과대 가능"
+    },
+    {
+      "id": "V-SD2",
+      "block": "V",
+      "con": "validity",
+      "kind": "sd",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "text": "수업 시간에 한 번도 딴생각을 해본 적이 없다.",
+      "note": "사회적 바람직성"
+    },
+    {
+      "id": "V-OC",
+      "block": "V",
+      "con": "validity",
+      "kind": "overclaim",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "stem": "다음 중 ‘들어본 적 있는’ 화학 용어에 모두 표시하세요.",
+      "terms": [
+        {
+          "t": "증발",
+          "real": true
+        },
+        {
+          "t": "용해",
+          "real": true
+        },
+        {
+          "t": "연소",
+          "real": true
+        },
+        {
+          "t": "응결",
+          "real": true
+        },
+        {
+          "t": "역응결 분해",
+          "real": false
+        },
+        {
+          "t": "단일가 환원수",
+          "real": false
+        }
+      ],
+      "text": "(과대주장) 용어 친숙도",
+      "note": "가짜 용어(real:false) 체크 수 = 과대주장 지표. 진짜 용어는 채점 안 함(미학습 무관)."
+    },
+    {
+      "id": "V-CS1a",
+      "block": "V",
+      "con": "validity",
+      "kind": "consistency",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "pair": "V-CS1",
+      "pole": "pos",
+      "text": "화학 공부는 나에게 즐거운 편이다.",
+      "note": "일관성 쌍1(긍)"
+    },
+    {
+      "id": "V-CS1b",
+      "block": "V",
+      "con": "validity",
+      "kind": "consistency",
+      "tier": null,
+      "ctx": null,
+      "rev": true,
+      "pair": "V-CS1",
+      "pole": "neg",
+      "text": "화학 공부는 나에게 따분한 편이다.",
+      "note": "일관성 쌍1(부)"
+    },
+    {
+      "id": "V-CS2a",
+      "block": "V",
+      "con": "validity",
+      "kind": "consistency",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "pair": "V-CS2",
+      "pole": "pos",
+      "text": "나는 공부할 때 미리 계획을 세우는 편이다.",
+      "note": "일관성 쌍2(긍)"
+    },
+    {
+      "id": "V-CS2b",
+      "block": "V",
+      "con": "validity",
+      "kind": "consistency",
+      "tier": null,
+      "ctx": null,
+      "rev": true,
+      "pair": "V-CS2",
+      "pole": "neg",
+      "text": "나는 공부할 때 계획 없이 닥치는 대로 하는 편이다.",
+      "note": "일관성 쌍2(부)"
+    },
+    {
+      "id": "V-AT",
+      "block": "V",
+      "con": "validity",
+      "kind": "attention",
+      "tier": null,
+      "ctx": null,
+      "rev": false,
+      "text": "이 문항은 집중 확인용입니다. ‘보통’을 선택해 주세요.",
+      "answer": 3,
+      "note": "지시 응답 — 오답이면 부주의"
+    },
+    {
+      "id": "B21",
+      "sec": "S2",
+      "block": "B",
+      "axis": "lens",
+      "q": "어떤 실험 결과를 보면, 나는…",
+      "o": [
+        {
+          "t": "왜 그런 결과가 나왔는지 원리부터 따져 본다",
+          "p": "S"
+        },
+        {
+          "t": "결과로 나타난 변화 자체를 자세히 들여다본다",
+          "p": "G"
+        }
+      ]
+    },
+    {
+      "id": "B22",
+      "sec": "S2",
+      "block": "B",
+      "axis": "lens",
+      "q": "물질이 변하는 걸 관찰할 때, 나는…",
+      "o": [
+        {
+          "t": "겉으로 드러나는 변화에 먼저 주목한다",
+          "p": "G"
+        },
+        {
+          "t": "눈에 안 보이는 알갱이의 움직임을 떠올린다",
+          "p": "S"
+        }
+      ]
+    },
+    {
+      "id": "B23",
+      "sec": "S2",
+      "block": "B",
+      "axis": "think",
+      "q": "답이 떠오를 때, 나는…",
+      "o": [
+        {
+          "t": "근거가 맞는지 차근차근 확인한 뒤 답한다",
+          "p": "B"
+        },
+        {
+          "t": "감으로 먼저 답하고 나중에 점검한다",
+          "p": "J"
+        }
+      ]
+    },
+    {
+      "id": "B24",
+      "sec": "S2",
+      "block": "B",
+      "axis": "think",
+      "q": "여러 정보를 정리할 때, 나는…",
+      "o": [
+        {
+          "t": "핵심을 직관으로 빠르게 추린다",
+          "p": "J"
+        },
+        {
+          "t": "하나씩 따져 논리적으로 묶는다",
+          "p": "B"
+        }
+      ]
+    },
+    {
+      "id": "B25",
+      "sec": "S2",
+      "block": "B",
+      "axis": "drive",
+      "q": "수업에서 더 끌리는 활동은…",
+      "o": [
+        {
+          "t": "한 번도 안 해 본 새로운 실험",
+          "p": "T"
+        },
+        {
+          "t": "배운 내용을 깔끔히 정리하는 활동",
+          "p": "R"
+        }
+      ]
+    },
+    {
+      "id": "B26",
+      "sec": "S2",
+      "block": "B",
+      "axis": "drive",
+      "q": "방학에 공부한다면, 나는…",
+      "o": [
+        {
+          "t": "지금까지 배운 걸 차곡차곡 복습한다",
+          "p": "R"
+        },
+        {
+          "t": "교과서 밖 새로운 주제를 탐구한다",
+          "p": "T"
+        }
+      ]
+    },
+    {
+      "id": "B27",
+      "sec": "S2",
+      "block": "B",
+      "axis": "approach",
+      "q": "문제집을 고를 때, 나는…",
+      "o": [
+        {
+          "t": "조금 어렵더라도 도전적인 문제집을 고른다",
+          "p": "D"
+        },
+        {
+          "t": "확실히 익힐 수 있는 적정 난도를 고른다",
+          "p": "M"
+        }
+      ]
+    },
+    {
+      "id": "B28",
+      "sec": "S2",
+      "block": "B",
+      "axis": "approach",
+      "q": "새 단원을 공부할 때, 나는…",
+      "o": [
+        {
+          "t": "기본을 반복해 탄탄히 다진 뒤 넘어간다",
+          "p": "M"
+        },
+        {
+          "t": "어려운 부분에 먼저 부딪쳐 본다",
+          "p": "D"
+        }
+      ]
+    }
+  ],
+  "scoring_notes": {
+    "ladder": "점수=‘그렇다(≥4)’로 답한 가장 높은 단계. 단조성 데이터 검증.",
+    "context": "구인×맥락 평균(역문항 반영) → 맥락 레이더.",
+    "mostleast": "한 묶음 most=+2·무표=+1·least=0(랭크 3·2·1). 구인 합산 → 우선순위. 심층-표층 경향=(deep합−surface합) 정규화.",
+    "scenario": "선택 코드 = 비판단적 패턴 라벨. persist/analyze/seek=적응적, lookup/detour/external/skip=‘점검 필요(정상 범위)’로 표기.",
+    "type_axis_items": "각 축 7문항(B 28문항: 이관 20 + 신규 8). 동률 불가(홀수). 4:3=경합, 5:2=우세, 6:1·7:0=뚜렷."
+  },
+  "carryover": {
+    "B_thinking16": {
+      "from": "v1 그대로 이관",
+      "items": 20,
+      "axes": {
+        "lens": [
+          "G",
+          "S"
+        ],
+        "think": [
+          "J",
+          "B"
+        ],
+        "drive": [
+          "T",
+          "R"
+        ],
+        "approach": [
+          "D",
+          "M"
+        ]
+      },
+      "verified": {
+        "축당": 5,
+        "카운터밸런스": true
+      },
+      "note": "수정 없음. 4축 균형·위치 카운터밸런스 확인됨."
+    },
+    "C_misconception": {
+      "from": "v1 그대로 이관",
+      "items": 32,
+      "context_rule": {
+        "conservation": "quant",
+        "particle": "symbol",
+        "change": "phenom"
+      },
+      "context_dist": {
+        "quant": 12,
+        "symbol": 10,
+        "phenom": 10
+      },
+      "note": "문항 내용 수정 없음. intu→맥락 규칙으로 오개념을 맥락축에 투사 → 태도 맥락(불안·흥미)과 교차. 실험(lab) 맥락은 태도 문항에서만 측정."
+    }
+  },
+  "validity_scoring": {
+    "sd": "V-SD* 합(2~10). 둘 다 ≥4(합 ≥8) → 사회적 바람직성 높음.",
+    "overclaim": "V-OC에서 체크한 가짜 용어 수(0~2). ≥1 → 과대주장.",
+    "consistency": "쌍별 (긍+부) 합. |합−6| ≥3(합 ≥9=둘 다 동의, 또는 ≤3=둘 다 부정) → 불일치.",
+    "attention": "V-AT 정답=‘보통(3)’. 불일치 → 부주의.",
+    "tag": {
+      "고신뢰": "플래그 0개",
+      "주의": "약한 플래그 1개(SD 높음 / 가짜 1개 / 불일치 1쌍 중 하나)",
+      "상한 해석": "플래그 ≥2개 또는 주의력 실패 → 점수는 상한으로 해석하고 강제선택(사고성향)·시나리오와 교차 확인"
+    }
+  },
+  "honest_note": "탐지층은 부주의·순진한 과대응답을 잡고 의심 프로필을 사람 검토로 넘긴다. 정교한 위조를 완전 차단하지는 못한다(자기보고의 한계). 강제선택·시나리오와의 교차가 최종 방어선."
+}
