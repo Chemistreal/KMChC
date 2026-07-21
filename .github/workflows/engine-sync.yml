@@ -1,0 +1,22 @@
+# 엔진(채점·리포트)이 네 HTML 파일에 동일하게 유지되는지 자동 검사.
+# 하나만 고치고 나머지를 빠뜨리면 이 검사가 실패해서 빨간불이 뜬다.
+name: 엔진 동기화 검사
+
+on:
+  push:
+    branches: [main]
+    paths: ['*.html', 'tests/**']
+  pull_request:
+    paths: ['*.html', 'tests/**']
+  workflow_dispatch:
+
+jobs:
+  engine-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 엔진 드리프트 검사
+        run: node tests/engine-sync.js
