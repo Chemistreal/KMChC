@@ -39,6 +39,7 @@
 > **배포 현황(2026-07-06 실측, Pages md5 대조)**: index·report·answers·미리보기·분석_v2는 배포본=이 zip과 **일치**. `관리자.html`은 **이 zip이 최신**(⚡고속입력 포함)이고 배포본은 고속입력 이전 버전 → 재업로드 필요. `리포트링크생성기.html`·`분석_대시보드.html`은 Pages에서 **404(미배포)** — 링크생성기는 수정본(관리자 ID 인식 버그 픽스)으로 업로드 권장, 분석_대시보드는 레거시라 선택.
 
 > **엔진 동기화 규칙**: `report.html / 리포트_고급_미리보기.html / index.html / 관리자.html` 네 파일은 각각 **엔진 전체 사본(computeV2/renderReportV2/TYPES/TYPE_INFO/TRACKS_V2/parentFAQ/SIGNEXT/OMRCodec 등)을 통째로 품고** 있습니다. 엔진 텍스트를 고칠 땐 **네 파일 전부**에 같은 수정을 적용해야 합니다(count==N 어서션 권장). `answers.html`도 일부 공유.
+> **자동 감지(2026 추가)**: `tests/engine-sync.js`가 네 파일의 엔진 심볼을 추출해 서로 다르면 실패합니다. `node tests/engine-sync.js`로 로컬 확인 가능하고, push·PR마다 GitHub Actions(`엔진 동기화 검사`)가 자동으로 돌려 하나만 고치고 빠뜨리면 빨간불이 뜹니다. 엔진 심볼을 새로 추가하면 `tests/engine-sync.js`의 `SYMBOLS` 목록에도 넣어 주세요.
 
 ---
 
