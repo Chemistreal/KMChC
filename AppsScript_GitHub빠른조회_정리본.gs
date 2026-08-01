@@ -182,6 +182,10 @@ function doGet(e) {
     return getReportById_(p);
   }
 
+  if (p.action === "names") {
+    return rosterOut_(p);
+  }
+
   var L = ["[화학진단 수집 엔드포인트 진단]"];
 
   try {
@@ -266,6 +270,61 @@ function getReportById_(p) {
 
   cache.put(cacheKey, JSON.stringify(result), 21600);
   return jsonpOut_(result, callback);
+}
+
+/* ── 명단 읽기 ────────────────────────────────────────────────────────
+   ?action=names&callback=<함수명>  →  callback({ok:true, students:[...]})
+
+   통합 셸(exam/hub.html)이 세 앱의 명단을 한 화면에 합쳐 보여 준다. 그런데
+   여기만 읽을 창구가 없어서, KMChC 를 본 학생은 셸에 아예 안 나왔다 — 같은
+   학생인데 파이널·DT 에서만 보이고 여기서는 안 보이니, 셸의 '이 학생의 전
+   과목 기록' 이 반쪽이었다.
+
+   응답 원본은 보내지 않는다. 셸에 필요한 것은 **누가 언제 봤고 리포트가
+   어디 있나** 뿐이다. 문항 응답까지 실어 보내면 주소만 길어지고, 셸이 가질
+   이유가 없는 것을 갖게 된다.
+
+   개인 식별은 이름·학년까지다(이 시트에는 학교 열이 없다). */
+function rosterOut_(p) {
+  var callback = String((p && p.callback) || "").trim();
+  var out = [];
+
+  try {
+    var sh = ss_() && ss_().getSheetByName(SHEET_NAME);
+    var lastRow = sh ? sh.getLastRow() : 0;
+
+    if (sh && lastRow >= 2) {
+      var lastCol = sh.getLastColumn();
+      var headers = sh.getRange(1, 1, 1, lastCol).getValues()[0];
+      var idCol    = headerIndex_(headers, ["ID", "id"]);
+      var nameCol  = headerIndex_(headers, ["이름", "name"]);
+      var gradeCol = headerIndex_(headers, ["학년", "grade"]);
+      var kindCol  = headerIndex_(headers, ["구분"]);
+      var timeCol  = headerIndex_(headers, ["시각", "time"]);
+      var urlCol   = headerIndex_(headers, ["짧은리포트주소", "리포트주소", "short_url"]);
+
+      var rows = sh.getRange(2, 1, lastRow - 1, lastCol).getValues();
+
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        var nm = nameCol >= 0 ? String(r[nameCol] || "").trim() : "";
+        if (!nm) continue;                       // 이름이 없으면 셸이 붙일 데가 없다
+        var t = timeCol >= 0 ? r[timeCol] : null;
+        out.push({
+          id:    idCol   >= 0 ? String(r[idCol]   || "") : "",
+          name:  nm,
+          grade: gradeCol >= 0 ? String(r[gradeCol] || "") : "",
+          kind:  kindCol  >= 0 ? String(r[kindCol]  || "") : "",
+          link:  urlCol   >= 0 ? String(r[urlCol]   || "") : "",
+          ts:    (t instanceof Date) ? t.getTime() : 0
+        });
+      }
+    }
+  } catch (err) {
+    return jsonpOut_({ ok: false, error: String(err) }, callback);
+  }
+
+  return jsonpOut_({ ok: true, students: out, n: out.length }, callback);
 }
 
 function findReportRowById_(id) {
