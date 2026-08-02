@@ -23,3 +23,6 @@ jobs:
         run: node tests/engine-sync.js
       - name: 명단 읽기 창구 (통합 셸이 부른다)
         run: node tests/read-api.js
+      # 학부모·학생은 휴대폰으로 읽는다. "좀 흐린가?" 로는 안 고쳐지니 매번 잰다.
+      - name: 화면 전수 검수 (대비 · 글씨 · viewport)
+        run: python3 tools/audit_pages.py
