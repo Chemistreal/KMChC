@@ -13,6 +13,10 @@ on:
     paths-ignore: ['**.md', 'LICENSE']
   pull_request:
     paths-ignore: ['**.md', 'LICENSE']
+  # 아무도 안 밀어도 하루 한 번 돈다. exam 저장소에서 자동 커밋이 데이터를
+  # 지우고 main 이 네 시간 동안 빨간 채로 있었다 — 아무도 안 밀었기 때문이다.
+  schedule:
+    - cron: '29 21 * * *'     # 매일 06:29 KST
   workflow_dispatch:
 
 jobs:
