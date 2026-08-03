@@ -47,3 +47,9 @@ jobs:
       # 있는데 이어지지 않은 자리는 사람 판단 없이 이어 줄 수 있다.
       - name: 입력칸에 이름이 붙어 있다
         run: python3 tools/input_labels.py --check
+      # 브라우저는 바깥 stylesheet 를 만나면 **그리기를 멈추고 기다린다.**
+      # 구글 글꼴이 늦거나 안 닿으면 화면은 '글꼴만 못생긴 상태' 가 아니라
+      # 아무것도 없는 흰 종이다. exam 에서 재어 보니 첫 그림이 13.2초였다.
+      # 여기 7장 전부가 같은 모양이었다 — 학부모가 여는 report.html 도 그중 하나다.
+      - name: 바깥 글꼴이 첫 화면을 막지 않는다
+        run: python3 tools/font_block.py --check
