@@ -385,9 +385,9 @@ body{ background:
 <p class="ad-sub">종이 OMR 답안지를 보고 블록별 숫자를 입력한 뒤 <b>채점 &amp; 저장</b>을 누르면, 온라인과 동일하게 자동 채점되어 같은 구글 시트에 저장되고 아래에 리포트가 표시됩니다.</p>
 <section class="card" style="padding:18px 20px">
   <div class="field-row">
-    <div class="field"><label>학생 이름</label><input id="an" type="text" placeholder="예: 김민준" autocomplete="off"></div>
-    <div class="field"><label>학년</label><select id="ag"><option>초6</option><option>중1</option><option selected>중2</option><option>중3</option></select></div>
-    <div class="field"><label>구분</label><select id="amode"><option selected>실제</option><option>연습</option></select></div>
+    <div class="field"><label for="an">학생 이름</label><input id="an" type="text" placeholder="예: 김민준" autocomplete="off"></div>
+    <div class="field"><label for="ag">학년</label><select id="ag"><option>초6</option><option>중1</option><option selected>중2</option><option>중3</option></select></div>
+    <div class="field"><label for="amode">구분</label><select id="amode"><option selected>실제</option><option>연습</option></select></div>
   </div>
   <div id="blocks"></div>
   <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
@@ -401,8 +401,8 @@ body{ background:
   <h2 style="font-family:var(--serif);font-size:17px;margin:0 0 4px">저장된 결과 다시 보기</h2>
   <p class="ad-sub" style="margin:0 0 12px">구글 시트의 <b>맨 끝 칸(응답 원본 · eyJ…로 시작)</b>을 복사해 붙여넣고 <b>해설 리포트 열기</b>를 누르면, 그 학생의 해설을 그대로 다시 띄웁니다. (시트에는 다시 저장하지 않습니다.)</p>
   <div class="field-row">
-    <div class="field"><label>이름(선택)</label><input id="ld_name" type="text" placeholder="시트의 이름 칸" autocomplete="off"></div>
-    <div class="field"><label>학년(선택)</label><select id="ld_grade"><option>초6</option><option>중1</option><option selected>중2</option><option>중3</option></select></div>
+    <div class="field"><label for="ld_name">이름(선택)</label><input id="ld_name" type="text" placeholder="시트의 이름 칸" autocomplete="off"></div>
+    <div class="field"><label for="ld_grade">학년(선택)</label><select id="ld_grade"><option>초6</option><option>중1</option><option selected>중2</option><option>중3</option></select></div>
   </div>
   <div class="blk"><label>응답 원본 (b64) <span class="cnt" id="ld_cnt">0자</span></label><textarea id="ld_b64" autocomplete="off" placeholder="eyJ… 로 시작하는 긴 문자열을 통째로 붙여넣으세요" style="letter-spacing:0;font-size:12px;min-height:72px"></textarea></div>
   <div style="margin-top:12px"><button id="ld_go" class="btn" type="button">해설 리포트 열기</button></div>
