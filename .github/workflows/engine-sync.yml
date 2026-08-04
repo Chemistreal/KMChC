@@ -53,3 +53,7 @@ jobs:
       # 여기 7장 전부가 같은 모양이었다 — 학부모가 여는 report.html 도 그중 하나다.
       - name: 바깥 글꼴이 첫 화면을 막지 않는다
         run: python3 tools/font_block.py --check
+      # 성적표 링크는 암호를 묻지 않는다. 그러면 남는 보호막은 주소를 남이
+      # 모른다는 것 하나뿐이라, 검색에 잡히면 보호막이 통째로 사라진다.
+      - name: 개인 성적 화면이 검색에 열려 있지 않다
+        run: python3 tools/noindex.py --check
