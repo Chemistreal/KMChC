@@ -381,6 +381,19 @@ body{ background:
 #report a{ color:var(--teal-d); }
 #report li{ line-height:1.66; }
 </style>
+<style id="ct-theme" data-v="4" data-fam="tool" data-seal="0">/* 이 조각은 tools/theme.py 가 넣습니다. 손으로 고치지 마세요 —
+   다음 실행에서 덮어써집니다. 색을 바꾸려면 그 파일을 고치세요. */
+:root{--ink:#1C1812;--ink-2:#403A30;--ink-soft:#2A241B;--muted:#6E6556;--grey:#9A917F;--line:#E6DECF;--line-2:#D6CAB3;--paper:#F4EFE6;--paper-2:#FBF8F1;--paper-3:#EFE7D6;--teal:#0E7A6E;--teal-d:#0A5C53;--gold:#A07E2B;--gold-2:#C9A24B;--gold-deep:#7A5E1C;--amber:#BD7A12;--emerald:#2E7D5B;--cobalt:#2A5470;--rose:#B23A6B}
+html{color-scheme:light;-webkit-text-size-adjust:100%}
+@media screen{
+  body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:#0E7A6E26}
+  :focus-visible{outline:2px solid #0E7A6E;outline-offset:2px;border-radius:3px}
+  table{font-variant-numeric:tabular-nums}
+  hr{border:0;border-top:1px solid var(--line)}
+  header .logo{letter-spacing:.16em;font-weight:700}
+  header::after{content:'';display:block;height:3px;margin-top:16px;border-radius:2px;background:linear-gradient(90deg,#0E7A6E 0%,#0E7A6E66 34%,#0E7A6E00 76%)}
+}</style>
 </head><body><div class="adminwrap">
 <h1 class="ad-h1">오프라인 OMR 수기 입력</h1>
 <p class="ad-sub">종이 OMR 답안지를 보고 블록별 숫자를 입력한 뒤 <b>채점 &amp; 저장</b>을 누르면, 온라인과 동일하게 자동 채점되어 같은 구글 시트에 저장되고 아래에 리포트가 표시됩니다.</p>
