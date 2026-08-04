@@ -11,7 +11,21 @@ h1{font-family:var(--serif);font-weight:600;font-size:24px;border-bottom:2px sol
 table{border-collapse:collapse;width:100%;font-size:12.5px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:right}th:first-child,td:first-child{text-align:left}
 .pill{display:inline-block;padding:3px 10px;border-radius:999px;color:#fff;font-size:12px;font-weight:600}
 .ok{background:var(--emerald)}.warn{background:var(--amber)}.bad{background:var(--rose)}
-.muted{color:var(--muted);font-size:12px}.note{color:var(--muted);font-size:11.5px;margin-top:24px;font-style:italic}</style></head><body><div class="wrap"><h1>화학 진단 v2 · 검증 대시보드</h1><p class="muted">시트(결과 탭)를 CSV로 내보내 올리거나 붙여넣으세요. 데모 행은 자동 제외됩니다.</p><div class="drop"><input aria-label="결과 CSV 파일" type="file" id="file" accept=".csv,text/csv"><div class="muted" style="margin-top:6px">또는 CSV 붙여넣기 ↓</div><textarea aria-label="CSV 붙여넣기" id="paste" placeholder="시각,이름,학년,구분,...,응답원본"></textarea><div style="margin-top:8px"><button class="btn" id="runBtn">분석</button></div></div><div id="out"></div><p class="note">문항-총점·맥락 분리·사다리 단조는 ‘설계 가설’ 검정입니다. 100명 이상에서 확정/기각하세요.</p></div><script>"use strict";
+.muted{color:var(--muted);font-size:12px}.note{color:var(--muted);font-size:11.5px;margin-top:24px;font-style:italic}</style><style id="ct-theme" data-v="4" data-fam="tool" data-seal="1">/* 이 조각은 tools/theme.py 가 넣습니다. 손으로 고치지 마세요 —
+   다음 실행에서 덮어써집니다. 색을 바꾸려면 그 파일을 고치세요. */
+:root{--ink:#1C1812;--ink-2:#403A30;--ink-soft:#2A241B;--muted:#6E6556;--grey:#9A917F;--line:#E6DECF;--line-2:#D6CAB3;--paper:#F4EFE6;--paper-2:#FBF8F1;--paper-3:#EFE7D6;--teal:#0E7A6E;--teal-d:#0A5C53;--gold:#A07E2B;--gold-2:#C9A24B;--gold-deep:#7A5E1C;--amber:#BD7A12;--emerald:#2E7D5B;--cobalt:#2A5470;--rose:#B23A6B}
+html{color-scheme:light;-webkit-text-size-adjust:100%}
+@media screen{
+  body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:#0E7A6E26}
+  :focus-visible{outline:2px solid #0E7A6E;outline-offset:2px;border-radius:3px}
+  table{font-variant-numeric:tabular-nums}
+  hr{border:0;border-top:1px solid var(--line)}
+  @media (min-width:1080px){body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='560' viewBox='0 0 520 560'%3E%3Cg fill='none' stroke='%230E7A6E' stroke-width='9' stroke-linejoin='round' opacity='0.055'%3E%3Cpath d='M260 60 L433 160 L433 360 L260 460 L87 360 L87 160 Z'/%3E%3Cpath d='M260 120 L381 190 L381 330 L260 400 L139 330 L139 190 Z'/%3E%3Cpath d='M260 60 L260 0 M433 160 L485 130 M433 360 L485 390 M260 460 L260 520 M87 360 L35 390 M87 160 L35 130'/%3E%3C/g%3E%3Cg fill='%230E7A6E' opacity='0.05'%3E%3Ccircle cx='260' cy='60' r='17'/%3E%3Ccircle cx='433' cy='160' r='17'/%3E%3Ccircle cx='433' cy='360' r='17'/%3E%3Ccircle cx='260' cy='460' r='17'/%3E%3Ccircle cx='87' cy='360' r='17'/%3E%3Ccircle cx='87' cy='160' r='17'/%3E%3C/g%3E%3C/svg%3E");background-repeat:no-repeat;background-attachment:fixed;background-position:right -110px top 90px;background-size:520px 560px}}
+  header .logo{letter-spacing:.16em;font-weight:700}
+  header::after{content:'';display:block;height:3px;margin-top:16px;border-radius:2px;background:linear-gradient(90deg,#0E7A6E 0%,#0E7A6E66 34%,#0E7A6E00 76%)}
+}</style>
+</head><body><div class="wrap"><h1>화학 진단 v2 · 검증 대시보드</h1><p class="muted">시트(결과 탭)를 CSV로 내보내 올리거나 붙여넣으세요. 데모 행은 자동 제외됩니다.</p><div class="drop"><input aria-label="결과 CSV 파일" type="file" id="file" accept=".csv,text/csv"><div class="muted" style="margin-top:6px">또는 CSV 붙여넣기 ↓</div><textarea aria-label="CSV 붙여넣기" id="paste" placeholder="시각,이름,학년,구분,...,응답원본"></textarea><div style="margin-top:8px"><button class="btn" id="runBtn">분석</button></div></div><div id="out"></div><p class="note">문항-총점·맥락 분리·사다리 단조는 ‘설계 가설’ 검정입니다. 100명 이상에서 확정/기각하세요.</p></div><script>"use strict";
 /* ===== 화학 진단 v2 — 검증 분석 =====
  * data = [{ans:{문항응답}}...] (수집 응답), ITEMS = 통합 문항
  * (1) itemTotalReport : 보정 문항-총점 상관 + 천장률 → 변별
