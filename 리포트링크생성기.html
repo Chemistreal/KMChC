@@ -46,7 +46,7 @@ textarea{width:100%;height:96px;font-size:11.5px;font-family:ui-monospace,monosp
 <table><thead><tr><th scope="col">이름</th><th scope="col" class="ce">학년</th><th scope="col" class="ce">유형</th><th scope="col">학부모 전송용 링크</th><th scope="col" class="ce">동작</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="bar" style="margin-top:20px">
   <label>다른 학생 추가 — 구글 시트에서 행을 복사해 붙여넣으세요</label>
-  <textarea id="paste" placeholder="구글 시트의 학생 행을 그대로 복사 → 여기에 붙여넣기 (맨 끝 응답원본 칸까지 포함). ID 열이 있으면 이름 없는 짧은 ?id= 링크로 만들어집니다. 헤더 줄이 있어도 자동으로 건너뜁니다."></textarea>
+  <textarea aria-label="구글 시트 학생 행 붙여넣기" id="paste" placeholder="구글 시트의 학생 행을 그대로 복사 → 여기에 붙여넣기 (맨 끝 응답원본 칸까지 포함). ID 열이 있으면 이름 없는 짧은 ?id= 링크로 만들어집니다. 헤더 줄이 있어도 자동으로 건너뜁니다."></textarea>
   <button class="btn" id="parseBtn" type="button" style="margin-top:8px">붙여넣은 데이터로 링크 생성</button>
   <div class="note">붙여넣고 누르면 위 표가 교체됩니다.</div>
 </div>
@@ -61,7 +61,7 @@ function render(list){
   var tb=document.getElementById("tbody");tb.innerHTML="";
   list.forEach(function(s,idx){var url=linkFor(s);var tr=document.createElement("tr");
     tr.innerHTML='<td class="nm">'+esc(s.n)+'</td><td class="ce">'+esc(s.g)+'</td><td class="ce"><span class="badge">'+esc(s.t)+'</span></td>'+
-      '<td><input class="lk" readonly value="'+esc(url)+'"></td>'+
+      '<td><input aria-label="학생 리포트 링크" class="lk" readonly value="'+esc(url)+'"></td>'+
       '<td class="ce"><button class="mini" data-i="'+idx+'" data-act="copy">복사</button> <button class="mini ghost" data-i="'+idx+'" data-act="open">열기</button></td>';
     tb.appendChild(tr);});
   document.getElementById("cnt").textContent=list.length+"명";window.__list=list;
