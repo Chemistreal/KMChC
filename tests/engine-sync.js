@@ -56,7 +56,18 @@ const ref = FILES[0];
 
 SYMBOLS.forEach(sym => {
   const base = extract(srcs[ref], sym);
-  if (base == null) { console.log('  ?    ' + sym + ' — 기준(' + ref + ')에 없음, 건너뜀'); return; }
+  /* ⚠ 여기가 **조용히 건너뛰던 자리**였다. 기준 파일에서 심볼 이름이 바뀌면
+       '건너뜀' 만 찍고 종료 코드 0 으로 끝났다 — 그러면 그 심볼은 네 화면에서
+       갈려도 아무도 모른다. 2026-08-10 에 같은 꼴로 두 번 데였다(브라우저 검사가
+       설치보다 앞에 걸려 조용히 건너뛰었고, 그 사이 지운 화면을 재고 있었다).
+       **건너뛴 것은 초록으로 세지 않는다.** 목록이 낡았으면 목록을 고치고,
+       코드에서 없어졌으면 왜인지 본다 — 어느 쪽이든 사람이 봐야 한다.
+       지금은 열한 개가 다 있어 이 줄은 안 탄다(33쌍 비교, 전부 일치). */
+  if (base == null) {
+    console.log('  FAIL ' + sym + ' — 기준(' + ref + ')에 **없다**. '
+                + '이름이 바뀌었으면 SYMBOLS 를 고치고, 없어졌으면 왜인지 본다');
+    fail++; return;
+  }
   const nb = norm(base);
   FILES.slice(1).forEach(f => {
     const cur = extract(srcs[f], sym);
