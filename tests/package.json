@@ -1,0 +1,8 @@
+{
+  "name": "kmchc-browser-tests",
+  "private": true,
+  "description": "브라우저로 실제 화면을 여는 검사(narrow · first-paint · gate-down)에 쓴다. DT·exam 과 같은 판.",
+  "devDependencies": {
+    "playwright": "^1.45.0"
+  }
+}

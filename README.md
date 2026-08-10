@@ -68,6 +68,7 @@ node tests/read-api.js                   # 명단 읽기 창구
 | `tests/read-api.js` | 통합 셸이 부르는 명단 창구가 죽는 것 |
 | `tests/theme.js` | 그림 위에서 글씨가 안 읽히는 것 (실제 브라우저) |
 | `tools/audit_pages.py` | 글자 대비 4.5:1 미달 · 작은 글씨 · 빠진 뼈대 |
+| `tools/ci_deps.py` | **자가 CI 에서 못 도는 것** (걸어 뒀는데 안 돌아가는 것) |
 | `tools/theme.py` | 화면마다 옷이 갈라지는 것 |
 | `tools/input_labels.py` | 입력칸에 이름이 없는 것 |
 | `tools/js_syntax.py` | 화면 안 자바스크립트가 깨진 채 나가는 것 |
@@ -81,6 +82,7 @@ node tests/read-api.js                   # 명단 읽기 창구
 | `tests/first-paint.js` | 글꼴 창구가 늦을 때 화면이 빈 흰 종이가 되는 것 |
 | `tests/gate-down.js` | 창구가 죽었을 때 빈 화면이 되거나 아무 말도 안 하는 것 |
 | `tools/name_key.py` | 같은 학생이 앱마다 다른 이름으로 갈리는 것 (정한 뒤부터) |
+| `tools/print_ink.py` | 종이로 뽑을 때 흰 종이에 흰 글씨가 되는 것 |
 | `tools/msg_ledger.py` | 사람에게 하던 말이 조용히 사라지는 것 |
 
 > ⚠ `tools/audit_pages.py` 는 **아무것도 막지 않고 있었다**(2026-08-10 에 고침).
