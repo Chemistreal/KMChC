@@ -76,6 +76,9 @@ node tests/read-api.js                   # 명단 읽기 창구
 | `tools/store_ledger.py` | 브라우저에 무엇을 남기는지 적어 두지 않는 것 |
 | `tools/page_doors.py` | 아무 데서도 안 걸리는 화면이 조용히 남는 것 |
 | `tools/lie_check.py` | **자가 거짓말하는 것** (참·거짓 예시를 맞히는지) |
+| `tools/pages_budget.py` | 배포 한도(1GB)에 벽으로 닿는 것 |
+| `tests/narrow.js` | 휴대폰 폭(360px)에서 화면이 옆으로 밀리는 것 |
+| `tests/first-paint.js` | 글꼴 창구가 늦을 때 화면이 빈 흰 종이가 되는 것 |
 | `tools/msg_ledger.py` | 사람에게 하던 말이 조용히 사라지는 것 |
 
 > ⚠ `tools/audit_pages.py` 는 **아무것도 막지 않고 있었다**(2026-08-10 에 고침).
