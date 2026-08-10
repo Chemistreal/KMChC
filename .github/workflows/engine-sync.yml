@@ -50,6 +50,27 @@ jobs:
         run: python3 tools/ci_deps.py --check
       - name: 바깥 글꼴이 첫 화면을 막지 않는다
         run: python3 tools/font_block.py --check
+
+      # ⚠ 아래 넷은 **저장소에 들어와 있는데 판이 한 번도 안 불렀다.** 지어서
+      #   넣어 두고 거는 것을 잊은 것이다 — 앞에서 print_ink 도 같은 상태였다.
+      #   오늘 종일 본 것이 "돌 수 있는 것과 걸어 둔 것은 다르다" 였는데,
+      #   그 한 칸 더 앞이 이것이다 — **걸지 않은 자는 없는 자와 같다.**
+      #   넷 다 지금 초록이라(결함 0) 거는 데 걸릴 것이 없다. 값이 없어서가
+      #   아니라 **다음에 어긋나는 것**을 잡으려고 건다.
+      - name: 화면 전수 검수 (대비 · 글씨 · 뼈대)
+        timeout-minutes: 5
+        run: python3 tools/audit_pages.py --check
+      - name: 입력칸에 이름이 붙어 있다
+        timeout-minutes: 5
+        run: python3 tools/input_labels.py --check
+      - name: 화면 안 자바스크립트가 안 깨졌다
+        timeout-minutes: 5
+        run: python3 tools/js_syntax.py --check
+      # theme.py 는 옷을 **입히는** 자이기도 하지만 --check 로 어긋난 장을
+      # 세기도 한다. 입히는 쪽은 사람이 돌리고, 판에서는 재기만 한다.
+      - name: 화면이 같은 옷을 입고 있다
+        timeout-minutes: 5
+        run: python3 tools/theme.py --check
       # 성적표 링크는 암호를 묻지 않는다. 그러면 남는 보호막은 주소를 남이
       # 모른다는 것 하나뿐이라, 검색에 잡히면 보호막이 통째로 사라진다.
       - name: 개인 성적 화면이 검색에 열려 있지 않다
