@@ -1,34 +1,114 @@
-KMChC 빠른 리포트 조회 적용 순서
+# KMChC · 중학 화학대회 정밀 학습진단
 
-1. Apps Script
-- 기존 코드 전체 삭제
-- AppsScript_fastgithub.gs 전체 붙여넣기
-- 저장
+대치동 다원교육 영재관 조준모 화학. 중학 화학대회(KMChC)를 준비하는 학생의
+**학습 유형 · 화학 오개념 · 응답 타당도**를 재는 정적 웹앱이다. 서버가 없고
+브라우저에서 바로 돌며, 뒤쪽은 Apps Script 하나와 이 저장소의 JSON 이다.
 
-2. GitHub Token 설정
-- GitHub에서 Fine-grained personal access token 생성
-- Repository access: Chemistreal/KMChC
-- Repository permissions: Contents = Read and write
-- Apps Script → 프로젝트 설정 → 스크립트 속성 → 속성 추가
-  이름: GITHUB_TOKEN
-  값: 발급받은 토큰
+> 이 파일은 **저장소의 지금 모습**을 적는다. 2026-08-10 이전에는 "Apps Script
+> 기존 코드 전체 삭제 → 붙여넣기…" 로 시작하는 **일회성 이관 절차**가 적혀
+> 있었다. 그 절차는 끝났고, 거기 적힌 파일 이름 다섯은 지금 하나도 없다
+> (`report_fast.html` · `answers_fast.html` · `관리자_shortid_v2.html` ·
+> `index_shortid.html` · `AppsScript_fastgithub.gs`).
 
-3. Apps Script 함수 실행
-- testGithubToken 실행: GitHub report-data/test_숫자.json 생성 확인
-- backfillOldReportIds 실행: 기존 학생 ID와 짧은리포트주소 생성
-- publishExistingReportsToGithub 실행: 기존 학생 report-data/ID.json 발행
+## 지금 들어 있는 것
 
-4. Apps Script 재배포
-- 배포 → 배포 관리 → 활성 배포 연필 → 버전: 새 버전 → 배포
-- URL은 기존 URL 유지
+| | |
+|---|---|
+| 화면 | **7장** |
+| 문항 | **99개** (자기보고 67 · 2단 오개념 **32**) |
+| 오개념 셀 | 140개 (`cells.json`) |
+| 학생 리포트 | `report-data/` **58개** — ⚠ 아래 참조 |
+| 자(tools) | 6개 · 검사 3개 · CI 아홉 걸음 |
 
-5. GitHub 파일 교체
-- report_fast.html → report.html 로 이름 변경 후 업로드/교체
-- answers_fast.html → answers.html 로 이름 변경 후 업로드/교체
-- 관리자_shortid_v2.html → 관리자.html 로 이름 변경 후 업로드/교체
-- index_shortid.html → index.html 로 이름 변경 후 업로드/교체
+### 화면 일곱
 
-6. 확인
-- 결과 탭의 짧은리포트주소를 시크릿 창에서 열기
-- 정상 속도: GitHub JSON 파일이 생성된 뒤에는 보통 1~3초, 환경에 따라 5초 안팎
-- 저장 직후 바로 열면 GitHub Pages 반영 전이라 한 번 느릴 수 있음. 몇 초 뒤 다시 열면 빨라짐.
+| 화면 | 하는 일 | 엔진 |
+|---|---|---|
+| `index.html` | 학생용 설문 앱 (초6~중3, 약 15분). 끝나면 Apps Script 로 보낸다 | ✅ |
+| `report.html` | 학부모용 종합 리포트. `?id=` 로 연다 | ✅ |
+| `관리자.html` | OMR 수기 입력(고속 입력 포함) · 채점 · 저장 | ✅ |
+| `answers.html` | 문항별 원응답 기록 | ✅(부분) |
+| `리포트_고급_미리보기.html` | 내부 미리보기 | ✅ |
+| `분석_v2.html` | 문항 검증 대시보드(CSV → 신뢰도·문항 품질) | 데이터 대기 |
+| `리포트링크생성기.html` | 시트 줄을 붙여넣어 학부모 링크를 만든다 | ❌(독립 도구) |
+
+**엔진은 네 화면에 똑같이 박혀 있다.** 바깥 JS 파일로 빼면 첫 그림이 늦어져서
+안 뺐고, 대신 `tests/engine-sync.js` 가 **33쌍**을 맞춰 본다 — 갈라지면 빨간불.
+
+## 채점은 점수가 아니다
+
+이 앱에는 **정답 +N / 오답 −N 같은 배점이 없다.** 오개념 문항 32개는
+2단(답 + 그렇게 생각한 이유)으로 묻고, 갈래 셋으로만 나눈다.
+
+| 고른 것 | 갈래 |
+|---|---|
+| 답도 맞고 이유도 맞다 | **sound** |
+| **답은 맞았는데 이유에 오개념 딱지가 붙었다** | **misc** — 답이 맞아도 오개념으로 내린다 |
+| 오답 | **misc** |
+| "잘 모르겠다" | **unsure** — 오답이 아니라 **빈 자리**로 센다 |
+
+오답을 3 이상 확신하며 골랐으면 `entrenched`(굳은 오개념)로 따로 뺀다.
+
+> exam 저장소의 기출 채점(정답 +3 / 무응답 0 / 오답 −1)과는 **반대 방향**이다.
+> 그쪽은 답만 맞으면 점수를 주고, 여기서는 이유가 틀리면 오개념으로 센다.
+
+## 돌리는 법
+
+```bash
+python3 tools/audit_pages.py --check     # 화면 전수 검수
+node tests/engine-sync.js                # 네 화면의 엔진이 같은가
+node tests/read-api.js                   # 명단 읽기 창구
+```
+
+## 자물쇠
+
+| 자 | 막는 것 |
+|---|---|
+| `tests/engine-sync.js` | 네 화면에 박은 채점 엔진이 갈라지는 것 |
+| `tests/read-api.js` | 통합 셸이 부르는 명단 창구가 죽는 것 |
+| `tests/theme.js` | 그림 위에서 글씨가 안 읽히는 것 (실제 브라우저) |
+| `tools/audit_pages.py` | 글자 대비 4.5:1 미달 · 작은 글씨 · 빠진 뼈대 |
+| `tools/theme.py` | 화면마다 옷이 갈라지는 것 |
+| `tools/input_labels.py` | 입력칸에 이름이 없는 것 |
+| `tools/js_syntax.py` | 화면 안 자바스크립트가 깨진 채 나가는 것 |
+| `tools/font_block.py` | 바깥 글꼴이 첫 그림을 인질로 잡는 것 |
+| `tools/noindex.py` | 개인 리포트 화면이 검색에 잡히는 것 |
+
+> ⚠ `tools/audit_pages.py` 는 **아무것도 막지 않고 있었다**(2026-08-10 에 고침).
+> 200줄짜리 옛 판이라 `--check` 를 읽는 자리도 종료 코드도 없었고, CI 도
+> `--check` 없이 불렀다. DT 에서 여섯 달 동안 152장이 걸린 채 초록불이었던 것과
+> 같은 모양이다. **재는 것과 막는 것은 다르다.**
+
+## ⚠ 아직 정하지 못한 것 — `report-data/` 의 학생 리포트 58개
+
+`report.html?id=…` 가 읽는 파일이다. 안에 **학생 실명 · 학년 · 전체 응답**이
+들어 있다.
+
+    { "id": "r05540…", "name": "홍길동", "grade": "중2", "answers": "…", "savedAt": … }
+
+이 저장소는 **공개**다(GitHub Pages 를 쓰기 때문이다). `tools/noindex.py` 는
+화면(HTML)에만 `noindex` 를 붙일 수 있고 **JSON 에는 못 붙인다.** 즉 여기서
+남는 보호막은 "주소를 남이 모른다" 하나인데, **공개 저장소에서는 그 주소가
+목록으로 통째로 보인다.**
+
+지우면 **이미 학부모에게 나간 링크가 깨진다.** 그래서 기계가 정할 일이 아니다.
+선택지는 넷이다.
+
+| | 하는 일 | 대가 |
+|---|---|---|
+| 그대로 둔다 | 아무것도 안 한다 | 지금 상태 그대로 |
+| 저장소를 비공개로 | Pages 를 비공개 저장소에서 낸다 | 유료 플랜이 필요하다 |
+| 이름을 코드로 바꾼다 | `name` 을 이니셜·코드로 | 이미 나간 링크는 살고, 리포트에 이름이 안 뜬다 |
+| `report-data/` 를 걷는다 | Apps Script 로만 읽게 되돌린다 | 링크가 느려지고, 옛 링크는 깨질 수 있다 |
+
+## 같이 보면 좋은 것
+
+- `AUTODEPLOY.md` — Apps Script 자동 배포. **/exec 주소가 바뀌면 모든 화면이
+  깨진다**(새 배포가 아니라 새 *버전*으로 올린다)
+- `README_analysis_pipeline.md` — 심리측정 분석 파이프라인(ETL → DQ → CTT →
+  CFA → IRT → CDM). 파이썬 일곱 개
+- `HANDOFF.md` · `INDEX.md` — ⚠ **지금 저장소가 아니라 zip 으로 넘기던 시절의
+  구조**를 적은 글이다(`live_system/` · `apps_script/` · `offline_pdf/` ·
+  `/mnt/user-data/outputs/`). 설계가 어디서 왔는지를 보려면 읽되, 설명서로
+  쓰지 않는다
+- exam 저장소 `docs/앱별-전수조사.md` — 네 앱을 가로질러 무엇이 비어 있는지
