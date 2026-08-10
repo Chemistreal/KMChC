@@ -73,6 +73,7 @@ node tests/read-api.js                   # 명단 읽기 창구
 | `tools/js_syntax.py` | 화면 안 자바스크립트가 깨진 채 나가는 것 |
 | `tools/font_block.py` | 바깥 글꼴이 첫 그림을 인질로 잡는 것 |
 | `tools/noindex.py` | 개인 리포트 화면이 검색에 잡히는 것 |
+| `tools/store_ledger.py` | 브라우저에 무엇을 남기는지 적어 두지 않는 것 |
 
 > ⚠ `tools/audit_pages.py` 는 **아무것도 막지 않고 있었다**(2026-08-10 에 고침).
 > 200줄짜리 옛 판이라 `--check` 를 읽는 자리도 종료 코드도 없었고, CI 도
