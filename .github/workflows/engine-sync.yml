@@ -80,3 +80,12 @@ jobs:
       # 를 한 번 묻게 하고, 성적·명단으로 보이는 이름은 그 자리에서 막는다.
       - name: 브라우저에 남기는 칸이 적어 둔 것뿐이다
         run: python3 tools/store_ledger.py --check
+      # 아무 데서도 안 걸리는 화면은 주소를 아는 사람만 열 수 있다. 이런 장은
+      # 늘어날 때가 아니라 **지울 때** 생긴다 — 걸던 화면을 지우면 걸리던
+      # 장이 그날부터 문이 없다. 지금 0장이고, 0장인 채로 둔다.
+      - name: 모든 화면에 문이 있다
+        run: python3 tools/page_doors.py --check
+      # 이 저장소의 audit_pages 는 아무것도 안 막고 있었다. 잘못 재는 자는
+      # 안 재느니만 못하다. 자마다 참·거짓 예시를 붙여 두고 매번 맞히게 한다.
+      - name: 자가 참·거짓 예시를 맞힌다
+        run: python3 tools/lie_check.py --check
