@@ -529,7 +529,8 @@ function renderAnswersV2(ans, ITEMS){
  function setLinks(name,grade){
   if(name&&hn) hn.textContent=name+" 학생"+(grade?(" · "+grade):"");
   if(name) document.title=name+" 학생 · 문항별 응답";
-  try{var tr=document.getElementById("toReport"); if(tr)tr.href=id?("report.html?id="+encodeURIComponent(id)):("report.html"+location.search);}catch(e){}
+  /* 위와 같다 — 이름을 주소에 싣고 다닌다. */
+  try{var tr=document.getElementById("toReport"); if(tr)tr.href=id?("report.html?id="+encodeURIComponent(id)+(name?("&n="+encodeURIComponent(name)):"")+(grade?("&g="+encodeURIComponent(grade)):"")):("report.html"+location.search);}catch(e){}
  }
  function render(ans,name,grade){
   setLinks(name||nm,grade||gr);

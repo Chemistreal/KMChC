@@ -78,7 +78,10 @@ var STUDENTS = [];
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function folder(){return location.href.replace(/[#?].*$/,"").replace(/[^/]*$/,"");}
 function baseVal(){var b=(document.getElementById("baseUrl").value||"").trim()||folder();return b.replace(/\/?$/,"/");}
-function linkFor(s){if(s.id){return baseVal()+"report.html?id="+encodeURIComponent(s.id);}return baseVal()+"report.html?d="+encodeURIComponent(s.b64)+(s.n?("&n="+encodeURIComponent(s.n)):"")+(s.g?("&g="+encodeURIComponent(s.g)):"");}
+/* ⚠ 짧은 링크(?id=)에도 **이름을 싣는다**(2026-08-11). 저장소가 공개라
+   report-data/<id>.json 에서 이름을 뺐기 때문이다. 이름을 안 실으면
+   앞으로 만드는 링크는 학부모가 열었을 때 이름이 안 뜬다. */
+function linkFor(s){if(s.id){return baseVal()+"report.html?id="+encodeURIComponent(s.id)+(s.n?("&n="+encodeURIComponent(s.n)):"")+(s.g?("&g="+encodeURIComponent(s.g)):"");}return baseVal()+"report.html?d="+encodeURIComponent(s.b64)+(s.n?("&n="+encodeURIComponent(s.n)):"")+(s.g?("&g="+encodeURIComponent(s.g)):"");}
 function render(list){
   var tb=document.getElementById("tbody");tb.innerHTML="";
   list.forEach(function(s,idx){var url=linkFor(s);var tr=document.createElement("tr");

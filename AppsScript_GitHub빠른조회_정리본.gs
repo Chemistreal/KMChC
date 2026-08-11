@@ -71,13 +71,28 @@ function makeReportId_() {
   return "r" + Utilities.getUuid().replace(/-/g, "").slice(0, 16);
 }
 
-function makeShortUrl_(id) {
-  return REPORT_BASE_URL + "?id=" + encodeURIComponent(id);
+/* 짧은 리포트 주소.
+ *
+ * ⚠ 2026-08-11 부터 **이름을 주소에 싣는다.** 저장소가 공개라, 예전에는
+ *   report-data/<id>.json 에 이름이 들어가 주소를 모르는 사람도 GitHub 에서
+ *   그냥 읽었다(쉰세 명). 이제 파일에는 익명 응답만 넣고(saveReportJsonToGithub_)
+ *   이름은 여기 주소에 싣는다 — 그러면 **링크를 쥔 사람만** 이름을 본다.
+ *
+ *   report.html 은 안 고쳐도 된다. 원래부터 `name||nm` 로, 파일에 이름이
+ *   없으면 주소의 이름으로 넘어가게 되어 있었다.
+ *
+ *   옛 링크(&n= 없음)는 옛 파일에 이름이 그대로 있으므로 계속 이름이 뜬다.
+ */
+function makeShortUrl_(id, name, grade) {
+  var u = REPORT_BASE_URL + "?id=" + encodeURIComponent(id);
+  if (name)  u += "&n=" + encodeURIComponent(name);
+  if (grade) u += "&g=" + encodeURIComponent(grade);
+  return u;
 }
 
 function rowObjectFrom_(d) {
   if (!d.id) d.id = makeReportId_();
-  var shortUrl = makeShortUrl_(d.id);
+  var shortUrl = makeShortUrl_(d.id, d.name, d.grade);
 
   return {
     "ID": d.id || "",
@@ -340,6 +355,11 @@ function findReportRowById_(id) {
   var nameCol = headerIndex_(headers, ["이름", "name"]);
   var gradeCol = headerIndex_(headers, ["학년", "grade"]);
   var answerCol = headerIndex_(headers, ["응답원본", "answers", "answer"]);
+  /* 이름·학년은 이제 **주소에** 실린다(makeShortUrl_ 주석). 없으면 그냥 빈
+     채로 두고 짧은 주소만 만든다 — 옛 파일에는 이름이 들어 있어서 그 리포트는
+     그대로 이름이 뜬다. */
+  var nameCol2  = headerIndex_(headers, ["이름", "name"]);
+  var gradeCol2 = headerIndex_(headers, ["학년", "grade"]);
 
   if (idCol < 0) throw new Error("'ID' 열을 찾지 못했습니다.");
   if (answerCol < 0) throw new Error("'응답원본' 열을 찾지 못했습니다.");
@@ -379,6 +399,11 @@ function backfillOldReportIds() {
   var idCol = headerIndex_(headers, ["ID", "id"]);
   var linkCol = headerIndex_(headers, ["짧은리포트주소", "리포트주소", "short_url"]);
   var answerCol = headerIndex_(headers, ["응답원본", "answers", "answer"]);
+  /* 이름·학년은 이제 **주소에** 실린다(makeShortUrl_ 주석). 없으면 그냥 빈
+     채로 두고 짧은 주소만 만든다 — 옛 파일에는 이름이 들어 있어서 그 리포트는
+     그대로 이름이 뜬다. */
+  var nameCol2  = headerIndex_(headers, ["이름", "name"]);
+  var gradeCol2 = headerIndex_(headers, ["학년", "grade"]);
 
   if (idCol < 0) throw new Error("'ID' 열을 찾지 못했습니다.");
   if (linkCol < 0) throw new Error("'짧은리포트주소' 열을 찾지 못했습니다.");
@@ -415,7 +440,9 @@ function backfillOldReportIds() {
       made++;
     }
 
-    sh.getRange(r2 + 1, linkCol + 1).setValue(makeShortUrl_(id));
+    var nm2 = nameCol2  >= 0 ? String(values[r2][nameCol2]  || "").trim() : "";
+    var gr2 = gradeCol2 >= 0 ? String(values[r2][gradeCol2] || "").trim() : "";
+    sh.getRange(r2 + 1, linkCol + 1).setValue(makeShortUrl_(id, nm2, gr2));
     linked++;
   }
 
@@ -499,16 +526,26 @@ function publishReportJsonSafe_(id, name, grade, answers) {
   }
 }
 
+/* 저장소에 남기는 리포트 자료.
+ *
+ * ⚠ **이름과 학년을 여기 안 넣는다**(2026-08-11). 시트에는 그대로 있다.
+ *
+ *   저장소가 공개다. 예전 판(v1)은 이 파일에 실명을 넣었고, 그래서 여섯 주
+ *   만에 쉰세 명의 이름·학년·응답이 주소를 몰라도 읽히는 자리에 쌓였다.
+ *   이름은 makeShortUrl_ 가 **주소에** 싣는다 — 링크를 쥔 사람만 본다.
+ *
+ *   report.html 은 안 고친다. `name||nm` 로 파일에 이름이 없으면 주소의
+ *   이름을 쓰게 원래부터 되어 있었다. 옛 파일(v1)은 이름을 그대로 들고
+ *   있으므로 이미 보낸 링크도 그대로 열린다.
+ */
 function saveReportJsonToGithub_(id, name, grade, answers) {
   if (!id || !answers) return;
 
   var payloadObj = {
     id: id,
-    name: name || "",
-    grade: grade || "",
     answers: answers || "",
     savedAt: new Date().toISOString(),
-    source: "KMChC-report-data-v1"
+    source: "KMChC-report-data-v2"
   };
 
   var path = REPORT_DATA_DIR + "/" + id + ".json";

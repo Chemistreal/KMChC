@@ -1489,7 +1489,7 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
 
 <script id="shareLinkJS">(function(){
   function folder(){ return location.href.replace(/[#?].*$/,"").replace(/[^/]*$/,""); }
-  function build(){ var s=window.__share; if(!s) return ""; if(s.id) return folder()+"report.html?id="+encodeURIComponent(s.id); if(!s.b64) return ""; return folder()+"report.html?d="+encodeURIComponent(s.b64)+(s.name?("&n="+encodeURIComponent(s.name)):"")+(s.grade?("&g="+encodeURIComponent(s.grade)):""); }
+  function build(){ var s=window.__share; if(!s) return ""; if(s.id) return folder()+"report.html?id="+encodeURIComponent(s.id)+(s.name?("&n="+encodeURIComponent(s.name)):"")+(s.grade?("&g="+encodeURIComponent(s.grade)):""); if(!s.b64) return ""; return folder()+"report.html?d="+encodeURIComponent(s.b64)+(s.name?("&n="+encodeURIComponent(s.name)):"")+(s.grade?("&g="+encodeURIComponent(s.grade)):""); }
   function show(){ var box=document.getElementById("shareBox"); if(!box) return; var u=build(); if(!u){ box.style.display="none"; return; } box.style.display="block"; var inp=document.getElementById("shareUrl"); if(inp) inp.value=u; }
   var rep=document.getElementById("report");
   if(rep){ new MutationObserver(function(){ if(rep.children.length) show(); }).observe(rep,{childList:true}); if(rep.children.length) show(); }
