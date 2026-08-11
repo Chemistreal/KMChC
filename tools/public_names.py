@@ -125,6 +125,38 @@ def scan():
     return hits
 
 
+def v2_with_names():
+    """**앞으로 쌓이는 것**에 이름이 다시 들어갔는지 본다.
+
+    2026-08-11 에 선생님이 「가」로 정하셨다 — 앞으로 저장되는 것부터 이름을
+    파일에서 빼고 링크에 싣는다. Apps Script 가 `source: …-v2` 로 적는다.
+
+    ALLOWED 는 `report-data/` 를 통째로 봐주기 때문에, 이 자리만은 따로 본다.
+    안 그러면 어느 날 Apps Script 를 되돌려도 이 검사는 조용하다 —
+    **적어 둔 자리는 안 보는 자리가 되기 쉽다.**
+
+    옛 파일(v1)은 이름을 들고 있어야 한다. 이미 학부모 손에 간 링크가
+    `&n=` 없이 나갔으므로, 거기서 이름을 빼면 그 리포트만 이름을 잃는다."""
+    import json
+    bad = []
+    d = os.path.join(ROOT, 'report-data')
+    if not os.path.isdir(d):
+        return bad
+    for f in sorted(os.listdir(d)):
+        if not f.endswith('.json'):
+            continue
+        try:
+            j = json.load(open(os.path.join(d, f), encoding='utf-8'))
+        except Exception:
+            continue
+        if not str(j.get('source', '')).endswith('-v2'):
+            continue
+        got = [k for k in ('name', 'grade') if str(j.get(k, '')).strip()]
+        if got:
+            bad.append((f, got))
+    return bad
+
+
 def allowed_for(path):
     for pre, why in ALLOWED.items():
         if path.startswith(pre):
@@ -144,6 +176,16 @@ def main():
         names = set().union(*[ok[f] for f in fs]) if fs else set()
         print('  적어 둔 자리  %-16s %3d장 · 이름 %3d개' % (pre, len(fs), len(names)))
         print('                %s' % why)
+
+    back = v2_with_names()
+    if back:
+        print('\n새로 쌓이는 파일(v2)에 이름이 **다시** 들어갔다 — %d장' % len(back))
+        for f, ks in back[:8]:
+            print('  report-data/%-34s %s' % (f, ' · '.join(ks)))
+        print('\n선생님이 「가」로 정하신 것은 "앞으로 것부터 이름을 파일에서 빼고')
+        print('링크에 싣는다" 였다. Apps Script 의 saveReportJsonToGithub_ 를 본다.')
+        return 1 if check else 0
+    print('  새로 쌓이는 파일(v2)  이름 없음 — 이름은 링크에 실린다')
 
     if not bad:
         print('\n적어 둔 자리 밖에는 실명이 없다.')
