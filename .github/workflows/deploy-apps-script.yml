@@ -5,7 +5,7 @@ name: Apps Script 자동 배포
 on:
   push:
     branches: [main]
-    paths: ['AppsScript_GitHub빠른조회_정리본.gs']
+    paths: ['AppsScript_GitHub빠른조회_정리본.gs', 'AppsScript_문자발송.gs']
   workflow_dispatch:
 
 jobs:
@@ -62,6 +62,7 @@ jobs:
           clasp pull                     # 기존 매니페스트(appsscript.json) 보존
           find gas -name '*.js' -delete  # 기존 코드 파일 제거(매니페스트는 유지)
           cp "AppsScript_GitHub빠른조회_정리본.gs" gas/AppsScript_GitHub빠른조회_정리본.js
+          cp "AppsScript_문자발송.gs" gas/문자발송.js   # clasp push 는 gas/ 에 없는 파일을 프로젝트에서 지운다
           clasp push -f
 
       - name: 재배포 (같은 URL 유지)
