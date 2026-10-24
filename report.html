@@ -388,6 +388,7 @@ html{color-scheme:light;-webkit-text-size-adjust:100%}
   <div class="who" style="font-size:12px;opacity:.72;margin-top:4px">학부모님께 드리는 종합 분석 · 트랙 이름을 누르면 해설이 펼쳐집니다</div>
   <div class="who" style="font-size:11.5px;opacity:.62;margin-top:6px;letter-spacing:.06em">분석·설계 <b style="font-weight:600">조준모T</b></div>
   <a id="toAnswers" class="who" href="#" style="display:inline-block;margin-top:10px;font-size:12px;color:var(--teal-d);text-decoration:none;border:1px solid var(--gold-hair);border-radius:999px;padding:5px 14px">문항별 응답 보기 →</a>
+  <button id="pdfBtn" type="button" class="who kmpdf-hide" style="display:inline-block;margin:10px 0 0 6px;font:inherit;font-size:12px;color:var(--teal-d);background:#fff;border:1px solid var(--gold-hair);border-radius:999px;padding:5px 14px;cursor:pointer">PDF로 저장</button>
 </div>
 <div class="wrap" style="max-width:760px;margin:0 auto;padding:0 14px 64px">
   <div id="report"></div>
@@ -1313,4 +1314,10 @@ if (typeof module !== "undefined") module.exports = { renderReportV2: renderRepo
  rep.innerHTML='<div style="text-align:center;color:var(--muted);padding:44px 16px;font-size:14px;line-height:1.7">리포트 데이터가 없습니다.<br>선생님께 받은 링크로 다시 열어 주세요.</div>';
 })();</script>
 <div class="privacy-foot" style="max-width:760px;margin:30px auto 14px;padding:12px 16px 0;border-top:1px solid var(--line);text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6"><div style="margin-bottom:9px"><span style="font-size:11.5px;color:var(--ink-2);letter-spacing:.06em">다원교육 영재관 · 조준모T</span></div>이 페이지 링크에는 학생의 진단 응답 정보가 담겨 있습니다. 학생 본인·가족·지도 선생님과만 공유하시고, 공개된 곳(SNS·카페 등)에는 올리지 말아 주세요.</div><script>(function(){var _pd=[];function openAll(){_pd=[];var ds=document.querySelectorAll("details:not([open])");for(var i=0;i<ds.length;i++){_pd.push(ds[i]);ds[i].setAttribute("open","");}}function restore(){for(var i=0;i<_pd.length;i++){_pd[i].removeAttribute("open");}_pd=[];}window.addEventListener("beforeprint",openAll);window.addEventListener("afterprint",restore);if(window.matchMedia){var mq=window.matchMedia("print");if(mq&&mq.addListener){mq.addListener(function(m){if(m.matches){openAll();}else{restore();}});}}})();</script>
+<script src="kmpdf.js" defer></script>
+<script>(function(){ var b=document.getElementById("pdfBtn"); if(!b) return;
+  /* 학부모 리포트도 파일로 바로 저장(인쇄 창 없이 · 앱 안 브라우저 대비) — kmpdf.js */
+  b.addEventListener("click", function(){ if(!window.KMPDF){ window.print(); return; }
+    window.KMPDF.save({ root: document.body, name: function(){ var n=document.getElementById("repName"); return n?n.textContent.split("·")[0].trim():""; },
+      title: "화학 정밀 학습진단 리포트", button: b }).catch(function(){}); }); })();</script>
 </body></html>

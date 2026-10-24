@@ -154,6 +154,10 @@ jobs:
         env:
           REQUIRE_BROWSER: '1'
         run: NODE_PATH=tests/node_modules node tests/name-in-link.js
+      # PDF 저장(2026-10-24) — 인쇄 창이 아니라 파일로 나오는가. 카카오톡 같은 앱 안 브라우저는 인쇄를
+      # 막아 단추가 아무 일도 안 했다. 학생 완료 화면 · 학부모 리포트에서 .pdf 를 받아 본다(가상 응답).
+      - name: PDF 저장이 파일로 나온다
+        run: NODE_PATH=tests/node_modules REQUIRE_BROWSER=1 node tests/pdf.js
       # 이 저장소에는 학생 이름을 **맞춰 보는 자리가 없다.** exam·DT 는 공백을
       # 모두 지워 맞춰 보는데 여기는 안 본다 — 한 아이가 두 사람이 되어도 모른다.
       # 고치는 것은 자료를 옮기는 일이라 선생님이 정할 칸이고, 그때까지 조용하다.
