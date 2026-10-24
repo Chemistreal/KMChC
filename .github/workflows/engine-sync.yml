@@ -158,6 +158,10 @@ jobs:
       # 막아 단추가 아무 일도 안 했다. 학생 완료 화면 · 학부모 리포트에서 .pdf 를 받아 본다(가상 응답).
       - name: PDF 저장이 파일로 나온다
         run: NODE_PATH=tests/node_modules REQUIRE_BROWSER=1 node tests/pdf.js
+      # 제출 확인(2026-10-24) — 학생 화면이 «선생님께 전송됨 ✓» / «확인하지 못했어요 + 백업 코드» 를 사실대로
+      # 말하고, 한 번만 보낸다. 앱스크립트는 진짜로 안 부른다(가짜 답).
+      - name: 제출 결과를 학생 화면에 사실대로 알린다
+        run: NODE_PATH=tests/node_modules REQUIRE_BROWSER=1 node tests/send.js
       # 이 저장소에는 학생 이름을 **맞춰 보는 자리가 없다.** exam·DT 는 공백을
       # 모두 지워 맞춰 보는데 여기는 안 본다 — 한 아이가 두 사람이 되어도 모른다.
       # 고치는 것은 자료를 옮기는 일이라 선생님이 정할 칸이고, 그때까지 조용하다.
